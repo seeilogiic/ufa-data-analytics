@@ -1,0 +1,63 @@
+{
+  "hasData": true,
+  "divisions": [
+    "Central",
+    "East",
+    "South",
+    "West"
+  ],
+  "quarters": {
+    "Central": {
+      "homeTeamID": "windchill",
+      "homeTeamName": "Wind Chill",
+      "homeTeamSeed": 2,
+      "homeScore": 20,
+      "awayTeamID": "alleycats",
+      "awayTeamName": "AlleyCats",
+      "awayTeamSeed": 3,
+      "awayScore": 18,
+      "winner": "windchill"
+    },
+    "East": {
+      "homeTeamID": "breeze",
+      "homeTeamName": "Breeze",
+      "homeTeamSeed": 2,
+      "homeScore": 23,
+      "awayTeamID": "phoenix",
+      "awayTeamName": "Phoenix",
+      "awayTeamSeed": 3,
+      "awayScore": 18,
+      "winner": "breeze"
+    },
+    "South": {
+      "homeTeamID": "flyers",
+      "homeTeamName": "Flyers",
+      "homeTeamSeed": 1,
+      "homeScore": 22,
+      "awayTeamID": "sol",
+      "awayTeamName": "Sol",
+      "awayTeamSeed": 2,
+      "awayScore": 20,
+      "winner": "flyers"
+    },
+    "West": {
+      "homeTeamID": "shred",
+      "homeTeamName": "Shred",
+      "homeTeamSeed": 2,
+      "homeScore": 19,
+      "awayTeamID": "growlers",
+      "awayTeamName": "Growlers",
+      "awayTeamSeed": 3,
+      "awayScore": 16,
+      "winner": "shred"
+    }
+  },
+  "divFinals": {
+    "Central": null,
+    "East": null,
+    "South": null,
+    "West": null
+  },
+  "semis": [],
+  "championship": null
+}

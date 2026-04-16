@@ -1,6 +1,7 @@
 import requests
 import os
 import json
+import time
 
 # Set ROOT to the project root directory
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -11,6 +12,7 @@ parameters = {
 }
 
 response = requests.get(url, params=parameters)
+time.sleep(0.1)  # Sleep for 100ms to avoid overwhelming the server
 
 print(f"[INFO] Status code: {response.status_code}")
 data = response.json()
@@ -24,11 +26,12 @@ if "data" in data:
         if year.isdigit():
             games_by_year.setdefault(year, []).append(game)
 
-# Save each year's games to its own folder
+# Save each year's games to its own folder, sorted by startTimestamp
 for year, games in games_by_year.items():
     year_dir = os.path.join(ROOT, "docs", "data", year)
     os.makedirs(year_dir, exist_ok=True)
-    out_data = {"object": "list", "data": games}
+    games_sorted = sorted(games, key=lambda g: g.get("startTimestamp", ""))
+    out_data = {"object": "list", "data": games_sorted}
     out_path = os.path.join(year_dir, "games.json")
     with open(out_path, "w") as f:
         json.dump(out_data, f, indent=2)

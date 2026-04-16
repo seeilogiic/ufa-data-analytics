@@ -1,6 +1,7 @@
 import requests
 import os
 import json
+import time
 
 # Set ROOT to the project root directory
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -11,6 +12,7 @@ parameters = {
 }
 
 response = requests.get(url, params=parameters)
+time.sleep(0.1)  # Sleep for 100ms to avoid overwhelming the server
 
 print(f"[INFO] Status code: {response.status_code}")
 data = response.json()

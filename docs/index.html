@@ -2,678 +2,254 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UFA Game Results</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg:       #0a0c0f;
-      --surface:  #111418;
-      --card:     #161b22;
-      --border:   #1f2630;
-      --accent:   #00d4ff;
-      --accent2:  #ff6b2b;
-      --win:      #22c55e;
-      --loss:     #ef4444;
-      --text:     #e8edf2;
-      --muted:    #6b7a8d;
-      --header-h: 64px;
-    }
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UFA Stats Dashboard</title>
+    <style>
+      :root {
+        --bg:          #0f1117;
+        --surface:     #1a1d27;
+        --surface-2:   #21253a;
+        --border:      #2d3148;
+        --accent:      #4f8ef7;
+        --text:        #e8eaf0;
+        --text-muted:  #8891aa;
+        --green:       #4ade80;
+        --red:         #f87171;
+      }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      font-family: 'Barlow', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+      }
 
-    /* ── HEADER ─────────────────────────────────────── */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      height: var(--header-h);
-      background: rgba(10,12,15,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      padding: 0 2rem;
-      gap: 1.5rem;
-    }
+      /* ── Header ── */
+      header {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        padding: 0 1.5rem;
+      }
+      .header-inner {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 56px;
+      }
+      .site-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: var(--text);
+      }
+      .site-title span { color: var(--accent); }
 
-    .logo {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 900;
-      font-size: 1.6rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
-      white-space: nowrap;
-    }
-    .logo span { color: var(--text); }
+      /* ── Nav ── */
+      nav { display: flex; gap: 4px; }
+      .nav-btn {
+        background: none;
+        border: none;
+        padding: 6px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        transition: color 0.15s, background 0.15s;
+      }
+      .nav-btn:hover { color: var(--text); background: var(--surface-2); }
+      .nav-btn.active {
+        color: var(--accent);
+        background: rgba(79, 142, 247, 0.12);
+      }
 
-    .header-divider {
-      width: 1px;
-      height: 28px;
-      background: var(--border);
-    }
+      /* ── Main ── */
+      main { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
+      .hidden { display: none !important; }
 
-    /* Year selector */
-    .year-selector {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .year-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .year-select {
-      appearance: none;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      color: var(--text);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      padding: 0.3rem 2rem 0.3rem 0.75rem;
-      cursor: pointer;
-      transition: border-color 0.2s;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7a8d' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 0.6rem center;
-    }
-    .year-select:hover, .year-select:focus {
-      border-color: var(--accent);
-      outline: none;
-    }
+      /* ── Controls ── */
+      .controls { display: flex; align-items: center; gap: 10px; margin-bottom: 1.75rem; }
+      .controls label { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+      .year-select {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--text);
+        border-radius: 6px;
+        padding: 6px 32px 6px 12px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238891aa' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+      }
+      .year-select:focus { outline: none; border-color: var(--accent); }
+      .year-select option { background: var(--surface); }
 
-    /* View toggle */
-    .view-toggle {
-      margin-left: auto;
-      display: flex;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .view-btn {
-      padding: 0.35rem 0.9rem;
-      border: none;
-      background: transparent;
-      color: var(--muted);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .view-btn.active {
-      background: var(--accent);
-      color: #000;
-    }
-    .view-btn:hover:not(.active) { color: var(--text); }
+      /* ── Standings ── */
+      .standings-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; color: var(--text); }
+      .divisions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+      @media (max-width: 960px) { .divisions-grid { grid-template-columns: repeat(2, 1fr); } }
+      @media (max-width: 540px) { .divisions-grid { grid-template-columns: 1fr; } }
 
-    /* ── MAIN LAYOUT ─────────────────────────────────── */
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
-    }
+      .division-col { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+      .div-name { background: var(--surface-2); border-bottom: 1px solid var(--border); padding: 9px 14px; font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase; }
 
-    /* Season summary bar */
-    .season-bar {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
-    .stat-chip {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.65rem 1.2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-    .stat-chip .val {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 800;
-      line-height: 1;
-      color: var(--accent);
-    }
-    .stat-chip .lbl {
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
+      .standings-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+      .standings-table thead th { padding: 6px 8px; text-align: right; font-size: 0.72rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; border-bottom: 1px solid var(--border); white-space: nowrap; }
+      .standings-table thead th.col-team { text-align: left; padding-left: 14px; }
+      .standings-table tbody td { padding: 8px 8px; text-align: right; border-bottom: 1px solid rgba(45, 49, 72, 0.6); font-variant-numeric: tabular-nums; white-space: nowrap; }
+      .standings-table tbody td.col-team { text-align: left; padding-left: 14px; font-weight: 500; color: var(--text); }
+      .standings-table tbody td.col-stat { color: var(--text); }
+      .standings-table tbody td.pm-pos { color: var(--green); }
+      .standings-table tbody td.pm-neg { color: var(--red); }
+      .standings-table tbody td.pm-zero { color: var(--text-muted); }
+      .standings-table tbody td.col-gb { color: var(--text-muted); font-size: 0.8rem; }
 
-    /* ── WEEK GROUP ──────────────────────────────────── */
-    .week-section {
-      margin-bottom: 2.5rem;
-      animation: fadeUp 0.4s ease both;
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+      /* ── Status messages ── */
+      .loading, .error-msg, .empty-state { padding: 3rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.95rem; }
+      .error-msg { color: var(--red); }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-inner">
+        <div class="site-title"><span>UFA</span> Stats Dashboard</div>
+        <nav>
+          <button class="nav-btn active" data-view="teams">Teams</button>
+          <button class="nav-btn" data-view="players">Players</button>
+        </nav>
+      </div>
+    </header>
 
-    .week-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 0.9rem;
-    }
-    .week-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      background: rgba(0,212,255,0.08);
-      border: 1px solid rgba(0,212,255,0.2);
-      border-radius: 4px;
-      padding: 0.2rem 0.7rem;
-      white-space: nowrap;
-    }
-    .week-date-range {
-      font-size: 0.8rem;
-      color: var(--muted);
-      font-weight: 300;
-    }
-    .week-line {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
+    <main>
+      <section id="view-teams">
+        <div id="teams-include"></div>
+      </section>
 
-    /* ── GAME CARD ───────────────────────────────────── */
-    .games-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 0.8rem;
-    }
+      <section id="view-players" class="hidden">
+        <div class="empty-state">Players stats coming soon.</div>
+      </section>
 
-    /* Link wrapper style */
-    .game-link {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
+      <section id="view-team" class="hidden">
+        <div id="team-include"></div>
+      </section>
+    </main>
 
-    .game-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      transition: border-color 0.2s, transform 0.2s, background 0.2s;
-      cursor: pointer;
-    }
-    .game-card:hover {
-      border-color: rgba(0,212,255,0.35);
-      transform: translateY(-2px);
-      background: rgba(255,255,255,0.02);
-    }
+    <script>
+      // ── Navigation ──────────────────────────────────────────────
+      const navBtns = document.querySelectorAll('.nav-btn');
+      const sections = document.querySelectorAll('main section');
 
-    .card-top {
-      padding: 0.75rem 1rem 0.6rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border);
-    }
-    .game-meta {
-      font-size: 0.7rem;
-      color: var(--muted);
-      font-weight: 400;
-      letter-spacing: 0.04em;
-    }
-    .game-meta strong {
-      color: var(--text);
-      font-weight: 500;
-    }
-    .status-badge {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.18rem 0.55rem;
-      border-radius: 4px;
-    }
-    .status-final   { background: rgba(34,197,94,0.12);  color: var(--win);  border: 1px solid rgba(34,197,94,0.25); }
-    .status-live    { background: rgba(255,107,43,0.15); color: var(--accent2); border: 1px solid rgba(255,107,43,0.3); animation: pulse 1.5s infinite; }
-    .status-sched   { background: rgba(107,122,141,0.1); color: var(--muted); border: 1px solid var(--border); }
-    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+      function showView(viewId) {
+        sections.forEach(s => s.classList.toggle('hidden', s.id !== viewId));
+        // Keep nav active state on teams/players; clear it when on team detail
+        const navView = viewId === 'view-team' ? null : viewId.replace('view-', '');
+        navBtns.forEach(b => b.classList.toggle('active', b.dataset.view === navView));
+      }
 
-    .card-body {
-      padding: 0.85rem 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
+      navBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          showView('view-' + btn.dataset.view);
+        });
+      });
 
-    .team-block {
-      flex: 1;
-      min-width: 0;
-    }
-    .team-block.away { text-align: left; }
-    .team-block.home { text-align: right; }
+      // Back from team detail → teams
+      window.addEventListener('navigate-teams', () => showView('view-teams'));
 
-    .team-name {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .team-city {
-      font-size: 0.68rem;
-      color: var(--muted);
-      font-weight: 300;
-      margin-top: 0.1rem;
-    }
+      // ── Load teams.html fragment into the teams view and execute its scripts ──
+      async function includeTeamsFragment() {
+        const container = document.getElementById('teams-include');
+        if (!container) return;
+        try {
+          const res = await fetch('teams.html');
+          if (!res.ok) throw new Error(`HTTP ${res.status} loading teams.html`);
+          const html = await res.text();
 
-    .score-block {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      flex-shrink: 0;
-    }
-    .score {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 2rem;
-      font-weight: 900;
-      line-height: 1;
-      min-width: 2ch;
-      text-align: center;
-    }
-    .score.winner { color: var(--win); }
-    .score.loser  { color: var(--muted); }
-    .score.tbd    { color: var(--border); font-size: 1rem; }
+          // Create a container to parse the fragment
+          const tmp = document.createElement('div');
+          tmp.innerHTML = html;
 
-    .score-sep {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.1rem;
-      color: var(--border);
-      font-weight: 400;
-    }
+          // Move non-script nodes into the container
+          Array.from(tmp.childNodes).forEach(node => {
+            if (node.nodeName.toLowerCase() !== 'script') container.appendChild(node.cloneNode(true));
+          });
 
-    .card-footer {
-      padding: 0.5rem 1rem 0.65rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
-    }
-    .location-text {
-      font-size: 0.68rem;
-      color: var(--muted);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      flex: 1;
-    }
-    .watch-link {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      text-decoration: none;
-      border: 1px solid rgba(0,212,255,0.3);
-      border-radius: 4px;
-      padding: 0.18rem 0.55rem;
-      white-space: nowrap;
-      transition: all 0.15s;
-      flex-shrink: 0;
-    }
-    .watch-link:hover {
-      background: rgba(0,212,255,0.1);
-      border-color: var(--accent);
-    }
+          // Evaluate scripts in the fragment (preserve execution order)
+          const scripts = tmp.querySelectorAll('script');
+          for (const s of scripts) {
+            const newScript = document.createElement('script');
+            if (s.src) {
+              newScript.src = s.src;
+              await new Promise((resolve, reject) => {
+                newScript.onload = resolve; newScript.onerror = reject;
+                document.body.appendChild(newScript);
+              });
+            } else {
+              newScript.textContent = s.textContent;
+              document.body.appendChild(newScript);
+            }
+          }
+        } catch (err) {
+          const container = document.getElementById('teams-include');
+          if (container) container.innerHTML = `<div class="error-msg">Failed to load teams fragment: ${err.message}</div>`;
+        }
+      }
 
-    /* ── LIST VIEW ───────────────────────────────────── */
-    .list-view .games-grid {
-      grid-template-columns: 1fr;
-      gap: 0.5rem;
-    }
-    .list-view .game-card {
-      display: grid;
-      grid-template-columns: 160px 1fr auto;
-      grid-template-rows: 1fr;
-      border-radius: 8px;
-    }
-    .list-view .card-top {
-      grid-column: 1;
-      grid-row: 1;
-      border-right: 1px solid var(--border);
-      border-bottom: none;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      gap: 0.3rem;
-    }
-    .list-view .card-body {
-      grid-column: 2;
-      grid-row: 1;
-      padding: 0.6rem 1rem;
-    }
-    .list-view .card-footer {
-      grid-column: 3;
-      grid-row: 1;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: center;
-      padding: 0.6rem 1rem;
-      min-width: 140px;
-    }
-    .list-view .team-name { font-size: 1rem; }
-    .list-view .score { font-size: 1.7rem; }
+      includeTeamsFragment();
 
-    /* ── LOADING / EMPTY ─────────────────────────────── */
-    .loading-state, .empty-state {
-      text-align: center;
-      padding: 5rem 2rem;
-      color: var(--muted);
-    }
-    .loading-spinner {
-      width: 36px;
-      height: 36px;
-      border: 3px solid var(--border);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      margin: 0 auto 1.2rem;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .empty-state svg { opacity: 0.25; margin-bottom: 1rem; }
-    .empty-state p { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; letter-spacing: 0.05em; }
+      // ── Load team.html fragment (team detail) ──────────────────
+      async function includeTeamFragment() {
+        const container = document.getElementById('team-include');
+        if (!container) return;
+        try {
+          const res = await fetch('team.html');
+          if (!res.ok) throw new Error(`HTTP ${res.status} loading team.html`);
+          const html = await res.text();
+          const tmp = document.createElement('div');
+          tmp.innerHTML = html;
+          Array.from(tmp.childNodes).forEach(node => {
+            if (node.nodeName.toLowerCase() !== 'script') container.appendChild(node.cloneNode(true));
+          });
+          const scripts = tmp.querySelectorAll('script');
+          for (const s of scripts) {
+            const newScript = document.createElement('script');
+            if (s.src) {
+              newScript.src = s.src;
+              await new Promise((resolve, reject) => {
+                newScript.onload = resolve; newScript.onerror = reject;
+                document.body.appendChild(newScript);
+              });
+            } else {
+              newScript.textContent = s.textContent;
+              document.body.appendChild(newScript);
+            }
+          }
+        } catch (err) {
+          const c = document.getElementById('team-include');
+          if (c) c.innerHTML = `<div class="error-msg">Failed to load team fragment: ${err.message}</div>`;
+        }
+      }
 
-    /* ── SCROLLBAR ───────────────────────────────────── */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+      // ── Navigate to team detail ────────────────────────────────
+      window.addEventListener('navigate-team', e => {
+        const { teamID, year } = e.detail;
+        showView('view-team');
+        if (typeof window._initTeamPage === 'function') {
+          window._initTeamPage(teamID, year);
+        }
+      });
 
-    @media (max-width: 600px) {
-      .list-view .game-card { grid-template-columns: 1fr; }
-      .list-view .card-top { border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; align-items: center; justify-content: space-between; }
-      .list-view .card-footer { flex-direction: row; border-top: 1px solid var(--border); }
-    }
-  </style>
-</head>
-<body>
-
-<header>
-  <div class="logo">UFA<span>·Data</span></div>
-  <div class="header-divider"></div>
-  <div class="year-selector">
-    <span class="year-label">Season</span>
-    <select class="year-select" id="yearSelect"></select>
-  </div>
-  <div class="view-toggle">
-    <button class="view-btn active" id="btnGrid" onclick="setView('grid')">Grid</button>
-    <button class="view-btn" id="btnList" onclick="setView('list')">List</button>
-  </div>
-</header>
-
-<main id="main">
-  <div class="loading-state">
-    <div class="loading-spinner"></div>
-    <p style="font-family:'Barlow Condensed',sans-serif;letter-spacing:.05em;color:var(--muted)">Loading season data…</p>
-  </div>
-</main>
-
-<script>
-  // ── CONFIG ───────────────────────────────────────────────────────────
-  const AVAILABLE_YEARS = [2021,2022,2023,2024,2025,2026];
-  const DEFAULT_YEAR    = 2025;
-  const DATA_BASE       = 'data'; 
-
-  const TEAMS = {
-    empire:     { city: 'New York',     name: 'Empire'     },
-    spiders:    { city: 'Oakland',      name: 'Spiders'    },
-    phoenix:    { city: 'Philadelphia', name: 'Phoenix'    },
-    glory:      { city: 'Boston',       name: 'Glory'      },
-    breeze:     { city: 'DC',           name: 'Breeze'     },
-    growlers:   { city: 'San Diego',    name: 'Growlers'   },
-    aviators:   { city: 'Los Angeles',  name: 'Aviators'   },
-    royal:      { city: 'Montréal',     name: 'Royal'      },
-    alleycats:  { city: 'Indianapolis', name: 'AlleyCats'  },
-    mechanix:   { city: 'Detroit',      name: 'Mechanix'   },
-    apex:       { city: 'Colorado',     name: 'Apex'       },
-    havoc:      { city: 'Houston',      name: 'Havoc'      },
-    hustle:     { city: 'Atlanta',      name: 'Hustle'     },
-    cascades:   { city: 'Seattle',      name: 'Cascades'   },
-    steel:      { city: 'Oregon',       name: 'Steel'      },
-    shred:      { city: 'Salt Lake',    name: 'Shred'      },
-    bighorns:   { city: 'Las Vegas',    name: 'Bighorns'   },
-    union:      { city: 'Chicago',      name: 'Union'      },
-    flyers:     { city: 'Carolina',     name: 'Flyers'     },
-    sol:        { city: 'Austin',       name: 'Sol'        },
-    thunderbirds: { city: 'Arizona',   name: 'Thunderbirds'},
-    summit:     { city: 'Denver',       name: 'Summit'     },
-    nitro:      { city: 'Minneapolis',  name: 'Nitro'      },
-    tempers:    { city: 'Toronto',      name: 'Tempers'    },
-  };
-
-  // ── STATE ────────────────────────────────────────────────────────────
-  let currentYear = DEFAULT_YEAR;
-  let currentView = 'grid';
-  let gamesData   = [];
-
-  // ── INIT ─────────────────────────────────────────────────────────────
-  function init() {
-    const sel = document.getElementById('yearSelect');
-    AVAILABLE_YEARS.forEach(y => {
-      const opt = document.createElement('option');
-      opt.value = y;
-      opt.textContent = y;
-      if (y === DEFAULT_YEAR) opt.selected = true;
-      sel.appendChild(opt);
-    });
-    sel.addEventListener('change', e => {
-      currentYear = parseInt(e.target.value);
-      loadYear(currentYear);
-    });
-    loadYear(currentYear);
-  }
-
-  // ── DATA LOADING ─────────────────────────────────────────────────────
-  async function loadYear(year) {
-    setLoading();
-    try {
-      const res = await fetch(`${DATA_BASE}/${year}/games.json`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const json = await res.json();
-      gamesData = (json.data || json).filter(g => g && g.gameID);
-      renderDashboard();
-    } catch (err) {
-      console.error(err);
-      setEmpty(`Could not load ${year} season data.`);
-    }
-  }
-
-  // ── RENDERING ────────────────────────────────────────────────────────
-  function renderDashboard() {
-    if (!gamesData.length) { setEmpty('No games found for this season.'); return; }
-
-    const sorted = [...gamesData].sort(
-      (a, b) => new Date(a.startTimestamp) - new Date(b.startTimestamp)
-    );
-
-    const weekMap = new Map();
-    sorted.forEach(g => {
-      const w = g.week || 'unknown';
-      if (!weekMap.has(w)) weekMap.set(w, []);
-      weekMap.get(w).push(g);
-    });
-
-    const finished  = sorted.filter(g => g.status === 'Final');
-    const totalGoals = finished.reduce((s,g) => s + (g.awayScore||0) + (g.homeScore||0), 0);
-    const avgGoals  = finished.length ? (totalGoals / finished.length).toFixed(1) : '—';
-
-    const main = document.getElementById('main');
-    main.className = currentView === 'list' ? 'list-view' : '';
-    main.innerHTML = '';
-
-    const bar = document.createElement('div');
-    bar.className = 'season-bar';
-    bar.innerHTML = `
-      <div class="stat-chip"><span class="val">${sorted.length}</span><span class="lbl">Games</span></div>
-      <div class="stat-chip"><span class="val">${finished.length}</span><span class="lbl">Completed</span></div>
-      <div class="stat-chip"><span class="val">${weekMap.size}</span><span class="lbl">Weeks</span></div>
-      <div class="stat-chip"><span class="val">${avgGoals}</span><span class="lbl">Avg Total Score</span></div>
-    `;
-    main.appendChild(bar);
-
-    let delay = 0;
-    weekMap.forEach((games, weekKey) => {
-      const dates = games.map(g => new Date(g.startTimestamp)).filter(d => !isNaN(d));
-      const minD  = dates.length ? new Date(Math.min(...dates)) : null;
-      const maxD  = dates.length ? new Date(Math.max(...dates)) : null;
-      const fmt   = d => d.toLocaleDateString('en-US', { month:'short', day:'numeric' });
-      const range = minD && maxD
-        ? (fmt(minD) === fmt(maxD) ? fmt(minD) : `${fmt(minD)} – ${fmt(maxD)}`)
-        : '';
-      const weekNum = weekKey.replace('week-', 'Week ');
-
-      const section = document.createElement('section');
-      section.className = 'week-section';
-      section.style.animationDelay = `${delay}ms`;
-      delay += 60;
-
-      section.innerHTML = `
-        <div class="week-header">
-          <span class="week-label">${weekNum}</span>
-          ${range ? `<span class="week-date-range">${range} · ${currentYear}</span>` : ''}
-          <div class="week-line"></div>
-          <span class="week-date-range">${games.length} game${games.length>1?'s':''}</span>
-        </div>
-        <div class="games-grid">
-          ${games.map(gameCard).join('')}
-        </div>
-      `;
-      main.appendChild(section);
-    });
-  }
-
-  function gameCard(g) {
-    const away   = TEAMS[g.awayTeamID] || { city: g.awayTeamID, name: g.awayTeamID };
-    const home   = TEAMS[g.homeTeamID] || { city: g.homeTeamID, name: g.homeTeamID };
-    const isFinal = g.status === 'Final';
-    const isLive  = g.status === 'In Progress' || g.status === 'Live';
-    const hasSc   = typeof g.awayScore === 'number' && typeof g.homeScore === 'number';
-
-    const awayWin = hasSc && g.awayScore > g.homeScore;
-    const homeWin = hasSc && g.homeScore > g.awayScore;
-
-    let statusClass = 'status-sched';
-    let statusLabel = g.status || 'Scheduled';
-    if (isFinal) { statusClass = 'status-final'; statusLabel = 'Final'; }
-    if (isLive)  { statusClass = 'status-live';  statusLabel = '● Live'; }
-
-    const dt      = g.startTimestamp ? new Date(g.startTimestamp) : null;
-    const timeStr = dt && !isNaN(dt)
-      ? dt.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', timeZoneName:'short' })
-      : '';
-    const dateStr = dt && !isNaN(dt)
-      ? dt.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' })
-      : '';
-
-    const awayScore = hasSc
-      ? `<span class="score ${awayWin ? 'winner' : isFinal ? 'loser' : ''}">${g.awayScore}</span>`
-      : `<span class="score tbd">—</span>`;
-    const homeScore = hasSc
-      ? `<span class="score ${homeWin ? 'winner' : isFinal ? 'loser' : ''}">${g.homeScore}</span>`
-      : `<span class="score tbd">—</span>`;
-
-    const watchBtn = g.streamingURL
-      ? `<a class="watch-link" href="${g.streamingURL}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Watch ↗</a>`
-      : '';
-
-    // Wrap the card in a link to game.html
-    return `
-      <a href="game.html?year=${currentYear}&id=${g.gameID}" class="game-link">
-        <div class="game-card">
-          <div class="card-top">
-            <div class="game-meta">
-              ${dateStr ? `<strong>${dateStr}</strong>` : ''}
-              ${timeStr ? ` · ${timeStr}` : ''}
-            </div>
-            <span class="status-badge ${statusClass}">${statusLabel}</span>
-          </div>
-          <div class="card-body">
-            <div class="team-block away">
-              <div class="team-name">${away.name}</div>
-              <div class="team-city">${away.city}</div>
-            </div>
-            <div class="score-block">
-              ${awayScore}
-              <span class="score-sep">–</span>
-              ${homeScore}
-            </div>
-            <div class="team-block home">
-              <div class="team-name">${home.name}</div>
-              <div class="team-city">${home.city}</div>
-            </div>
-          </div>
-          <div class="card-footer">
-            <span class="location-text">📍 ${g.location || ''}</span>
-            ${watchBtn}
-          </div>
-        </div>
-      </a>
-    `;
-  }
-
-  function setLoading() {
-    document.getElementById('main').innerHTML = `
-      <div class="loading-state">
-        <div class="loading-spinner"></div>
-        <p style="font-family:'Barlow Condensed',sans-serif;letter-spacing:.05em;color:var(--muted)">Loading ${currentYear} season…</p>
-      </div>`;
-  }
-
-  function setEmpty(msg) {
-    document.getElementById('main').innerHTML = `
-      <div class="empty-state">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-        <p>${msg}</p>
-      </div>`;
-  }
-
-  function setView(v) {
-    currentView = v;
-    document.getElementById('btnGrid').classList.toggle('active', v === 'grid');
-    document.getElementById('btnList').classList.toggle('active', v === 'list');
-    if (gamesData.length) renderDashboard();
-  }
-
-  init();
-</script>
-</body>
-</html>
+      includeTeamFragment();
+    </script>
+  </body>
+  </html>

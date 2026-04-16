@@ -1,6 +1,7 @@
 import requests
 import os
 import json
+import time
 
 # Set ROOT to the project root directory
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -11,6 +12,7 @@ parameters = {
 }
 
 response = requests.get(url, params=parameters)
+time.sleep(0.1)  # Sleep for 100ms to avoid overwhelming the server
 
 print(f"[INFO] Status code: {response.status_code}")
 data = response.json()
@@ -19,15 +21,23 @@ data = response.json()
 if "data" in data:
     data["data"] = sorted(data["data"], key=lambda x: x["playerID"], reverse=False)
 
-# Group players by year based on their 'teams' array
+# Flatten each player into per-year records: {playerID, firstName, lastName, teamID, active, jerseyNumber, year}
 players_by_year = {}
 if "data" in data:
     for player in data["data"]:
-        if "teams" in player:
-            for team in player["teams"]:
-                year = str(team.get("year")) if "year" in team and str(team.get("year")).isdigit() else None
-                if year:
-                    players_by_year.setdefault(year, []).append(player)
+        for team in player.get("teams", []):
+            year = str(team.get("year")) if "year" in team and str(team.get("year")).isdigit() else None
+            if year:
+                record = {
+                    "playerID": player.get("playerID"),
+                    "firstName": player.get("firstName"),
+                    "lastName": player.get("lastName"),
+                    "teamID": team.get("teamID"),
+                    "active": team.get("active"),
+                    "jerseyNumber": team.get("jerseyNumber"),
+                    "year": int(year),
+                }
+                players_by_year.setdefault(year, []).append(record)
 
 # Save each year's players to its own folder
 for year, players in players_by_year.items():

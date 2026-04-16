@@ -1,0 +1,136 @@
+{
+  "hasData": true,
+  "divisions": [
+    "Central",
+    "East",
+    "South",
+    "West"
+  ],
+  "quarters": {
+    "Central": {
+      "homeTeamID": "radicals",
+      "homeTeamName": "Radicals",
+      "homeTeamSeed": 2,
+      "homeScore": 18,
+      "awayTeamID": "union",
+      "awayTeamName": "Union",
+      "awayTeamSeed": 3,
+      "awayScore": 17,
+      "winner": "radicals"
+    },
+    "East": {
+      "homeTeamID": "glory",
+      "homeTeamName": "Glory",
+      "homeTeamSeed": 2,
+      "homeScore": 19,
+      "awayTeamID": "empire",
+      "awayTeamName": "Empire",
+      "awayTeamSeed": 3,
+      "awayScore": 18,
+      "winner": "glory"
+    },
+    "South": {
+      "homeTeamID": "flyers",
+      "homeTeamName": "Flyers",
+      "homeTeamSeed": 2,
+      "homeScore": 26,
+      "awayTeamID": "sol",
+      "awayTeamName": "Sol",
+      "awayTeamSeed": 3,
+      "awayScore": 18,
+      "winner": "flyers"
+    },
+    "West": {
+      "homeTeamID": "cascades",
+      "homeTeamName": "Cascades",
+      "homeTeamSeed": 2,
+      "homeScore": 23,
+      "awayTeamID": "spiders",
+      "awayTeamName": "Spiders",
+      "awayTeamSeed": 3,
+      "awayScore": 19,
+      "winner": "cascades"
+    }
+  },
+  "divFinals": {
+    "Central": {
+      "homeTeamID": "windchill",
+      "homeTeamName": "Wind Chill",
+      "homeTeamSeed": 1,
+      "homeScore": 23,
+      "awayTeamID": "radicals",
+      "awayTeamName": "Radicals",
+      "awayTeamSeed": 2,
+      "awayScore": 14,
+      "winner": "windchill"
+    },
+    "East": {
+      "homeTeamID": "breeze",
+      "homeTeamName": "Breeze",
+      "homeTeamSeed": 1,
+      "homeScore": 16,
+      "awayTeamID": "glory",
+      "awayTeamName": "Glory",
+      "awayTeamSeed": 2,
+      "awayScore": 14,
+      "winner": "breeze"
+    },
+    "South": {
+      "homeTeamID": "hustle",
+      "homeTeamName": "Hustle",
+      "homeTeamSeed": 1,
+      "homeScore": 16,
+      "awayTeamID": "flyers",
+      "awayTeamName": "Flyers",
+      "awayTeamSeed": 2,
+      "awayScore": 17,
+      "winner": "flyers"
+    },
+    "West": {
+      "homeTeamID": "shred",
+      "homeTeamName": "Shred",
+      "homeTeamSeed": 1,
+      "homeScore": 20,
+      "awayTeamID": "cascades",
+      "awayTeamName": "Cascades",
+      "awayTeamSeed": 2,
+      "awayScore": 21,
+      "winner": "cascades"
+    }
+  },
+  "semis": [
+    {
+      "homeTeamID": "breeze",
+      "homeTeamName": "Breeze",
+      "homeTeamSeed": 1,
+      "homeScore": 13,
+      "awayTeamID": "windchill",
+      "awayTeamName": "Wind Chill",
+      "awayTeamSeed": 1,
+      "awayScore": 16,
+      "winner": "windchill"
+    },
+    {
+      "homeTeamID": "cascades",
+      "homeTeamName": "Cascades",
+      "homeTeamSeed": 2,
+      "homeScore": 16,
+      "awayTeamID": "flyers",
+      "awayTeamName": "Flyers",
+      "awayTeamSeed": 2,
+      "awayScore": 20,
+      "winner": "flyers"
+    }
+  ],
+  "championship": {
+    "homeTeamID": "windchill",
+    "homeTeamName": "Wind Chill",
+    "homeTeamSeed": 1,
+    "homeScore": 17,
+    "awayTeamID": "flyers",
+    "awayTeamName": "Flyers",
+    "awayTeamSeed": 2,
+    "awayScore": 16,
+    "winner": "windchill"
+  }
+}

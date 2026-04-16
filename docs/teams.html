@@ -1,0 +1,505 @@
+<style>
+  /* ── Bracket ── */
+  .bracket-section { margin-top: 0; }
+  .bracket-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--text); }
+  .bracket-no-data { padding: 3rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.95rem; }
+
+  .bracket-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    align-items: center;
+    position: relative;
+  }
+
+  .bracket-round { display: flex; flex-direction: column; gap: 0; }
+  .bracket-round-title {
+    text-align: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+    padding: 6px 0;
+    background: var(--surface-2);
+    border-radius: 6px;
+  }
+
+  .bracket-matchups { display: flex; flex-direction: column; }
+
+  .bracket-matchup-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+
+  .bracket-matchup {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 220px;
+    margin: 0 auto;
+  }
+
+  .bracket-team {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 10px;
+    font-size: 0.83rem;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    gap: 8px;
+  }
+  .bracket-team:last-child { border-bottom: none; }
+  .bracket-team.winner { color: var(--accent); font-weight: 600; }
+  .bracket-team.loser { color: var(--text-muted); }
+  .bracket-team.tbd { color: var(--text-muted); font-style: italic; }
+
+  .bracket-seed {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    min-width: 14px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .bracket-team-name { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bracket-score { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 22px; text-align: right; flex-shrink: 0; }
+
+  .bracket-div-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+    text-align: center;
+    width: 100%;
+    max-width: 220px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .bracket-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+  }
+
+  .champion-badge {
+    background: var(--surface);
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    padding: 14px 18px;
+    text-align: center;
+    max-width: 180px;
+    margin: 0 auto;
+  }
+  .champion-badge .trophy { font-size: 1.6rem; margin-bottom: 6px; }
+  .champion-badge .champ-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.1em; margin-bottom: 4px; }
+  .champion-badge .champ-name { font-size: 1rem; font-weight: 700; color: var(--accent); }
+  .champion-badge.tbd .champ-name { color: var(--text-muted); font-style: italic; font-size: 0.9rem; }
+
+  /* Round spacing helpers */
+  .bracket-spacer { flex: 1; }
+
+  /* Responsive */
+  @media (max-width: 860px) {
+    .bracket-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .bracket-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── Team Stats Table ── */
+  .team-stats-section { margin-top: 2rem; }
+  .team-stats-wrapper {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .team-stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  .team-stats-table thead th {
+    padding: 8px 10px;
+    text-align: right;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s, background 0.15s;
+  }
+  .team-stats-table thead th:hover { color: var(--text); background: var(--surface-2); }
+  .team-stats-table thead th.col-team { text-align: left; padding-left: 14px; }
+  .team-stats-table thead th.sort-active { color: var(--accent); }
+  .team-stats-table tbody td {
+    padding: 8px 10px;
+    text-align: right;
+    border-bottom: 1px solid rgba(45, 49, 72, 0.6);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    color: var(--text);
+  }
+  .team-stats-table tbody td.col-team { text-align: left; padding-left: 14px; font-weight: 500; }
+  .team-stats-table tbody tr:last-child td { border-bottom: none; }
+  .sort-ind { display: inline-block; margin-left: 3px; font-size: 0.65rem; }
+
+  /* ── Team link button ── */
+  .team-link-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--text);
+    font-weight: 500;
+    font-size: inherit;
+    cursor: pointer;
+    text-align: left;
+    transition: color 0.15s;
+  }
+  .team-link-btn:hover { color: var(--accent); text-decoration: underline; }
+</style>
+
+<div class="controls">
+  <select id="year-select" class="year-select">
+    <option value="2026">2026</option>
+    <option value="2025" selected>2025</option>
+    <option value="2024">2024</option>
+    <option value="2023">2023</option>
+    <option value="2022">2022</option>
+    <option value="2021">2021</option>
+  </select>
+  <select id="season-mode-select" class="year-select">
+    <option value="regular">Regular Season</option>
+    <option value="playoffs">Playoffs</option>
+  </select>
+</div>
+<div id="standings-container"></div>
+<div id="bracket-container" class="hidden"></div>
+
+<script>
+(function () {
+  async function fetchJSON(path) {
+    const res = await fetch(path);
+    if (!res.ok) throw new Error(`HTTP ${res.status} — ${path}`);
+    return res.json();
+  }
+
+  // ── Helpers ──────────────────────────────────────────────────
+
+  function formatPlusMinus(val) {
+    return val > 0 ? `+${val}` : `${val}`;
+  }
+
+  function plusMinusClass(val) {
+    if (val > 0) return 'col-stat pm-pos';
+    if (val < 0) return 'col-stat pm-neg';
+    return 'col-stat pm-zero';
+  }
+
+  function formatGB(gb) {
+    return Math.abs(gb) < 0.05 ? '[-]' : `[-${gb.toFixed(1)}]`;
+  }
+
+  // ── Standings ────────────────────────────────────────────────
+
+  function renderStandings(standings) {
+    const container = document.getElementById('standings-container');
+    const columns = Object.entries(standings).map(([divName, teams]) => {
+      const rows = teams.map(team => `<tr>
+        <td class="col-team"><button class="team-link-btn" data-teamid="${team.teamID}">${team.name}</button></td>
+        <td class="col-stat">${team.wins}</td>
+        <td class="col-stat">${team.losses}</td>
+        <td class="col-stat">${team.ties}</td>
+        <td class="${plusMinusClass(team.plusMinus)}">${formatPlusMinus(team.plusMinus)}</td>
+        <td class="col-gb">${formatGB(team.gamesBack)}</td>
+      </tr>`).join('');
+
+      return `<div class="division-col">
+        <div class="div-name">${divName}</div>
+        <table class="standings-table">
+          <thead><tr>
+            <th class="col-team">Team</th>
+            <th class="col-stat">W</th>
+            <th class="col-stat">L</th>
+            <th class="col-stat">T</th>
+            <th class="col-stat">+/-</th>
+            <th class="col-gb">GB</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+    }).join('');
+
+    container.innerHTML = `<div>
+      <h2 class="standings-title">League Standings</h2>
+      <div class="divisions-grid">${columns}</div>
+    </div>`;
+  }
+
+  // ── Team Stats ───────────────────────────────────────────────
+
+  function renderTeamStats(rows) {
+    const container = document.getElementById('standings-container');
+    const cols = [
+      { key: 'name',           label: 'Team',  team: true, fmt: v => v },
+      { key: 'games',          label: 'G',     fmt: v => v },
+      { key: 'wins',           label: 'W',     fmt: v => v },
+      { key: 'losses',         label: 'L',     fmt: v => v },
+      { key: 'scores',         label: 'S',     fmt: v => v },
+      { key: 'scoresAgainst',  label: 'SA',    fmt: v => v },
+      { key: 'completions',    label: 'C',     fmt: v => v },
+      { key: 'throwaways',     label: 'T',     fmt: v => v },
+      { key: 'completionPct',  label: 'CMP%',  fmt: v => v == null ? '—' : v.toFixed(1) + '%' },
+      { key: 'blocks',         label: 'B',     fmt: v => v },
+      { key: 'hucksAttempted', label: 'H',     fmt: v => v },
+      { key: 'huckPct',        label: 'Huck%', fmt: v => v == null ? '—' : v.toFixed(1) + '%' },
+    ];
+
+    let sortCol = 'wins', sortDir = -1;
+
+    const section = document.createElement('div');
+    section.className = 'team-stats-section';
+    section.innerHTML = `
+      <h2 class="standings-title">Team Stats</h2>
+      <div class="team-stats-wrapper">
+        <table class="team-stats-table">
+          <thead><tr>${
+            cols.map(c =>
+              `<th data-col="${c.key}" class="${c.team ? 'col-team' : ''}">${c.label}<span class="sort-ind"></span></th>`
+            ).join('')
+          }</tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>`;
+    container.appendChild(section);
+
+    const tbody = section.querySelector('tbody');
+    const ths   = section.querySelectorAll('thead th[data-col]');
+
+    function renderRows() {
+      const sorted = [...rows].sort((a, b) => {
+        const av = a[sortCol], bv = b[sortCol];
+        if (typeof av === 'string') return sortDir * av.localeCompare(bv);
+        if (av == null && bv == null) return 0;
+        if (av == null) return 1;
+        if (bv == null) return -1;
+        return sortDir * (av - bv);
+      });
+      tbody.innerHTML = sorted.map(row =>
+        `<tr>${cols.map(c =>
+          c.team
+            ? `<td class="col-team"><button class="team-link-btn" data-teamid="${row.teamID}">${c.fmt(row[c.key])}</button></td>`
+            : `<td>${c.fmt(row[c.key])}</td>`
+        ).join('')}</tr>`
+      ).join('');
+    }
+
+    function updateIndicators() {
+      ths.forEach(th => {
+        const ind = th.querySelector('.sort-ind');
+        if (th.dataset.col === sortCol) {
+          th.classList.add('sort-active');
+          ind.textContent = sortDir === -1 ? ' ▼' : ' ▲';
+        } else {
+          th.classList.remove('sort-active');
+          ind.textContent = '';
+        }
+      });
+    }
+
+    ths.forEach(th => {
+      th.addEventListener('click', () => {
+        const col = th.dataset.col;
+        sortDir = sortCol === col ? -sortDir : (col === 'name' ? 1 : -1);
+        sortCol = col;
+        renderRows();
+        updateIndicators();
+      });
+    });
+
+    renderRows();
+    updateIndicators();
+  }
+
+  // ── Bracket ──────────────────────────────────────────────────
+
+  function matchupHtml(game, labelHtml) {
+    if (!game) {
+      return `${labelHtml || ''}<div class="bracket-matchup">
+        <div class="bracket-team tbd"><span class="bracket-team-name">TBD</span></div>
+        <div class="bracket-team tbd"><span class="bracket-team-name">TBD</span></div>
+      </div>`;
+    }
+    const hWon   = game.winner === game.homeTeamID;
+    const aWon   = game.winner === game.awayTeamID;
+    const hClass = game.winner ? (hWon ? 'winner' : 'loser') : '';
+    const aClass = game.winner ? (aWon ? 'winner' : 'loser') : '';
+    const hScore = game.homeScore != null ? `<span class="bracket-score">${game.homeScore}</span>` : '';
+    const aScore = game.awayScore != null ? `<span class="bracket-score">${game.awayScore}</span>` : '';
+    const hSeed  = game.homeTeamSeed != null ? `<span class="bracket-seed">${game.homeTeamSeed}</span>` : '';
+    const aSeed  = game.awayTeamSeed != null ? `<span class="bracket-seed">${game.awayTeamSeed}</span>` : '';
+    return `${labelHtml || ''}<div class="bracket-matchup">
+      <div class="bracket-team ${hClass}">${hSeed}<span class="bracket-team-name">${game.homeTeamName}</span>${hScore}</div>
+      <div class="bracket-team ${aClass}">${aSeed}<span class="bracket-team-name">${game.awayTeamName}</span>${aScore}</div>
+    </div>`;
+  }
+
+  function renderBracket(data) {
+    const container = document.getElementById('bracket-container');
+    if (!container) return;
+
+    if (!data || !data.hasData) {
+      container.innerHTML = '<div class="bracket-section"><div class="bracket-no-data">No playoff data available for this season.</div></div>';
+      return;
+    }
+
+    const { divisions, quarters, divFinals, semis, championship } = data;
+    const numRows = divisions.length;
+    const minH    = `${numRows * 90}px`;
+
+    const quartersHtml = divisions.map(div => `
+      <div class="bracket-matchup-group" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 6px;">
+        ${matchupHtml(quarters[div], `<div class="bracket-div-label">${div}</div>`)}
+      </div>`).join('');
+
+    const divFinalsHtml = divisions.map(div => `
+      <div class="bracket-matchup-group" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 6px;">
+        ${matchupHtml(divFinals[div], `<div class="bracket-div-label">${div}</div>`)}
+      </div>`).join('');
+
+    const semiCount = Math.max(semis.length, 2);
+    const semisHtml = Array.from({ length: semiCount }, (_, i) => `
+      <div class="bracket-matchup-group" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 6px;">
+        ${matchupHtml(semis[i] || null, '')}
+      </div>`).join('')
+      + Array.from({ length: Math.max(0, numRows - semiCount) }, () =>
+          `<div class="bracket-matchup-group" style="flex:1;"></div>`).join('');
+
+    let champHtml;
+    if (championship) {
+      const winnerName = championship.winner
+        ? (championship.winner === championship.homeTeamID ? championship.homeTeamName : championship.awayTeamName)
+        : null;
+      champHtml = `<div class="bracket-matchup-group" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 6px;">
+        <div class="champion-badge${winnerName ? '' : ' tbd'}">
+          <div class="trophy">🏆</div>
+          <div class="champ-label">Champion</div>
+          <div class="champ-name">${winnerName || 'TBD'}</div>
+        </div>
+        <div style="margin-top:12px;">${matchupHtml(championship, '')}</div>
+      </div>`;
+    } else {
+      champHtml = `<div class="bracket-matchup-group" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 6px;">
+        <div class="champion-badge tbd">
+          <div class="trophy">🏆</div>
+          <div class="champ-label">Champion</div>
+          <div class="champ-name">TBD</div>
+        </div>
+      </div>`;
+    }
+
+    container.innerHTML = `
+      <div class="bracket-section">
+        <h2 class="bracket-title">Playoffs Bracket</h2>
+        <div class="bracket-grid" style="grid-template-columns:repeat(4,1fr);">
+          <div class="bracket-round">
+            <div class="bracket-round-title">Division Quarters</div>
+            <div class="bracket-matchups" style="display:flex;flex-direction:column;min-height:${minH};">${quartersHtml}</div>
+          </div>
+          <div class="bracket-round">
+            <div class="bracket-round-title">Division Finals</div>
+            <div class="bracket-matchups" style="display:flex;flex-direction:column;min-height:${minH};">${divFinalsHtml}</div>
+          </div>
+          <div class="bracket-round">
+            <div class="bracket-round-title">Semifinals</div>
+            <div class="bracket-matchups" style="display:flex;flex-direction:column;min-height:${minH};">${semisHtml}</div>
+          </div>
+          <div class="bracket-round">
+            <div class="bracket-round-title">Championship</div>
+            <div class="bracket-matchups" style="display:flex;flex-direction:column;min-height:${minH};justify-content:center;">${champHtml}</div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // ── Load & Render ────────────────────────────────────────────
+
+  async function loadAndRender(year) {
+    const standingsContainer = document.getElementById('standings-container');
+    const bracketContainer   = document.getElementById('bracket-container');
+    if (!standingsContainer) return;
+    standingsContainer.innerHTML = '<div class="loading">Loading…</div>';
+    if (bracketContainer) bracketContainer.innerHTML = '';
+
+    try {
+      const [standings, teamStats, bracket] = await Promise.all([
+        fetchJSON(`data/${year}/standings.json`),
+        fetchJSON(`data/${year}/team_stats.json`).catch(() => null),
+        fetchJSON(`data/${year}/bracket.json`).catch(() => null),
+      ]);
+
+      renderStandings(standings);
+      if (teamStats) renderTeamStats(teamStats);
+      renderBracket(bracket);
+    } catch (err) {
+      standingsContainer.innerHTML = `<div class="error-msg">Failed to load data: ${err.message}</div>`;
+    }
+  }
+
+  // ── Init ─────────────────────────────────────────────────────
+
+  // Bind events and initial load
+  function init() {
+    const yearSelect = document.getElementById('year-select');
+    if (!yearSelect) return;
+
+    const modeSelect = document.getElementById('season-mode-select');
+    const standingsContainer = document.getElementById('standings-container');
+    const bracketContainer = document.getElementById('bracket-container');
+
+    let currentMode = 'regular';
+
+    function showMode(mode) {
+      currentMode = mode;
+      if (standingsContainer) standingsContainer.classList.toggle('hidden', mode === 'playoffs');
+      if (bracketContainer) bracketContainer.classList.toggle('hidden', mode === 'regular');
+    }
+
+    modeSelect.addEventListener('change', () => showMode(modeSelect.value));
+
+    yearSelect.addEventListener('change', () => loadAndRender(yearSelect.value));
+    loadAndRender(yearSelect.value);
+
+    // ── Team name click → navigate to team detail ────────────
+    document.getElementById('standings-container').addEventListener('click', e => {
+      const btn = e.target.closest('.team-link-btn');
+      if (!btn) return;
+      window.dispatchEvent(new CustomEvent('navigate-team', {
+        detail: { teamID: btn.dataset.teamid, year: yearSelect.value }
+      }));
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+ 

@@ -1,0 +1,67 @@
+{
+  "hasData": true,
+  "divisions": [
+    "Atlantic",
+    "Canada",
+    "Central",
+    "West"
+  ],
+  "quarters": {
+    "Atlantic": null,
+    "Canada": null,
+    "Central": null,
+    "West": null
+  },
+  "divFinals": {
+    "Atlantic": null,
+    "Canada": null,
+    "Central": null,
+    "West": null
+  },
+  "semis": [
+    {
+      "homeTeamID": "royal",
+      "homeTeamName": "Royal",
+      "homeTeamSeed": 1,
+      "homeScore": 19,
+      "awayTeamID": "rush",
+      "awayTeamName": "Rush",
+      "awayTeamSeed": 2,
+      "awayScore": 18,
+      "winner": "royal"
+    },
+    {
+      "homeTeamID": "empire",
+      "homeTeamName": "Empire",
+      "homeTeamSeed": 2,
+      "homeScore": 22,
+      "awayTeamID": "growlers",
+      "awayTeamName": "Growlers",
+      "awayTeamSeed": 1,
+      "awayScore": 18,
+      "winner": "empire"
+    },
+    {
+      "homeTeamID": "union",
+      "homeTeamName": "Union",
+      "homeTeamSeed": 1,
+      "homeScore": 20,
+      "awayTeamID": "flyers",
+      "awayTeamName": "Flyers",
+      "awayTeamSeed": 4,
+      "awayScore": 21,
+      "winner": "flyers"
+    }
+  ],
+  "championship": {
+    "homeTeamID": "empire",
+    "homeTeamName": "Empire",
+    "homeTeamSeed": 2,
+    "homeScore": 16,
+    "awayTeamID": "flyers",
+    "awayTeamName": "Flyers",
+    "awayTeamSeed": 4,
+    "awayScore": 19,
+    "winner": "flyers"
+  }
+}

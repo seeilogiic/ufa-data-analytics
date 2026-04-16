@@ -1,0 +1,136 @@
+{
+  "hasData": true,
+  "divisions": [
+    "Central",
+    "East",
+    "South",
+    "West"
+  ],
+  "quarters": {
+    "Central": {
+      "homeTeamID": "alleycats",
+      "homeTeamName": "AlleyCats",
+      "homeTeamSeed": 2,
+      "homeScore": 23,
+      "awayTeamID": "union",
+      "awayTeamName": "Union",
+      "awayTeamSeed": 3,
+      "awayScore": 15,
+      "winner": "alleycats"
+    },
+    "East": {
+      "homeTeamID": "breeze",
+      "homeTeamName": "Breeze",
+      "homeTeamSeed": 2,
+      "homeScore": 19,
+      "awayTeamID": "glory",
+      "awayTeamName": "Glory",
+      "awayTeamSeed": 3,
+      "awayScore": 12,
+      "winner": "breeze"
+    },
+    "South": {
+      "homeTeamID": "sol",
+      "homeTeamName": "Sol",
+      "homeTeamSeed": 2,
+      "homeScore": 19,
+      "awayTeamID": "flyers",
+      "awayTeamName": "Flyers",
+      "awayTeamSeed": 3,
+      "awayScore": 18,
+      "winner": "sol"
+    },
+    "West": {
+      "homeTeamID": "apex",
+      "homeTeamName": "Apex",
+      "homeTeamSeed": 2,
+      "homeScore": 21,
+      "awayTeamID": "aviators",
+      "awayTeamName": "Aviators",
+      "awayTeamSeed": 3,
+      "awayScore": 22,
+      "winner": "aviators"
+    }
+  },
+  "divFinals": {
+    "Central": {
+      "homeTeamID": "windchill",
+      "homeTeamName": "Wind Chill",
+      "homeTeamSeed": 1,
+      "homeScore": 21,
+      "awayTeamID": "alleycats",
+      "awayTeamName": "AlleyCats",
+      "awayTeamSeed": 2,
+      "awayScore": 18,
+      "winner": "windchill"
+    },
+    "East": {
+      "homeTeamID": "empire",
+      "homeTeamName": "Empire",
+      "homeTeamSeed": 1,
+      "homeScore": 24,
+      "awayTeamID": "breeze",
+      "awayTeamName": "Breeze",
+      "awayTeamSeed": 2,
+      "awayScore": 19,
+      "winner": "empire"
+    },
+    "South": {
+      "homeTeamID": "hustle",
+      "homeTeamName": "Hustle",
+      "homeTeamSeed": 1,
+      "homeScore": 20,
+      "awayTeamID": "sol",
+      "awayTeamName": "Sol",
+      "awayTeamSeed": 2,
+      "awayScore": 21,
+      "winner": "sol"
+    },
+    "West": {
+      "homeTeamID": "shred",
+      "homeTeamName": "Shred",
+      "homeTeamSeed": 1,
+      "homeScore": 23,
+      "awayTeamID": "aviators",
+      "awayTeamName": "Aviators",
+      "awayTeamSeed": 3,
+      "awayScore": 20,
+      "winner": "shred"
+    }
+  },
+  "semis": [
+    {
+      "homeTeamID": "empire",
+      "homeTeamName": "Empire",
+      "homeTeamSeed": 1,
+      "homeScore": 27,
+      "awayTeamID": "sol",
+      "awayTeamName": "Sol",
+      "awayTeamSeed": 2,
+      "awayScore": 17,
+      "winner": "empire"
+    },
+    {
+      "homeTeamID": "shred",
+      "homeTeamName": "Shred",
+      "homeTeamSeed": 1,
+      "homeScore": 19,
+      "awayTeamID": "windchill",
+      "awayTeamName": "Wind Chill",
+      "awayTeamSeed": 1,
+      "awayScore": 18,
+      "winner": "shred"
+    }
+  ],
+  "championship": {
+    "homeTeamID": "empire",
+    "homeTeamName": "Empire",
+    "homeTeamSeed": 1,
+    "homeScore": 19,
+    "awayTeamID": "shred",
+    "awayTeamName": "Shred",
+    "awayTeamSeed": 1,
+    "awayScore": 12,
+    "winner": "empire"
+  }
+}

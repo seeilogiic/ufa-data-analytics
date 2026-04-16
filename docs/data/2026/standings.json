@@ -1,0 +1,252 @@
+{
+  "Central": [
+    {
+      "rank": 1,
+      "teamID": "alleycats",
+      "name": "AlleyCats",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 2,
+      "teamID": "radicals",
+      "name": "Radicals",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 3,
+      "teamID": "thunderbirds",
+      "name": "Thunderbirds",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 4,
+      "teamID": "union",
+      "name": "Union",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 5,
+      "teamID": "windchill",
+      "name": "Wind Chill",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    }
+  ],
+  "East": [
+    {
+      "rank": 1,
+      "teamID": "breeze",
+      "name": "Breeze",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 2,
+      "teamID": "empire",
+      "name": "Empire",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 3,
+      "teamID": "glory",
+      "name": "Glory",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 4,
+      "teamID": "phoenix",
+      "name": "Phoenix",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 5,
+      "teamID": "royal",
+      "name": "Royal",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 6,
+      "teamID": "rush",
+      "name": "Rush",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    }
+  ],
+  "South": [
+    {
+      "rank": 1,
+      "teamID": "bighorns",
+      "name": "Bighorns",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 2,
+      "teamID": "flyers",
+      "name": "Flyers",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 3,
+      "teamID": "growlers",
+      "name": "Growlers",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 4,
+      "teamID": "havoc",
+      "name": "Havoc",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 5,
+      "teamID": "hustle",
+      "name": "Hustle",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 6,
+      "teamID": "sol",
+      "name": "Sol",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    }
+  ],
+  "West": [
+    {
+      "rank": 1,
+      "teamID": "apex",
+      "name": "Apex",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 2,
+      "teamID": "cascades",
+      "name": "Cascades",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 3,
+      "teamID": "shred",
+      "name": "Shred",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 4,
+      "teamID": "spiders",
+      "name": "Spiders",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    },
+    {
+      "rank": 5,
+      "teamID": "steel",
+      "name": "Steel",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "plusMinus": 0,
+      "pct": 0.0,
+      "gamesBack": 0.0
+    }
+  ]
+}

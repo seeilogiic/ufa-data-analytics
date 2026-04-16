@@ -1,0 +1,266 @@
+<style>
+  /* ── Team Detail Header ── */
+  .team-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .team-back-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: color 0.15s, background 0.15s, border-color 0.15s;
+    white-space: nowrap;
+  }
+  .team-back-btn:hover { color: var(--text); background: var(--surface-2); border-color: var(--accent); }
+  .team-detail-title { font-size: 1.3rem; font-weight: 700; color: var(--text); }
+
+  /* ── Roster Table ── */
+  .roster-wrapper {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .roster-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  .roster-table thead th {
+    padding: 8px 10px;
+    text-align: right;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s, background 0.15s;
+  }
+  .roster-table thead th:hover { color: var(--text); background: var(--surface-2); }
+  .roster-table thead th.col-player { text-align: left; padding-left: 14px; }
+  .roster-table thead th.sort-active { color: var(--accent); }
+  .roster-table tbody td {
+    padding: 8px 10px;
+    text-align: right;
+    border-bottom: 1px solid rgba(45, 49, 72, 0.6);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    color: var(--text);
+  }
+  .roster-table tbody td.col-player { text-align: left; padding-left: 14px; font-weight: 500; }
+  .roster-table tbody tr:last-child td { border-bottom: none; }
+  .roster-sort-ind { display: inline-block; margin-left: 3px; font-size: 0.65rem; }
+</style>
+
+<div id="team-detail-root"></div>
+
+<script>
+(function () {
+  function fetchJSON(path) {
+    return fetch(path).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status + ' — ' + path);
+      return r.json();
+    });
+  }
+
+  var ALL_YEARS = ['2026', '2025', '2024', '2023', '2022', '2021'];
+
+  function renderRosterContent(container, rows) {
+    var cols = [
+      { key: 'name', label: 'Player', player: true, fmt: function (v) { return v; } },
+      { key: 'gp',   label: 'GP',     fmt: function (v) { return v; } },
+      { key: 'op',   label: 'OP',     fmt: function (v) { return v; } },
+      { key: 'dp',   label: 'DP',     fmt: function (v) { return v; } },
+      { key: 'g',    label: 'G',      fmt: function (v) { return v; } },
+      { key: 'a',    label: 'A',      fmt: function (v) { return v; } },
+      { key: 'b',    label: 'B',      fmt: function (v) { return v; } },
+      { key: 't',    label: 'T',      fmt: function (v) { return v; } },
+      { key: 'rec',  label: 'Rec',    fmt: function (v) { return v; } },
+      { key: 'pas',  label: 'Pas',    fmt: function (v) { return v; } },
+    ];
+
+    var sortCol = 'name', sortDir = 1;
+
+    container.innerHTML =
+      '<div class="roster-wrapper">' +
+        '<table class="roster-table">' +
+          '<thead><tr>' +
+            cols.map(function (c) {
+              return '<th data-col="' + c.key + '"' + (c.player ? ' class="col-player"' : '') + '>' +
+                c.label + '<span class="roster-sort-ind"></span></th>';
+            }).join('') +
+          '</tr></thead>' +
+          '<tbody></tbody>' +
+        '</table>' +
+      '</div>';
+
+    var tbody = container.querySelector('tbody');
+    var ths   = container.querySelectorAll('thead th[data-col]');
+
+    function renderRows() {
+      var sorted = rows.slice().sort(function (a, b) {
+        var av = a[sortCol], bv = b[sortCol];
+        if (typeof av === 'string') return sortDir * av.localeCompare(bv);
+        if (av == null && bv == null) return 0;
+        if (av == null) return 1;
+        if (bv == null) return -1;
+        return sortDir * (av - bv);
+      });
+      tbody.innerHTML = sorted.map(function (row) {
+        return '<tr>' + cols.map(function (c) {
+          var cls = c.player ? ' class="col-player"' : '';
+          return '<td' + cls + '>' + c.fmt(row[c.key]) + '</td>';
+        }).join('') + '</tr>';
+      }).join('');
+    }
+
+    function updateIndicators() {
+      ths.forEach(function (th) {
+        var ind = th.querySelector('.roster-sort-ind');
+        if (th.dataset.col === sortCol) {
+          th.classList.add('sort-active');
+          ind.textContent = sortDir === 1 ? ' \u25b2' : ' \u25bc';
+        } else {
+          th.classList.remove('sort-active');
+          ind.textContent = '';
+        }
+      });
+    }
+
+    ths.forEach(function (th) {
+      th.addEventListener('click', function () {
+        var col = th.dataset.col;
+        if (sortCol === col) {
+          sortDir = -sortDir;
+        } else {
+          sortCol = col;
+          sortDir = col === 'name' ? 1 : -1;
+        }
+        renderRows();
+        updateIndicators();
+      });
+    });
+
+    renderRows();
+    updateIndicators();
+  }
+
+  async function loadYearData(teamID, year, container) {
+    container.innerHTML = '<div class="loading">Loading\u2026</div>';
+    try {
+      var results = await Promise.all([
+        fetchJSON('data/' + year + '/players.json'),
+        fetchJSON('data/' + year + '/player_stats.json'),
+        fetchJSON('data/' + year + '/player_game_stats.json'),
+      ]);
+
+      var playersData   = results[0];
+      var statsData     = results[1];
+      var gameStatsData = results[2];
+
+      var roster = playersData.data.filter(function (p) { return p.teamID === teamID; });
+
+      var statsMap = {};
+      statsData.data.forEach(function (s) { statsMap[s.player.playerID] = s; });
+
+      var gpMap = {};
+      gameStatsData.forEach(function (game) {
+        game.data.data.forEach(function (entry) {
+          if (entry.teamID === teamID) {
+            var pid = entry.player.playerID;
+            gpMap[pid] = (gpMap[pid] || 0) + 1;
+          }
+        });
+      });
+
+      var rows = roster.map(function (p) {
+        var s = statsMap[p.playerID] || {};
+        return {
+          name: p.lastName + ', ' + p.firstName,
+          gp:   gpMap[p.playerID]   || 0,
+          op:   s.oPointsPlayed     != null ? s.oPointsPlayed     : 0,
+          dp:   s.dPointsPlayed     != null ? s.dPointsPlayed     : 0,
+          g:    s.goals             != null ? s.goals             : 0,
+          a:    s.assists           != null ? s.assists           : 0,
+          b:    s.blocks            != null ? s.blocks            : 0,
+          t:    s.throwaways        != null ? s.throwaways        : 0,
+          rec:  s.yardsReceived     != null ? s.yardsReceived     : 0,
+          pas:  s.yardsThrown       != null ? s.yardsThrown       : 0,
+        };
+      });
+
+      renderRosterContent(container, rows);
+    } catch (err) {
+      container.innerHTML = '<div class="error-msg">Failed to load data: ' + err.message + '</div>';
+    }
+  }
+
+  window._initTeamPage = async function (teamID, initialYear) {
+    var root = document.getElementById('team-detail-root');
+    if (!root) return;
+    root.innerHTML = '<div class="loading">Loading\u2026</div>';
+
+    // Determine which years this team existed
+    var teamYears = [];
+    var namesByYear = {};
+    await Promise.all(ALL_YEARS.map(async function (y) {
+      try {
+        var td = await fetchJSON('data/' + y + '/teams.json');
+        var entry = td.data.find(function (t) { return t.teamID === teamID; });
+        if (entry) { teamYears.push(y); namesByYear[y] = entry.name; }
+      } catch (e) {}
+    }));
+    teamYears.sort(function (a, b) { return parseInt(b) - parseInt(a); });
+
+    if (!teamYears.length) {
+      root.innerHTML = '<div class="error-msg">Team not found.</div>';
+      return;
+    }
+
+    var selectedYear = teamYears.indexOf(String(initialYear)) !== -1 ? String(initialYear) : teamYears[0];
+
+    var yearOptions = teamYears.map(function (y) {
+      return '<option value="' + y + '"' + (y === selectedYear ? ' selected' : '') + '>' + y + '</option>';
+    }).join('');
+
+    root.innerHTML =
+      '<div class="team-detail-header">' +
+        '<button class="team-back-btn" id="team-back-btn">&#8592; Back</button>' +
+        '<span class="team-detail-title" id="team-detail-name">' + (namesByYear[selectedYear] || teamID) + '</span>' +
+      '</div>' +
+      '<div class="controls" style="margin-bottom:1.5rem;">' +
+        '<select id="team-year-select" class="year-select">' + yearOptions + '</select>' +
+        '<select id="team-view-select" class="year-select">' +
+          '<option value="roster">Roster</option>' +
+        '</select>' +
+      '</div>' +
+      '<div id="team-content"></div>';
+
+    document.getElementById('team-back-btn').addEventListener('click', function () {
+      window.dispatchEvent(new CustomEvent('navigate-teams'));
+    });
+
+    var yearSelect = document.getElementById('team-year-select');
+    var nameEl     = document.getElementById('team-detail-name');
+    var content    = document.getElementById('team-content');
+
+    yearSelect.addEventListener('change', function () {
+      var y = yearSelect.value;
+      nameEl.textContent = namesByYear[y] || teamID;
+      loadYearData(teamID, y, content);
+    });
+
+    loadYearData(teamID, selectedYear, content);
+  };
+})();
+</script>
