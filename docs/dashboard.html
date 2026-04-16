@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 UFA Games Dashboard</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      margin: 32px 0 16px 0;
+      color: #222;
+    }
+    .games-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      padding: 24px;
+    }
+    .game-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      width: 320px;
+      padding: 24px 16px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .start-time {
+      font-size: 1.1em;
+      font-weight: bold;
+      margin-bottom: 18px;
+      color: #444;
+    }
+    .teams {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .team-card {
+      flex: 1;
+      background: #eee;
+      border-radius: 8px;
+      padding: 12px 8px;
+      text-align: center;
+      font-size: 1em;
+      font-weight: 500;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: background 0.2s;
+    }
+    .team-card.winner {
+      background: #d4f7d4;
+      color: #217a21;
+    }
+    .team-card.loser {
+      background: #ffd6d6;
+      color: #b22222;
+    }
+    .team-card.tie {
+      background: #e0e0e0;
+      color: #555;
+    }
+    .score {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-top: 6px;
+    }
+    .status {
+      margin-top: 10px;
+      font-size: 0.95em;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <h1>2026 UFA Games Dashboard</h1>
+  <div class="games-container" id="games"></div>
+  <script>
+    // Team info for 2026 (abbrev lookup)
+    const teams = {
+      "alleycats": { name: "AlleyCats", abbrev: "IND" },
+      "apex": { name: "Apex", abbrev: "COL" },
+      "bighorns": { name: "Bighorns", abbrev: "LV" },
+      "breeze": { name: "Breeze", abbrev: "DC" },
+      "flyers": { name: "Flyers", abbrev: "CAR" },
+      "glory": { name: "Glory", abbrev: "BOS" },
+      "havoc": { name: "Havoc", abbrev: "HTX" },
+      "hustle": { name: "Hustle", abbrev: "ATL" },
+      "sol": { name: "Sol", abbrev: "ATX" },
+      // ...add more as needed
+    };
+
+    // Games data (paste from games.json)
+    const games = [
+      { "gameID": "2026-04-25-ATL-ATX", "awayTeamID": "hustle", "homeTeamID": "sol", "awayScore": 0, "homeScore": 0, "status": "Upcoming", "startTimestamp": "2026-04-25T19:00:00-05:00", "startTimezone": "CDT" },
+      { "gameID": "2026-04-24-ATL-HTX", "awayTeamID": "hustle", "homeTeamID": "havoc", "awayScore": 0, "homeScore": 0, "status": "Upcoming", "startTimestamp": "2026-04-24T19:30:00-05:00", "startTimezone": "CDT" },
+      { "gameID": "2026-04-25-DC-BOS", "awayTeamID": "breeze", "homeTeamID": "glory", "awayScore": 0, "homeScore": 0, "status": "Upcoming", "startTimestamp": "2026-04-25T19:00:00-04:00", "startTimezone": "EDT" },
+      { "gameID": "2026-04-25-CAR-LV", "awayTeamID": "flyers", "homeTeamID": "bighorns", "awayScore": 0, "homeScore": 0, "status": "Upcoming", "startTimestamp": "2026-04-25T19:00:00-07:00", "startTimezone": "PDT" },
+      // ...add more games from games.json
+    ];
+
+    function formatTime(ts, tz) {
+      const date = new Date(ts);
+      return date.toLocaleString(undefined, { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZoneName: 'short' });
+    }
+
+    function getTeamInfo(teamID) {
+      return teams[teamID] || { name: teamID, abbrev: teamID.toUpperCase() };
+    }
+
+    function getResultClass(home, away) {
+      if (home > away) return ['winner', 'loser'];
+      if (home < away) return ['loser', 'winner'];
+      return ['tie', 'tie'];
+    }
+
+    function renderGames() {
+      const container = document.getElementById('games');
+      games.forEach(game => {
+        const [homeClass, awayClass] = getResultClass(game.homeScore, game.awayScore);
+        const home = getTeamInfo(game.homeTeamID);
+        const away = getTeamInfo(game.awayTeamID);
+        const card = document.createElement('div');
+        card.className = 'game-card';
+        card.innerHTML = `
+          <div class="start-time">${formatTime(game.startTimestamp, game.startTimezone)}</div>
+          <div class="teams">
+            <div class="team-card ${awayClass}">
+              <div>${away.abbrev}</div>
+              <div>${away.name}</div>
+              <div class="score">${game.awayScore}</div>
+            </div>
+            <div class="team-card ${homeClass}">
+              <div>${home.abbrev}</div>
+              <div>${home.name}</div>
+              <div class="score">${game.homeScore}</div>
+            </div>
+          </div>
+          <div class="status">${game.status}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+    renderGames();
+  </script>
+</body>
+</html>
