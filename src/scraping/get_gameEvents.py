@@ -3,11 +3,14 @@ import os
 import json
 import time
 
+# Set ROOT to the project root directory
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 url = "https://www.backend.ufastats.com/api/v1/gameEvents"
 
-with open("data/games.json") as f:
+games_path = os.path.join(ROOT, "docs", "data", "games.json")
+with open(games_path) as f:
     games = json.load(f)
-
 
 # Collect all game events
 all_game_events = []
@@ -23,7 +26,6 @@ for game in games['data']:
     except Exception as e:
         print(f"[ERROR] Could not parse JSON for gameID {game['gameID']}: {e}")
 
-
 # Group game events by year (extract from gameID or from games.json if available)
 game_events_by_year = {}
 for event in all_game_events:
@@ -35,8 +37,9 @@ for event in all_game_events:
 
 # Save each year's game events to its own folder
 for year, events in game_events_by_year.items():
-    year_dir = os.path.join("data", year)
+    year_dir = os.path.join(ROOT, "docs", "data", year)
     os.makedirs(year_dir, exist_ok=True)
-    with open(os.path.join(year_dir, "game_events.json"), "w") as f:
+    out_path = os.path.join(year_dir, "game_events.json")
+    with open(out_path, "w") as f:
         json.dump(events, f, indent=2)
-    print(f"[INFO] Data saved to {os.path.join(year_dir, 'game_events.json')}")
+    print(f"[INFO] Data saved to {out_path}")

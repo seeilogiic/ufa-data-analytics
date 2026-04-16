@@ -1,7 +1,9 @@
 import requests
 import os
 import json
-import os
+
+# Set ROOT to the project root directory
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 url = "https://www.backend.ufastats.com/api/v1/games"
 parameters = {
@@ -12,7 +14,6 @@ response = requests.get(url, params=parameters)
 
 print(f"[INFO] Status code: {response.status_code}")
 data = response.json()
-
 
 # Group games by year
 games_by_year = {}
@@ -25,9 +26,10 @@ if "data" in data:
 
 # Save each year's games to its own folder
 for year, games in games_by_year.items():
-    year_dir = os.path.join("data", year)
+    year_dir = os.path.join(ROOT, "docs", "data", year)
     os.makedirs(year_dir, exist_ok=True)
     out_data = {"object": "list", "data": games}
-    with open(os.path.join(year_dir, "games.json"), "w") as f:
+    out_path = os.path.join(year_dir, "games.json")
+    with open(out_path, "w") as f:
         json.dump(out_data, f, indent=2)
-    print(f"[INFO] Data saved to {os.path.join(year_dir, 'games.json')}")
+    print(f"[INFO] Data saved to {out_path}")
