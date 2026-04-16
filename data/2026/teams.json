@@ -1,0 +1,357 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "teamID": "alleycats",
+      "year": 2026,
+      "division": {
+        "divisionID": "central",
+        "name": "Central"
+      },
+      "city": "Indianapolis",
+      "name": "AlleyCats",
+      "fullName": "Indianapolis AlleyCats",
+      "abbrev": "IND",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 1
+    },
+    {
+      "teamID": "apex",
+      "year": 2026,
+      "division": {
+        "divisionID": "west",
+        "name": "West"
+      },
+      "city": "Colorado",
+      "name": "Apex",
+      "fullName": "Colorado Apex",
+      "abbrev": "COL",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 3
+    },
+    {
+      "teamID": "bighorns",
+      "year": 2026,
+      "division": {
+        "divisionID": "south",
+        "name": "South"
+      },
+      "city": "Vegas",
+      "name": "Bighorns",
+      "fullName": "Vegas Bighorns",
+      "abbrev": "LV",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 1
+    },
+    {
+      "teamID": "breeze",
+      "year": 2026,
+      "division": {
+        "divisionID": "east",
+        "name": "East"
+      },
+      "city": "DC",
+      "name": "Breeze",
+      "fullName": "DC Breeze",
+      "abbrev": "DC",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 1
+    },
+    {
+      "teamID": "cascades",
+      "year": 2026,
+      "division": {
+        "divisionID": "west",
+        "name": "West"
+      },
+      "city": "Seattle",
+      "name": "Cascades",
+      "fullName": "Seattle Cascades",
+      "abbrev": "SEA",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 2
+    },
+    {
+      "teamID": "empire",
+      "year": 2026,
+      "division": {
+        "divisionID": "east",
+        "name": "East"
+      },
+      "city": "New York",
+      "name": "Empire",
+      "fullName": "New York Empire",
+      "abbrev": "NY",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 4
+    },
+    {
+      "teamID": "flyers",
+      "year": 2026,
+      "division": {
+        "divisionID": "south",
+        "name": "South"
+      },
+      "city": "Carolina",
+      "name": "Flyers",
+      "fullName": "Carolina Flyers",
+      "abbrev": "CAR",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 4
+    },
+    {
+      "teamID": "glory",
+      "year": 2026,
+      "division": {
+        "divisionID": "east",
+        "name": "East"
+      },
+      "city": "Boston",
+      "name": "Glory",
+      "fullName": "Boston Glory",
+      "abbrev": "BOS",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 3
+    },
+    {
+      "teamID": "growlers",
+      "year": 2026,
+      "division": {
+        "divisionID": "south",
+        "name": "South"
+      },
+      "city": "San Diego",
+      "name": "Growlers",
+      "fullName": "San Diego Growlers",
+      "abbrev": "SD",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 3
+    },
+    {
+      "teamID": "havoc",
+      "year": 2026,
+      "division": {
+        "divisionID": "south",
+        "name": "South"
+      },
+      "city": "Houston",
+      "name": "Havoc",
+      "fullName": "Houston Havoc",
+      "abbrev": "HTX",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 2
+    },
+    {
+      "teamID": "hustle",
+      "year": 2026,
+      "division": {
+        "divisionID": "south",
+        "name": "South"
+      },
+      "city": "Atlanta",
+      "name": "Hustle",
+      "fullName": "Atlanta Hustle",
+      "abbrev": "ATL",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 6
+    },
+    {
+      "teamID": "phoenix",
+      "year": 2026,
+      "division": {
+        "divisionID": "east",
+        "name": "East"
+      },
+      "city": "Philadelphia",
+      "name": "Phoenix",
+      "fullName": "Philadelphia Phoenix",
+      "abbrev": "PHI",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 4
+    },
+    {
+      "teamID": "radicals",
+      "year": 2026,
+      "division": {
+        "divisionID": "central",
+        "name": "Central"
+      },
+      "city": "Madison",
+      "name": "Radicals",
+      "fullName": "Madison Radicals",
+      "abbrev": "MAD",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 2
+    },
+    {
+      "teamID": "royal",
+      "year": 2026,
+      "division": {
+        "divisionID": "east",
+        "name": "East"
+      },
+      "city": "Montreal",
+      "name": "Royal",
+      "fullName": "Montreal Royal",
+      "abbrev": "MTL",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 4
+    },
+    {
+      "teamID": "rush",
+      "year": 2026,
+      "division": {
+        "divisionID": "east",
+        "name": "East"
+      },
+      "city": "Toronto",
+      "name": "Rush",
+      "fullName": "Toronto Rush",
+      "abbrev": "TOR",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 2
+    },
+    {
+      "teamID": "shred",
+      "year": 2026,
+      "division": {
+        "divisionID": "west",
+        "name": "West"
+      },
+      "city": "Salt Lake",
+      "name": "Shred",
+      "fullName": "Salt Lake Shred",
+      "abbrev": "SLC",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 4
+    },
+    {
+      "teamID": "sol",
+      "year": 2026,
+      "division": {
+        "divisionID": "south",
+        "name": "South"
+      },
+      "city": "Austin",
+      "name": "Sol",
+      "fullName": "Austin Sol",
+      "abbrev": "ATX",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 5
+    },
+    {
+      "teamID": "spiders",
+      "year": 2026,
+      "division": {
+        "divisionID": "west",
+        "name": "West"
+      },
+      "city": "Oakland",
+      "name": "Spiders",
+      "fullName": "Oakland Spiders",
+      "abbrev": "OAK",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 4
+    },
+    {
+      "teamID": "steel",
+      "year": 2026,
+      "division": {
+        "divisionID": "west",
+        "name": "West"
+      },
+      "city": "Oregon",
+      "name": "Steel",
+      "fullName": "Oregon Steel",
+      "abbrev": "ORE",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 1
+    },
+    {
+      "teamID": "thunderbirds",
+      "year": 2026,
+      "division": {
+        "divisionID": "central",
+        "name": "Central"
+      },
+      "city": "Pittsburgh",
+      "name": "Thunderbirds",
+      "fullName": "Pittsburgh Thunderbirds",
+      "abbrev": "PIT",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 4
+    },
+    {
+      "teamID": "union",
+      "year": 2026,
+      "division": {
+        "divisionID": "central",
+        "name": "Central"
+      },
+      "city": "Chicago",
+      "name": "Union",
+      "fullName": "Chicago Union",
+      "abbrev": "CHI",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 5
+    },
+    {
+      "teamID": "windchill",
+      "year": 2026,
+      "division": {
+        "divisionID": "central",
+        "name": "Central"
+      },
+      "city": "Minnesota",
+      "name": "Wind Chill",
+      "fullName": "Minnesota Wind Chill",
+      "abbrev": "MIN",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 2
+    }
+  ]
+}

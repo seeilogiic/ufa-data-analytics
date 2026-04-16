@@ -1,0 +1,37 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "teamID": "allstars1",
+      "year": 2000,
+      "division": {
+        "divisionID": "east",
+        "name": "East"
+      },
+      "city": "Rowan's",
+      "name": "All-Stars",
+      "fullName": "Rowan's All-Stars",
+      "abbrev": "Rowan",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 1
+    },
+    {
+      "teamID": "allstars2",
+      "year": 2000,
+      "division": {
+        "divisionID": "midwest",
+        "name": "Midwest"
+      },
+      "city": "KPS'",
+      "name": "All-Stars",
+      "fullName": "KPS' All-Stars",
+      "abbrev": "KPS",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "standing": 2
+    }
+  ]
+}

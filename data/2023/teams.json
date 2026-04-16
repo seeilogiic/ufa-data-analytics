@@ -1,0 +1,389 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "teamID": "alleycats",
+      "year": 2023,
+      "division": {
+        "divisionID": "central",
+        "name": "Central"
+      },
+      "city": "Indianapolis",
+      "name": "AlleyCats",
+      "fullName": "Indianapolis AlleyCats",
+      "abbrev": "IND",
+      "wins": 10,
+      "losses": 4,
+      "ties": 0,
+      "standing": 2
+    },
+    {
+      "teamID": "apex",
+      "year": 2023,
+      "division": {
+        "divisionID": "west",
+        "name": "West"
+      },
+      "city": "Colorado",
+      "name": "Apex",
+      "fullName": "Colorado Apex",
+      "abbrev": "COL",
+      "wins": 8,
+      "losses": 5,
+      "ties": 0,
+      "standing": 2
+    },
+    {
+      "teamID": "aviators",
+      "year": 2023,
+      "division": {
+        "divisionID": "west",
+        "name": "West"
+      },
+      "city": "LA",
+      "name": "Aviators",
+      "fullName": "LA Aviators",
+      "abbrev": "LA",
+      "wins": 8,
+      "losses": 6,
+      "ties": 0,
+      "standing": 3
+    },
+    {
+      "teamID": "breeze",
+      "year": 2023,
+      "division": {
+        "divisionID": "east",
+        "name": "East"
+      },
+      "city": "DC",
+      "name": "Breeze",
+      "fullName": "DC Breeze",
+      "abbrev": "DC",
+      "wins": 10,
+      "losses": 4,
+      "ties": 0,
+      "standing": 2
+    },
+    {
+      "teamID": "cascades",
+      "year": 2023,
+      "division": {
+        "divisionID": "west",
+        "name": "West"
+      },
+      "city": "Seattle",
+      "name": "Cascades",
+      "fullName": "Seattle Cascades",
+      "abbrev": "SEA",
+      "wins": 4,
+      "losses": 8,
+      "ties": 0,
+      "standing": 5
+    },
+    {
+      "teamID": "empire",
+      "year": 2023,
+      "division": {
+        "divisionID": "east",
+        "name": "East"
+      },
+      "city": "New York",
+      "name": "Empire",
+      "fullName": "New York Empire",
+      "abbrev": "NY",
+      "wins": 15,
+      "losses": 0,
+      "ties": 0,
+      "standing": 1
+    },
+    {
+      "teamID": "flyers",
+      "year": 2023,
+      "division": {
+        "divisionID": "south",
+        "name": "South"
+      },
+      "city": "Carolina",
+      "name": "Flyers",
+      "fullName": "Carolina Flyers",
+      "abbrev": "CAR",
+      "wins": 7,
+      "losses": 6,
+      "ties": 0,
+      "standing": 3
+    },
+    {
+      "teamID": "glory",
+      "year": 2023,
+      "division": {
+        "divisionID": "east",
+        "name": "East"
+      },
+      "city": "Boston",
+      "name": "Glory",
+      "fullName": "Boston Glory",
+      "abbrev": "BOS",
+      "wins": 7,
+      "losses": 6,
+      "ties": 0,
+      "standing": 3
+    },
+    {
+      "teamID": "growlers",
+      "year": 2023,
+      "division": {
+        "divisionID": "west",
+        "name": "West"
+      },
+      "city": "San Diego",
+      "name": "Growlers",
+      "fullName": "San Diego Growlers",
+      "abbrev": "SD",
+      "wins": 3,
+      "losses": 9,
+      "ties": 0,
+      "standing": 6
+    },
+    {
+      "teamID": "havoc",
+      "year": 2023,
+      "division": {
+        "divisionID": "south",
+        "name": "South"
+      },
+      "city": "Houston",
+      "name": "Havoc",
+      "fullName": "Houston Havoc",
+      "abbrev": "HTX",
+      "wins": 2,
+      "losses": 10,
+      "ties": 0,
+      "standing": 4
+    },
+    {
+      "teamID": "hustle",
+      "year": 2023,
+      "division": {
+        "divisionID": "south",
+        "name": "South"
+      },
+      "city": "Atlanta",
+      "name": "Hustle",
+      "fullName": "Atlanta Hustle",
+      "abbrev": "ATL",
+      "wins": 10,
+      "losses": 3,
+      "ties": 0,
+      "standing": 1
+    },
+    {
+      "teamID": "legion",
+      "year": 2023,
+      "division": {
+        "divisionID": "south",
+        "name": "South"
+      },
+      "city": "Dallas",
+      "name": "Legion",
+      "fullName": "Dallas Legion",
+      "abbrev": "DAL",
+      "wins": 2,
+      "losses": 10,
+      "ties": 0,
+      "standing": 5
+    },
+    {
+      "teamID": "mechanix",
+      "year": 2023,
+      "division": {
+        "divisionID": "central",
+        "name": "Central"
+      },
+      "city": "Detroit",
+      "name": "Mechanix",
+      "fullName": "Detroit Mechanix",
+      "abbrev": "DET",
+      "wins": 0,
+      "losses": 12,
+      "ties": 0,
+      "standing": 6
+    },
+    {
+      "teamID": "phoenix",
+      "year": 2023,
+      "division": {
+        "divisionID": "east",
+        "name": "East"
+      },
+      "city": "Philadelphia",
+      "name": "Phoenix",
+      "fullName": "Philadelphia Phoenix",
+      "abbrev": "PHI",
+      "wins": 6,
+      "losses": 6,
+      "ties": 0,
+      "standing": 4
+    },
+    {
+      "teamID": "radicals",
+      "year": 2023,
+      "division": {
+        "divisionID": "central",
+        "name": "Central"
+      },
+      "city": "Madison",
+      "name": "Radicals",
+      "fullName": "Madison Radicals",
+      "abbrev": "MAD",
+      "wins": 4,
+      "losses": 8,
+      "ties": 0,
+      "standing": 5
+    },
+    {
+      "teamID": "royal",
+      "year": 2023,
+      "division": {
+        "divisionID": "east",
+        "name": "East"
+      },
+      "city": "Montreal",
+      "name": "Royal",
+      "fullName": "Montreal Royal",
+      "abbrev": "MTL",
+      "wins": 0,
+      "losses": 12,
+      "ties": 0,
+      "standing": 6
+    },
+    {
+      "teamID": "rush",
+      "year": 2023,
+      "division": {
+        "divisionID": "east",
+        "name": "East"
+      },
+      "city": "Toronto",
+      "name": "Rush",
+      "fullName": "Toronto Rush",
+      "abbrev": "TOR",
+      "wins": 5,
+      "losses": 7,
+      "ties": 0,
+      "standing": 5
+    },
+    {
+      "teamID": "shred",
+      "year": 2023,
+      "division": {
+        "divisionID": "west",
+        "name": "West"
+      },
+      "city": "Salt Lake",
+      "name": "Shred",
+      "fullName": "Salt Lake Shred",
+      "abbrev": "SLC",
+      "wins": 13,
+      "losses": 2,
+      "ties": 0,
+      "standing": 1
+    },
+    {
+      "teamID": "sol",
+      "year": 2023,
+      "division": {
+        "divisionID": "south",
+        "name": "South"
+      },
+      "city": "Austin",
+      "name": "Sol",
+      "fullName": "Austin Sol",
+      "abbrev": "ATX",
+      "wins": 11,
+      "losses": 4,
+      "ties": 0,
+      "standing": 2
+    },
+    {
+      "teamID": "spiders",
+      "year": 2023,
+      "division": {
+        "divisionID": "west",
+        "name": "West"
+      },
+      "city": "Oakland",
+      "name": "Spiders",
+      "fullName": "Oakland Spiders",
+      "abbrev": "OAK",
+      "wins": 7,
+      "losses": 5,
+      "ties": 0,
+      "standing": 4
+    },
+    {
+      "teamID": "steel",
+      "year": 2023,
+      "division": {
+        "divisionID": "west",
+        "name": "West"
+      },
+      "city": "Oregon",
+      "name": "Steel",
+      "fullName": "Oregon Steel",
+      "abbrev": "POR",
+      "wins": 1,
+      "losses": 11,
+      "ties": 0,
+      "standing": 7
+    },
+    {
+      "teamID": "thunderbirds",
+      "year": 2023,
+      "division": {
+        "divisionID": "central",
+        "name": "Central"
+      },
+      "city": "Pittsburgh",
+      "name": "Thunderbirds",
+      "fullName": "Pittsburgh Thunderbirds",
+      "abbrev": "PIT",
+      "wins": 5,
+      "losses": 7,
+      "ties": 0,
+      "standing": 4
+    },
+    {
+      "teamID": "union",
+      "year": 2023,
+      "division": {
+        "divisionID": "central",
+        "name": "Central"
+      },
+      "city": "Chicago",
+      "name": "Union",
+      "fullName": "Chicago Union",
+      "abbrev": "CHI",
+      "wins": 6,
+      "losses": 7,
+      "ties": 0,
+      "standing": 3
+    },
+    {
+      "teamID": "windchill",
+      "year": 2023,
+      "division": {
+        "divisionID": "central",
+        "name": "Central"
+      },
+      "city": "Minnesota",
+      "name": "Wind Chill",
+      "fullName": "Minnesota Wind Chill",
+      "abbrev": "MIN",
+      "wins": 11,
+      "losses": 3,
+      "ties": 0,
+      "standing": 1
+    }
+  ]
+}

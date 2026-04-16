@@ -1,0 +1,133 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "teamID": "alleycats",
+      "year": 2012,
+      "division": {
+        "divisionID": "midwest",
+        "name": "Midwest"
+      },
+      "city": "Indianapolis",
+      "name": "AlleyCats",
+      "fullName": "Indianapolis AlleyCats",
+      "abbrev": "IND",
+      "wins": 8,
+      "losses": 8,
+      "ties": 0,
+      "standing": 1
+    },
+    {
+      "teamID": "constitution",
+      "year": 2012,
+      "division": {
+        "divisionID": "east",
+        "name": "East"
+      },
+      "city": "Connecticut",
+      "name": "Constitution",
+      "fullName": "Connecticut Constitution",
+      "abbrev": "CON",
+      "wins": 8,
+      "losses": 4,
+      "ties": 0,
+      "standing": 3
+    },
+    {
+      "teamID": "cranes",
+      "year": 2012,
+      "division": {
+        "divisionID": "midwest",
+        "name": "Midwest"
+      },
+      "city": "Columbus",
+      "name": "Cranes",
+      "fullName": "Columbus Cranes",
+      "abbrev": "CLB",
+      "wins": 7,
+      "losses": 9,
+      "ties": 0,
+      "standing": 3
+    },
+    {
+      "teamID": "dragons",
+      "year": 2012,
+      "division": {
+        "divisionID": "east",
+        "name": "East"
+      },
+      "city": "Rochester",
+      "name": "Dragons",
+      "fullName": "Rochester Dragons",
+      "abbrev": "ROC",
+      "wins": 3,
+      "losses": 12,
+      "ties": 0,
+      "standing": 4
+    },
+    {
+      "teamID": "mechanix",
+      "year": 2012,
+      "division": {
+        "divisionID": "midwest",
+        "name": "Midwest"
+      },
+      "city": "Detroit",
+      "name": "Mechanix",
+      "fullName": "Detroit Mechanix",
+      "abbrev": "DET",
+      "wins": 6,
+      "losses": 9,
+      "ties": 0,
+      "standing": 4
+    },
+    {
+      "teamID": "rampage",
+      "year": 2012,
+      "division": {
+        "divisionID": "east",
+        "name": "East"
+      },
+      "city": "Rhode Island",
+      "name": "Rampage",
+      "fullName": "Rhode Island Rampage",
+      "abbrev": "RIR",
+      "wins": 6,
+      "losses": 9,
+      "ties": 0,
+      "standing": 2
+    },
+    {
+      "teamID": "revolution",
+      "year": 2012,
+      "division": {
+        "divisionID": "midwest",
+        "name": "Midwest"
+      },
+      "city": "Cincinnati",
+      "name": "Revolution",
+      "fullName": "Cincinnati Revolution",
+      "abbrev": "CIN",
+      "wins": 8,
+      "losses": 8,
+      "ties": 0,
+      "standing": 2
+    },
+    {
+      "teamID": "spinners",
+      "year": 2012,
+      "division": {
+        "divisionID": "east",
+        "name": "East"
+      },
+      "city": "Philadelphia",
+      "name": "Spinners",
+      "fullName": "Philadelphia Spinners",
+      "abbrev": "PHS",
+      "wins": 15,
+      "losses": 2,
+      "ties": 0,
+      "standing": 1
+    }
+  ]
+}

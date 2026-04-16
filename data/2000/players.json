@@ -1,0 +1,2138 @@
+{
+  "object": "list",
+  "data": [
+    {
+      "playerID": "aarsenaul1",
+      "firstName": "Alec",
+      "lastName": "Arsenault",
+      "teams": [
+        {
+          "teamID": "allstars1",
+          "active": false,
+          "year": 2022,
+          "jerseyNumber": "22"
+        },
+        {
+          "teamID": "outlaws",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "22"
+        },
+        {
+          "teamID": "outlaws",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "22"
+        },
+        {
+          "teamID": "outlaws",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "22"
+        },
+        {
+          "teamID": "outlaws",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "22"
+        },
+        {
+          "teamID": "outlaws",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "22"
+        },
+        {
+          "teamID": "outlaws",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "22"
+        },
+        {
+          "teamID": "outlaws",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "22"
+        },
+        {
+          "teamID": "allstars2",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "adavis2",
+      "firstName": "Antoine",
+      "lastName": "Davis",
+      "teams": [
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2026,
+          "jerseyNumber": "81"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2025,
+          "jerseyNumber": "81"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "81"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "81"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "81"
+        },
+        {
+          "teamID": "hustle",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "spiders",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "23"
+        },
+        {
+          "teamID": "flamethrowers",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "23"
+        },
+        {
+          "teamID": "flamethrowers",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "23"
+        },
+        {
+          "teamID": "breeze",
+          "active": false,
+          "year": 2015,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "allstars2",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "aroney",
+      "firstName": "Andrew",
+      "lastName": "Roney",
+      "teams": [
+        {
+          "teamID": "cannons",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "3"
+        },
+        {
+          "teamID": "cannons",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "3"
+        },
+        {
+          "teamID": "cannons",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "3"
+        },
+        {
+          "teamID": "cannons",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "cannons",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "allstars2",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "aweaver",
+      "firstName": "Aaron",
+      "lastName": "Weaver",
+      "teams": [
+        {
+          "teamID": "aviators",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "18"
+        },
+        {
+          "teamID": "aviators",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "18"
+        },
+        {
+          "teamID": "aviators",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "18"
+        },
+        {
+          "teamID": "aviators",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "18"
+        },
+        {
+          "teamID": "aviators",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "18"
+        },
+        {
+          "teamID": "allstars2",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "bjagt",
+      "firstName": "Ben",
+      "lastName": "Jagt",
+      "teams": [
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2026,
+          "jerseyNumber": "4"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2025,
+          "jerseyNumber": "4"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "4"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "4"
+        },
+        {
+          "teamID": "allstars1",
+          "active": false,
+          "year": 2022,
+          "jerseyNumber": "4"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "4"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "4"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "69"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "69"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "88"
+        },
+        {
+          "teamID": "windchill",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "4"
+        },
+        {
+          "teamID": "windchill",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "4"
+        },
+        {
+          "teamID": "windchill",
+          "active": false,
+          "year": 2014,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "allstars2",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "bkatz1",
+      "firstName": "Ben",
+      "lastName": "Katz",
+      "teams": [
+        {
+          "teamID": "glory",
+          "active": true,
+          "year": 2025,
+          "jerseyNumber": "28"
+        },
+        {
+          "teamID": "glory",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "28"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "28"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "28"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "28"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "28"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "28"
+        },
+        {
+          "teamID": "royal",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "28"
+        },
+        {
+          "teamID": "allstars1",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "bkittredg",
+      "firstName": "Beau",
+      "lastName": "Kittredge",
+      "teams": [
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "50"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "50"
+        },
+        {
+          "teamID": "flamethrowers",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "50"
+        },
+        {
+          "teamID": "legion",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "50"
+        },
+        {
+          "teamID": "spiders",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "50"
+        },
+        {
+          "teamID": "spiders",
+          "active": false,
+          "year": 2014,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "allstars1",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "bvohnoutk",
+      "firstName": "Bryan",
+      "lastName": "Vohnoutka",
+      "teams": [
+        {
+          "teamID": "windchill",
+          "active": true,
+          "year": 2026,
+          "jerseyNumber": "3"
+        },
+        {
+          "teamID": "windchill",
+          "active": true,
+          "year": 2025,
+          "jerseyNumber": "3"
+        },
+        {
+          "teamID": "windchill",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "3"
+        },
+        {
+          "teamID": "windchill",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "3"
+        },
+        {
+          "teamID": "windchill",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "3"
+        },
+        {
+          "teamID": "windchill",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "3"
+        },
+        {
+          "teamID": "windchill",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "3"
+        },
+        {
+          "teamID": "windchill",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "3"
+        },
+        {
+          "teamID": "windchill",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "3"
+        },
+        {
+          "teamID": "windchill",
+          "active": false,
+          "year": 2016,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "windchill",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "33"
+        },
+        {
+          "teamID": "allstars1",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "ccamp",
+      "firstName": "Colin",
+      "lastName": "Camp",
+      "teams": [
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "32"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "32"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "32"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "32"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "32"
+        },
+        {
+          "teamID": "allstars1",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "charris",
+      "firstName": "Cameron",
+      "lastName": "Harris",
+      "teams": [
+        {
+          "teamID": "rush",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "91"
+        },
+        {
+          "teamID": "rush",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "91"
+        },
+        {
+          "teamID": "rush",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "91"
+        },
+        {
+          "teamID": "rush",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "91"
+        },
+        {
+          "teamID": "rush",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "91"
+        },
+        {
+          "teamID": "rush",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "91"
+        },
+        {
+          "teamID": "rush",
+          "active": false,
+          "year": 2014,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "rush",
+          "active": false,
+          "year": 2013,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "allstars1",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "drowan",
+      "firstName": "Dan",
+      "lastName": "Rowan",
+      "teams": [
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "23"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "23"
+        },
+        {
+          "teamID": "radicals",
+          "active": false,
+          "year": 2014,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "allstars1",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "hfisher",
+      "firstName": "Henry",
+      "lastName": "Fisher",
+      "teams": [
+        {
+          "teamID": "flyers",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "3"
+        },
+        {
+          "teamID": "flyers",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "99"
+        },
+        {
+          "teamID": "flyers",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "10"
+        },
+        {
+          "teamID": "flyers",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "10"
+        },
+        {
+          "teamID": "flyers",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "10"
+        },
+        {
+          "teamID": "allstars2",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "jbabbitt",
+      "firstName": "Jeff",
+      "lastName": "Babbitt",
+      "teams": [
+        {
+          "teamID": "glory",
+          "active": true,
+          "year": 2026,
+          "jerseyNumber": "87"
+        },
+        {
+          "teamID": "glory",
+          "active": true,
+          "year": 2025,
+          "jerseyNumber": "87"
+        },
+        {
+          "teamID": "glory",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "87"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "87"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "87"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "87"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "87"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "87"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "87"
+        },
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "87"
+        },
+        {
+          "teamID": "allstars2",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "jcubitt",
+      "firstName": "Joseph",
+      "lastName": "Cubitt",
+      "teams": [
+        {
+          "teamID": "alleycats",
+          "active": true,
+          "year": 2026,
+          "jerseyNumber": "51"
+        },
+        {
+          "teamID": "mechanix",
+          "active": true,
+          "year": 2025,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "mechanix",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "mechanix",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "mechanix",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "mechanix",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "allstars2",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "jfairfax",
+      "firstName": "Jacob",
+      "lastName": "Fairfax",
+      "teams": [
+        {
+          "teamID": "flyers",
+          "active": true,
+          "year": 2026,
+          "jerseyNumber": "20"
+        },
+        {
+          "teamID": "flyers",
+          "active": true,
+          "year": 2025,
+          "jerseyNumber": "20"
+        },
+        {
+          "teamID": "flyers",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "20"
+        },
+        {
+          "teamID": "flyers",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "20"
+        },
+        {
+          "teamID": "flyers",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "20"
+        },
+        {
+          "teamID": "flyers",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "20"
+        },
+        {
+          "teamID": "flyers",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "20"
+        },
+        {
+          "teamID": "flyers",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "20"
+        },
+        {
+          "teamID": "flyers",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "20"
+        },
+        {
+          "teamID": "express",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "10"
+        },
+        {
+          "teamID": "allstars1",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "jfroude",
+      "firstName": "Jay",
+      "lastName": "Froude",
+      "teams": [
+        {
+          "teamID": "apex",
+          "active": true,
+          "year": 2026,
+          "jerseyNumber": "2"
+        },
+        {
+          "teamID": "apex",
+          "active": true,
+          "year": 2025,
+          "jerseyNumber": "2"
+        },
+        {
+          "teamID": "apex",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "2"
+        },
+        {
+          "teamID": "apex",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "2"
+        },
+        {
+          "teamID": "apex",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "2"
+        },
+        {
+          "teamID": "legion",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "5"
+        },
+        {
+          "teamID": "legion",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "5"
+        },
+        {
+          "teamID": "legion",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "5"
+        },
+        {
+          "teamID": "legion",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "5"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "5"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "5"
+        },
+        {
+          "teamID": "allstars1",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "jhelton",
+      "firstName": "Jonathan",
+      "lastName": "Helton",
+      "teams": [
+        {
+          "teamID": "allstars2",
+          "active": false,
+          "year": 2022,
+          "jerseyNumber": "00"
+        },
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "00"
+        },
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "00"
+        },
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "00"
+        },
+        {
+          "teamID": "flyers",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "00"
+        },
+        {
+          "teamID": "flyers",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "00"
+        },
+        {
+          "teamID": "breeze",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "00"
+        },
+        {
+          "teamID": "union",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "0"
+        },
+        {
+          "teamID": "union",
+          "active": false,
+          "year": 2014,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "union",
+          "active": false,
+          "year": 2013,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "alleycats",
+          "active": false,
+          "year": 2012,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "allstars2",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "jjimenez",
+      "firstName": "Joc",
+      "lastName": "Jimenez",
+      "teams": [
+        {
+          "teamID": "aviators",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "56"
+        },
+        {
+          "teamID": "allstars1",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "kbrown",
+      "firstName": "Kevin",
+      "lastName": "Brown",
+      "teams": [
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "92"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "92"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "92"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "92"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "92"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "92"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "92"
+        },
+        {
+          "teamID": "radicals",
+          "active": false,
+          "year": 2014,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "radicals",
+          "active": false,
+          "year": 2013,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "allstars2",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "kelsalaam",
+      "firstName": "Khalif",
+      "lastName": "El-Salaam",
+      "teams": [
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2026,
+          "jerseyNumber": "99"
+        },
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2025,
+          "jerseyNumber": "99"
+        },
+        {
+          "teamID": "cascades",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "99"
+        },
+        {
+          "teamID": "cascades",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "99"
+        },
+        {
+          "teamID": "hustle",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "31"
+        },
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "99"
+        },
+        {
+          "teamID": "cascades",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "99"
+        },
+        {
+          "teamID": "cascades",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "99"
+        },
+        {
+          "teamID": "allstars1",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "khenke",
+      "firstName": "Kyle",
+      "lastName": "Henke",
+      "teams": [
+        {
+          "teamID": "sol",
+          "active": true,
+          "year": 2026,
+          "jerseyNumber": "23"
+        },
+        {
+          "teamID": "sol",
+          "active": true,
+          "year": 2025,
+          "jerseyNumber": "23"
+        },
+        {
+          "teamID": "sol",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "23"
+        },
+        {
+          "teamID": "sol",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "23"
+        },
+        {
+          "teamID": "sol",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "23"
+        },
+        {
+          "teamID": "legion",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "24"
+        },
+        {
+          "teamID": "sol",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "23"
+        },
+        {
+          "teamID": "sol",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "23"
+        },
+        {
+          "teamID": "sol",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "23"
+        },
+        {
+          "teamID": "allstars2",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "kpettitsc",
+      "firstName": "Kevin",
+      "lastName": "Pettit-Scantling",
+      "teams": [
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "allstars1",
+          "active": false,
+          "year": 2022,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "radicals",
+          "active": false,
+          "year": 2014,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "radicals",
+          "active": false,
+          "year": 2013,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "allstars2",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "mmcdonnel",
+      "firstName": "Rowan",
+      "lastName": "McDonnell",
+      "teams": [
+        {
+          "teamID": "breeze",
+          "active": true,
+          "year": 2025,
+          "jerseyNumber": "12"
+        },
+        {
+          "teamID": "breeze",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "12"
+        },
+        {
+          "teamID": "breeze",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "12"
+        },
+        {
+          "teamID": "allstars1",
+          "active": false,
+          "year": 2022,
+          "jerseyNumber": "12"
+        },
+        {
+          "teamID": "breeze",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "12"
+        },
+        {
+          "teamID": "breeze",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "28"
+        },
+        {
+          "teamID": "breeze",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "21"
+        },
+        {
+          "teamID": "breeze",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "28"
+        },
+        {
+          "teamID": "breeze",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "28"
+        },
+        {
+          "teamID": "breeze",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "28"
+        },
+        {
+          "teamID": "allstars1",
+          "active": false,
+          "year": 2000,
+          "jerseyNumber": ""
+        }
+      ]
+    },
+    {
+      "playerID": "msheppard",
+      "firstName": "Max",
+      "lastName": "Sheppard",
+      "teams": [
+        {
+          "teamID": "empire",
+          "active": true,
+          "year": 2025,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "thunderbirds",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "thunderbirds",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "allstars1",
+          "active": false,
+          "year": 2022,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "thunderbirds",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "thunderbirds",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "thunderbirds",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "thunderbirds",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "thunderbirds",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "thunderbirds",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "thunderbirds",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "1"
+        },
+        {
+          "teamID": "allstars2",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "msmith",
+      "firstName": "Matt",
+      "lastName": "Smith",
+      "teams": [
+        {
+          "teamID": "hustle",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "12"
+        },
+        {
+          "teamID": "hustle",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "12"
+        },
+        {
+          "teamID": "hustle",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "12"
+        },
+        {
+          "teamID": "hustle",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "12"
+        },
+        {
+          "teamID": "hustle",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "12"
+        },
+        {
+          "teamID": "hustle",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "12"
+        },
+        {
+          "teamID": "hustle",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "8"
+        },
+        {
+          "teamID": "hustle",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "8"
+        },
+        {
+          "teamID": "hustle",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "26"
+        },
+        {
+          "teamID": "rampage",
+          "active": false,
+          "year": 2012,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "allstars1",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "pgraffy",
+      "firstName": "Peter",
+      "lastName": "Graffy",
+      "teams": [
+        {
+          "teamID": "union",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "26"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "26"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "26"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "26"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "26"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "26"
+        },
+        {
+          "teamID": "radicals",
+          "active": false,
+          "year": 2014,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "allstars1",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "pjanas",
+      "firstName": "Pawel",
+      "lastName": "Janas",
+      "teams": [
+        {
+          "teamID": "union",
+          "active": true,
+          "year": 2026,
+          "jerseyNumber": "55"
+        },
+        {
+          "teamID": "union",
+          "active": true,
+          "year": 2025,
+          "jerseyNumber": "55"
+        },
+        {
+          "teamID": "aviators",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "55"
+        },
+        {
+          "teamID": "aviators",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "55"
+        },
+        {
+          "teamID": "union",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "55"
+        },
+        {
+          "teamID": "union",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "55"
+        },
+        {
+          "teamID": "union",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "55"
+        },
+        {
+          "teamID": "union",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "55"
+        },
+        {
+          "teamID": "union",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "55"
+        },
+        {
+          "teamID": "allstars2",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "pshriwise",
+      "firstName": "Pat",
+      "lastName": "Shriwise",
+      "teams": [
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "42"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "42"
+        },
+        {
+          "teamID": "union",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "4"
+        },
+        {
+          "teamID": "union",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "4"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "4"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "4"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "4"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "4"
+        },
+        {
+          "teamID": "radicals",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "4"
+        },
+        {
+          "teamID": "radicals",
+          "active": false,
+          "year": 2014,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "radicals",
+          "active": false,
+          "year": 2013,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "allstars1",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "qbonnaud",
+      "firstName": "Quentin",
+      "lastName": "Bonnaud",
+      "teams": [
+        {
+          "teamID": "royal",
+          "active": true,
+          "year": 2026,
+          "jerseyNumber": "44"
+        },
+        {
+          "teamID": "royal",
+          "active": true,
+          "year": 2025,
+          "jerseyNumber": "44"
+        },
+        {
+          "teamID": "royal",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "44"
+        },
+        {
+          "teamID": "allstars2",
+          "active": false,
+          "year": 2022,
+          "jerseyNumber": "44"
+        },
+        {
+          "teamID": "royal",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "44"
+        },
+        {
+          "teamID": "royal",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "44"
+        },
+        {
+          "teamID": "royal",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "44"
+        },
+        {
+          "teamID": "royal",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "44"
+        },
+        {
+          "teamID": "royal",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "44"
+        },
+        {
+          "teamID": "allstars1",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "rgross",
+      "firstName": "Rick",
+      "lastName": "Gross",
+      "teams": [
+        {
+          "teamID": "alleycats",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "2"
+        },
+        {
+          "teamID": "alleycats",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "2"
+        },
+        {
+          "teamID": "alleycats",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "2"
+        },
+        {
+          "teamID": "alleycats",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "2"
+        },
+        {
+          "teamID": "alleycats",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "2"
+        },
+        {
+          "teamID": "alleycats",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "2"
+        },
+        {
+          "teamID": "alleycats",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "2"
+        },
+        {
+          "teamID": "alleycats",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "2"
+        },
+        {
+          "teamID": "alleycats",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "2"
+        },
+        {
+          "teamID": "alleycats",
+          "active": false,
+          "year": 2014,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "allstars2",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "smcdougal",
+      "firstName": "Sean",
+      "lastName": "McDougall",
+      "teams": [
+        {
+          "teamID": "aviators",
+          "active": true,
+          "year": 2025,
+          "jerseyNumber": "10"
+        },
+        {
+          "teamID": "aviators",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "10"
+        },
+        {
+          "teamID": "aviators",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "10"
+        },
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "10"
+        },
+        {
+          "teamID": "aviators",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "10"
+        },
+        {
+          "teamID": "aviators",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "10"
+        },
+        {
+          "teamID": "aviators",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "10"
+        },
+        {
+          "teamID": "aviators",
+          "active": false,
+          "year": 2017,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "aviators",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "10"
+        },
+        {
+          "teamID": "aviators",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "10"
+        },
+        {
+          "teamID": "allstars2",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "smott",
+      "firstName": "Sean",
+      "lastName": "Mott",
+      "teams": [
+        {
+          "teamID": "breeze",
+          "active": true,
+          "year": 2026,
+          "jerseyNumber": "81"
+        },
+        {
+          "teamID": "phoenix",
+          "active": true,
+          "year": 2025,
+          "jerseyNumber": "81"
+        },
+        {
+          "teamID": "phoenix",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "81"
+        },
+        {
+          "teamID": "phoenix",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "81"
+        },
+        {
+          "teamID": "allstars1",
+          "active": false,
+          "year": 2022,
+          "jerseyNumber": "81"
+        },
+        {
+          "teamID": "phoenix",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "81"
+        },
+        {
+          "teamID": "phoenix",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "81"
+        },
+        {
+          "teamID": "phoenix",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "81"
+        },
+        {
+          "teamID": "phoenix",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "81"
+        },
+        {
+          "teamID": "phoenix",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "81"
+        },
+        {
+          "teamID": "phoenix",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "81"
+        },
+        {
+          "teamID": "phoenix",
+          "active": false,
+          "year": 2014,
+          "jerseyNumber": ""
+        },
+        {
+          "teamID": "allstars1",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    },
+    {
+      "playerID": "tdunn",
+      "firstName": "Travis",
+      "lastName": "Dunn",
+      "teams": [
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2026,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2025,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2024,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2023,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2022,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2021,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2019,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2018,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2017,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2016,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "growlers",
+          "active": true,
+          "year": 2015,
+          "jerseyNumber": "80"
+        },
+        {
+          "teamID": "allstars1",
+          "active": true,
+          "year": 2000,
+          "jerseyNumber": null
+        }
+      ]
+    }
+  ]
+}
