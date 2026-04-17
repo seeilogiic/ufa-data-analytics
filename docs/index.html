@@ -137,11 +137,15 @@
       </section>
 
       <section id="view-players" class="hidden">
-        <div class="empty-state">Players stats coming soon.</div>
+        <div id="players-include"></div>
       </section>
 
       <section id="view-team" class="hidden">
         <div id="team-include"></div>
+      </section>
+
+      <section id="view-player" class="hidden">
+        <div id="player-include"></div>
       </section>
     </main>
 
@@ -165,6 +169,9 @@
 
       // Back from team detail → teams
       window.addEventListener('navigate-teams', () => showView('view-teams'));
+
+      // Back from player detail → players
+      window.addEventListener('navigate-players', () => showView('view-players'));
 
       // ── Load teams.html fragment into the teams view and execute its scripts ──
       async function includeTeamsFragment() {
@@ -206,6 +213,41 @@
       }
 
       includeTeamsFragment();
+
+      // ── Load players.html fragment ────────────────────────────
+      async function includePlayersFragment() {
+        const container = document.getElementById('players-include');
+        if (!container) return;
+        try {
+          const res = await fetch('players.html');
+          if (!res.ok) throw new Error(`HTTP ${res.status} loading players.html`);
+          const html = await res.text();
+          const tmp = document.createElement('div');
+          tmp.innerHTML = html;
+          Array.from(tmp.childNodes).forEach(node => {
+            if (node.nodeName.toLowerCase() !== 'script') container.appendChild(node.cloneNode(true));
+          });
+          const scripts = tmp.querySelectorAll('script');
+          for (const s of scripts) {
+            const newScript = document.createElement('script');
+            if (s.src) {
+              newScript.src = s.src;
+              await new Promise((resolve, reject) => {
+                newScript.onload = resolve; newScript.onerror = reject;
+                document.body.appendChild(newScript);
+              });
+            } else {
+              newScript.textContent = s.textContent;
+              document.body.appendChild(newScript);
+            }
+          }
+        } catch (err) {
+          const c = document.getElementById('players-include');
+          if (c) c.innerHTML = `<div class="error-msg">Failed to load players fragment: ${err.message}</div>`;
+        }
+      }
+
+      includePlayersFragment();
 
       // ── Load team.html fragment (team detail) ──────────────────
       async function includeTeamFragment() {
@@ -249,7 +291,51 @@
         }
       });
 
+      // ── Navigate to player detail ──────────────────────────────
+      window.addEventListener('navigate-player', e => {
+        const { playerID } = e.detail;
+        showView('view-player');
+        if (typeof window._initPlayerPage === 'function') {
+          window._initPlayerPage(playerID);
+        }
+      });
+
       includeTeamFragment();
+
+      // ── Load player.html fragment ──────────────────────────────
+      async function includePlayerFragment() {
+        const container = document.getElementById('player-include');
+        if (!container) return;
+        try {
+          const res = await fetch('player.html');
+          if (!res.ok) throw new Error(`HTTP ${res.status} loading player.html`);
+          const html = await res.text();
+          const tmp = document.createElement('div');
+          tmp.innerHTML = html;
+          Array.from(tmp.childNodes).forEach(node => {
+            if (node.nodeName.toLowerCase() !== 'script') container.appendChild(node.cloneNode(true));
+          });
+          const scripts = tmp.querySelectorAll('script');
+          for (const s of scripts) {
+            const newScript = document.createElement('script');
+            if (s.src) {
+              newScript.src = s.src;
+              await new Promise((resolve, reject) => {
+                newScript.onload = resolve; newScript.onerror = reject;
+                document.body.appendChild(newScript);
+              });
+            } else {
+              newScript.textContent = s.textContent;
+              document.body.appendChild(newScript);
+            }
+          }
+        } catch (err) {
+          const c = document.getElementById('player-include');
+          if (c) c.innerHTML = `<div class="error-msg">Failed to load player fragment: ${err.message}</div>`;
+        }
+      }
+
+      includePlayerFragment();
     </script>
   </body>
   </html>

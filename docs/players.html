@@ -1,0 +1,268 @@
+<style>
+  /* ── Players Table ── */
+  .players-wrapper {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .players-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  .players-table thead th {
+    padding: 8px 10px;
+    text-align: right;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s, background 0.15s;
+  }
+  .players-table thead th:hover { color: var(--text); background: var(--surface-2); }
+  .players-table thead th.col-player { text-align: left; padding-left: 14px; }
+  .players-table thead th.col-team   { text-align: left; }
+  .players-table thead th.col-rank   { text-align: left; padding-left: 14px; cursor: default; }
+  .players-table thead th.col-rank:hover { color: var(--text-muted); background: none; }
+  .players-table thead th.sort-active { color: var(--accent); }
+  .players-table tbody td {
+    padding: 8px 10px;
+    text-align: right;
+    border-bottom: 1px solid rgba(45, 49, 72, 0.6);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    color: var(--text);
+  }
+  .players-table tbody td.col-player { text-align: left; padding-left: 14px; font-weight: 500; }
+  .players-table tbody td.col-team   { text-align: left; }
+  .players-table tbody td.col-rank   { text-align: left; padding-left: 14px; color: var(--text-muted); font-size: 0.8rem; }
+  .players-table tbody tr:last-child td { border-bottom: none; }
+  .players-sort-ind { display: inline-block; margin-left: 3px; font-size: 0.65rem; }
+  .player-link-btn {
+    background: none;
+    border: none;
+    color: var(--accent);
+    cursor: pointer;
+    font-size: inherit;
+    font-weight: 500;
+    padding: 0;
+    text-align: left;
+    transition: color 0.15s;
+  }
+  .player-link-btn:hover { color: var(--text); text-decoration: underline; }
+</style>
+
+<div class="controls">
+  <select id="players-year-select" class="year-select">
+    <option value="2026">2026</option>
+    <option value="2025" selected>2025</option>
+    <option value="2024">2024</option>
+    <option value="2023">2023</option>
+    <option value="2022">2022</option>
+    <option value="2021">2021</option>
+  </select>
+</div>
+<div id="players-content"></div>
+
+<script>
+(function () {
+  function fetchJSON(path) {
+    return fetch(path).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status + ' \u2014 ' + path);
+      return r.json();
+    });
+  }
+
+  var currentYear = '2025';
+
+  var cols = [
+    { key: 'rank',   label: '#',      rank:   true, left: true },
+    { key: 'name',   label: 'Player', player: true, left: true,  sortable: true },
+    { key: 'team',   label: 'Team',   team:   true, left: true,  sortable: true },
+    { key: 'gp',     label: 'GP',     sortable: true },
+    { key: 'op',     label: 'OP',     sortable: true },
+    { key: 'dp',     label: 'DP',     sortable: true },
+    { key: 'g',      label: 'G',      sortable: true },
+    { key: 'a',      label: 'A',      sortable: true },
+    { key: 'b',      label: 'B',      sortable: true },
+    { key: 't',      label: 'T',      sortable: true },
+    { key: 'rec',    label: 'Rec',    sortable: true },
+    { key: 'pas',    label: 'Pas',    sortable: true },
+  ];
+
+  function colClass(c) {
+    if (c.rank)   return 'col-rank';
+    if (c.player) return 'col-player';
+    if (c.team)   return 'col-team';
+    return '';
+  }
+
+  function renderPlayersTable(container, rows) {
+    var sortCol = 'name', sortDir = 1;
+
+    container.innerHTML =
+      '<div class="players-wrapper">' +
+        '<table class="players-table">' +
+          '<thead><tr>' +
+            cols.map(function (c) {
+              var cls = colClass(c);
+              return '<th' +
+                (c.sortable ? ' data-col="' + c.key + '"' : '') +
+                (cls        ? ' class="' + cls + '"'        : '') + '>' +
+                c.label +
+                (c.sortable ? '<span class="players-sort-ind"></span>' : '') +
+                '</th>';
+            }).join('') +
+          '</tr></thead>' +
+          '<tbody></tbody>' +
+        '</table>' +
+      '</div>';
+
+    var tbody = container.querySelector('tbody');
+    var ths   = container.querySelectorAll('thead th[data-col]');
+
+    function renderRows() {
+      var sorted = rows.slice().sort(function (a, b) {
+        var av = a[sortCol], bv = b[sortCol];
+        if (typeof av === 'string') return sortDir * av.localeCompare(bv);
+        if (av == null && bv == null) return 0;
+        if (av == null) return 1;
+        if (bv == null) return -1;
+        return sortDir * (av - bv);
+      });
+
+      tbody.innerHTML = sorted.map(function (row, i) {
+        return '<tr>' + cols.map(function (c) {
+          if (c.rank) {
+            return '<td class="col-rank">' + (i + 1) + '</td>';
+          }
+          if (c.player) {
+            return '<td class="col-player"><button class="player-link-btn" data-playerid="' + row.playerID + '">' + row[c.key] + '</button></td>';
+          }
+          if (c.team) {
+            return '<td class="col-team">' +
+              '<button class="team-link-btn" data-teamid="' + row.teamID + '">' +
+                row[c.key] +
+              '</button>' +
+            '</td>';
+          }
+          var val = row[c.key];
+          return '<td>' + (val != null ? val : '\u2014') + '</td>';
+        }).join('') + '</tr>';
+      }).join('');
+    }
+
+    function updateIndicators() {
+      ths.forEach(function (th) {
+        var ind = th.querySelector('.players-sort-ind');
+        if (th.dataset.col === sortCol) {
+          th.classList.add('sort-active');
+          ind.textContent = sortDir === 1 ? ' \u25b2' : ' \u25bc';
+        } else {
+          th.classList.remove('sort-active');
+          ind.textContent = '';
+        }
+      });
+    }
+
+    ths.forEach(function (th) {
+      th.addEventListener('click', function () {
+        var col = th.dataset.col;
+        if (sortCol === col) {
+          sortDir = -sortDir;
+        } else {
+          sortCol = col;
+          sortDir = (col === 'name' || col === 'team') ? 1 : -1;
+        }
+        renderRows();
+        updateIndicators();
+      });
+    });
+
+    renderRows();
+    updateIndicators();
+  }
+
+  async function loadYear(year) {
+    currentYear = year;
+    var content = document.getElementById('players-content');
+    if (!content) return;
+    content.innerHTML = '<div class="loading">Loading\u2026</div>';
+    try {
+      var results = await Promise.all([
+        fetchJSON('data/' + year + '/roster.json'),
+        fetchJSON('data/' + year + '/teams.json'),
+      ]);
+      var roster    = results[0];
+      var teamsData = results[1];
+
+      var teamNames = {};
+      (teamsData.data || []).forEach(function (t) {
+        teamNames[t.teamID] = t.name;
+      });
+
+      var rows = roster.map(function (p) {
+        return {
+          playerID: p.playerID,
+          name:   p.lastName + ', ' + p.firstName,
+          teamID: p.teamID,
+          team:   teamNames[p.teamID] || p.teamID,
+          gp:     p.gp,
+          op:     p.oPointsPlayed,
+          dp:     p.dPointsPlayed,
+          g:      p.goals,
+          a:      p.assists,
+          b:      p.blocks,
+          t:      p.throwaways,
+          rec:    p.yardsReceived,
+          pas:    p.yardsThrown,
+        };
+      });
+
+      renderPlayersTable(content, rows);
+    } catch (err) {
+      content.innerHTML = '<div class="error-msg">Failed to load data: ' + err.message + '</div>';
+    }
+  }
+
+  function init() {
+    var content    = document.getElementById('players-content');
+    var yearSelect = document.getElementById('players-year-select');
+    if (!yearSelect || !content) return;
+
+    // Wire team-link clicks once (event delegation on stable container)
+    content.addEventListener('click', function (e) {
+      var teamBtn = e.target.closest('.team-link-btn');
+      if (teamBtn) {
+        window.dispatchEvent(new CustomEvent('navigate-team', {
+          detail: { teamID: teamBtn.dataset.teamid, year: currentYear }
+        }));
+        return;
+      }
+      var playerBtn = e.target.closest('.player-link-btn');
+      if (playerBtn) {
+        window.dispatchEvent(new CustomEvent('navigate-player', {
+          detail: { playerID: playerBtn.dataset.playerid }
+        }));
+      }
+    });
+
+    yearSelect.addEventListener('change', function () {
+      loadYear(yearSelect.value);
+    });
+
+    loadYear(yearSelect.value);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>

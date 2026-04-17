@@ -1,0 +1,367 @@
+<style>
+  /* ── Player Detail ── */
+  .player-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .player-back-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: color 0.15s, background 0.15s, border-color 0.15s;
+    white-space: nowrap;
+  }
+  .player-back-btn:hover { color: var(--text); background: var(--surface-2); border-color: var(--accent); }
+  .player-detail-name { font-size: 1.4rem; font-weight: 700; color: var(--text); }
+
+  /* ── Section headers ── */
+  .player-section-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.75rem;
+  }
+  .player-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pct-note { font-size: 0.8rem; color: var(--text-muted); }
+
+  /* ── Career Table ── */
+  .career-wrapper {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  .career-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  .career-table thead th {
+    padding: 8px 12px;
+    text-align: right;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .career-table thead th.col-left { text-align: left; padding-left: 16px; }
+  .career-table tbody td {
+    padding: 10px 12px;
+    text-align: right;
+    border-bottom: 1px solid rgba(45, 49, 72, 0.6);
+    font-variant-numeric: tabular-nums;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .career-table tbody td.col-left { text-align: left; padding-left: 16px; font-weight: 500; }
+  .career-table tbody tr:last-child td { border-bottom: none; }
+
+  /* ── Percentile Visualization ── */
+  .pct-wrapper {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .pct-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  .pct-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(45, 49, 72, 0.6);
+    width: 160px;
+  }
+  .pct-value {
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-muted);
+    white-space: nowrap;
+    padding: 10px 16px 10px 0;
+    text-align: right;
+    border-bottom: 1px solid rgba(45, 49, 72, 0.6);
+    width: 80px;
+  }
+  .pct-bar-cell {
+    padding: 10px 16px 10px 0;
+    border-bottom: 1px solid rgba(45, 49, 72, 0.6);
+  }
+  .pct-table tbody tr:last-child .pct-label,
+  .pct-table tbody tr:last-child .pct-value,
+  .pct-table tbody tr:last-child .pct-bar-cell { border-bottom: none; }
+  .pct-bar-outer { padding: 14px 14px; }
+  .pct-bar-track {
+    position: relative;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(
+      to right,
+      #0d3a6e 0%,
+      #4f8ef7 25%,
+      #ffffff 50%,
+      #f87171 75%,
+      #8b0000 100%
+    );
+  }
+  .pct-circle {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    font-weight: 700;
+    border: 2px solid var(--surface);
+    pointer-events: none;
+    line-height: 1;
+  }
+</style>
+
+<div id="player-detail-root"></div>
+
+<script>
+(function () {
+  var ALL_YEARS = ['2026', '2025', '2024', '2023', '2022', '2021'];
+
+  var PERCENTILE_STATS = [
+    { key: 'goals',         label: 'Goals',         invert: false },
+    { key: 'assists',       label: 'Assists',        invert: false },
+    { key: 'blocks',        label: 'Blocks',         invert: false },
+    { key: 'throwaways',    label: 'Throwaways',     invert: true  },
+    { key: 'yardsReceived', label: 'Yards Received', invert: false },
+    { key: 'yardsThrown',   label: 'Yards Thrown',   invert: false },
+  ];
+
+  function fetchJSON(path) {
+    return fetch(path).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status + ' \u2014 ' + path);
+      return r.json();
+    });
+  }
+
+  function computePercentile(playerVal, allVals, invert) {
+    var N = allVals.length;
+    if (N === 0) return 50;
+    if (N === 1) return 100;
+    var count = invert
+      ? allVals.filter(function (v) { return v >= playerVal; }).length
+      : allVals.filter(function (v) { return v <= playerVal; }).length;
+    return Math.round(1 + (count - 1) / (N - 1) * 99);
+  }
+
+  // Interpolate gradient: dark blue → mid blue → white → light red → dark red
+  // stops: 1=>#0d3a6e, 25=>#4f8ef7, 50=>#ffffff, 75=>#f87171, 100=>#8b0000
+  function interpolateColor(pct) {
+    var r, g, b, t;
+    if (pct <= 25) {
+      t = (pct - 1) / 24;
+      r = Math.round(13  + t * (79  - 13 ));
+      g = Math.round(58  + t * (142 - 58 ));
+      b = Math.round(110 + t * (247 - 110));
+    } else if (pct <= 50) {
+      t = (pct - 25) / 25;
+      r = Math.round(79  + t * (255 - 79 ));
+      g = Math.round(142 + t * (255 - 142));
+      b = Math.round(247 + t * (255 - 247));
+    } else if (pct <= 75) {
+      t = (pct - 50) / 25;
+      r = Math.round(255 + t * (248 - 255));
+      g = Math.round(255 + t * (113 - 255));
+      b = Math.round(255 + t * (113 - 255));
+    } else {
+      t = (pct - 75) / 25;
+      r = Math.round(248 + t * (139 - 248));
+      g = Math.round(113 + t * (0   - 113));
+      b = Math.round(113 + t * (0   - 113));
+    }
+    return { r: r, g: g, b: b };
+  }
+
+  function textColorForBg(rgb) {
+    var lum = 0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b;
+    return lum > 160 ? '#1a1d27' : '#ffffff';
+  }
+
+  function renderPercentiles(container, playerRow, allRoster) {
+    // Only rank against players who actually played
+    var activePlayers = allRoster.filter(function (p) { return p.gp > 0; });
+
+    var rows = PERCENTILE_STATS.map(function (stat) {
+      var playerVal = playerRow[stat.key] || 0;
+      var allVals = activePlayers.map(function (p) { return p[stat.key] || 0; });
+      var pct = computePercentile(playerVal, allVals, stat.invert);
+      var pos = (pct - 1) / 99 * 100;
+      var color = interpolateColor(pct);
+      var bgColor = 'rgb(' + color.r + ',' + color.g + ',' + color.b + ')';
+      var textColor = textColorForBg(color);
+
+      return '<tr>' +
+        '<td class="pct-label">' + stat.label + '</td>' +
+        '<td class="pct-value">' + playerVal.toLocaleString() + '</td>' +
+        '<td class="pct-bar-cell">' +
+          '<div class="pct-bar-outer">' +
+            '<div class="pct-bar-track">' +
+              '<div class="pct-circle" style="left:' + pos.toFixed(1) + '%;background:' + bgColor + ';color:' + textColor + '">' +
+                pct +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</td>' +
+      '</tr>';
+    }).join('');
+
+    container.innerHTML =
+      '<div class="pct-wrapper">' +
+        '<table class="pct-table"><tbody>' + rows + '</tbody></table>' +
+      '</div>';
+  }
+
+  window._initPlayerPage = async function (playerID) {
+    var root = document.getElementById('player-detail-root');
+    if (!root) return;
+    root.innerHTML = '<div class="loading">Loading\u2026</div>';
+
+    var careerEntries = [];
+
+    await Promise.all(ALL_YEARS.map(async function (y) {
+      try {
+        var results = await Promise.all([
+          fetchJSON('data/' + y + '/roster.json'),
+          fetchJSON('data/' + y + '/teams.json'),
+        ]);
+        var roster    = results[0];
+        var teamsData = results[1];
+
+        var playerRow = roster.find(function (p) { return p.playerID === playerID; });
+        if (!playerRow) return;
+
+        var teamNames = {};
+        (teamsData.data || []).forEach(function (t) {
+          teamNames[t.teamID] = t.name;
+        });
+
+        careerEntries.push({
+          year:         parseInt(y, 10),
+          teamName:     teamNames[playerRow.teamID] || playerRow.teamID,
+          jerseyNumber: playerRow.jerseyNumber || '\u2014',
+          gp:           playerRow.gp,
+          op:           playerRow.oPointsPlayed,
+          dp:           playerRow.dPointsPlayed,
+          playerRow:    playerRow,
+          allRoster:    roster,
+        });
+      } catch (e) { /* year not found */ }
+    }));
+
+    careerEntries.sort(function (a, b) { return a.year - b.year; });
+
+    if (!careerEntries.length) {
+      root.innerHTML = '<div class="error-msg">Player not found.</div>';
+      return;
+    }
+
+    var firstName = careerEntries[0].playerRow.firstName;
+    var lastName  = careerEntries[0].playerRow.lastName;
+
+    // Most recent year first for the percentile dropdown
+    var playerYears = careerEntries.map(function (e) { return String(e.year); }).reverse();
+    var defaultYear = playerYears[0];
+
+    var yearDataMap = {};
+    careerEntries.forEach(function (e) {
+      yearDataMap[String(e.year)] = { playerRow: e.playerRow, allRoster: e.allRoster };
+    });
+
+    root.innerHTML =
+      '<div class="player-detail-header">' +
+        '<button class="player-back-btn" id="player-back-btn">\u2190 Back</button>' +
+        '<span class="player-detail-name">' + firstName + ' ' + lastName + '</span>' +
+      '</div>' +
+
+      '<h3 class="player-section-title">Career Stats</h3>' +
+      '<div class="career-wrapper">' +
+        '<table class="career-table">' +
+          '<thead><tr>' +
+            '<th class="col-left">Year</th>' +
+            '<th class="col-left">Team</th>' +
+            '<th>#</th>' +
+            '<th>GP</th>' +
+            '<th>O Pts</th>' +
+            '<th>D Pts</th>' +
+          '</tr></thead>' +
+          '<tbody>' +
+            careerEntries.map(function (e) {
+              return '<tr>' +
+                '<td class="col-left">' + e.year + '</td>' +
+                '<td class="col-left">' + e.teamName + '</td>' +
+                '<td>' + e.jerseyNumber + '</td>' +
+                '<td>' + e.gp + '</td>' +
+                '<td>' + e.op + '</td>' +
+                '<td>' + e.dp + '</td>' +
+              '</tr>';
+            }).join('') +
+          '</tbody>' +
+        '</table>' +
+      '</div>' +
+
+      '<div class="player-section-header">' +
+        '<h3 class="player-section-title" style="margin-bottom:0">Player Rankings</h3>' +
+        '<div style="display:flex;align-items:center;gap:8px;">' +
+          '<span class="pct-note">Ranked vs. all players in</span>' +
+          '<select id="pct-year-select" class="year-select">' +
+            playerYears.map(function (y) {
+              return '<option value="' + y + '"' + (y === defaultYear ? ' selected' : '') + '>' + y + '</option>';
+            }).join('') +
+          '</select>' +
+        '</div>' +
+      '</div>' +
+      '<div id="pct-container"></div>';
+
+    document.getElementById('player-back-btn').addEventListener('click', function () {
+      window.dispatchEvent(new CustomEvent('navigate-players'));
+    });
+
+    var pctYearSelect = document.getElementById('pct-year-select');
+    var pctContainer  = document.getElementById('pct-container');
+
+    function renderForYear(y) {
+      var data = yearDataMap[y];
+      if (!data) { pctContainer.innerHTML = ''; return; }
+      renderPercentiles(pctContainer, data.playerRow, data.allRoster);
+    }
+
+    pctYearSelect.addEventListener('change', function () {
+      renderForYear(pctYearSelect.value);
+    });
+
+    renderForYear(defaultYear);
+  };
+})();
+</script>

@@ -2,9 +2,8 @@
 """
 Compute regular-season standings and team stats for all available years.
 
-Outputs:
-  docs/data/{year}/standings.json  – per-division standings with tie-breaking applied
-  docs/data/{year}/team_stats.json – aggregated per-team stats from player_game_stats
+Inputs:  src/data/{year}/games.json, teams.json, team_game_stats.json
+Outputs: docs/data/{year}/standings.json, team_stats.json
 """
 
 import json
@@ -12,7 +11,8 @@ import os
 import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_DIR = os.path.join(ROOT, "docs", "data")
+SRC_DATA_DIR = os.path.join(ROOT, "src", "data")
+OUT_DATA_DIR = os.path.join(ROOT, "docs", "data")
 WEEK_RE = re.compile(r"^week-\d+$")
 
 
@@ -122,7 +122,7 @@ def _sort_division(div_teams, included_games):
 
 
 def compute_standings(year):
-    year_dir = os.path.join(DATA_DIR, str(year))
+    year_dir = os.path.join(SRC_DATA_DIR, str(year))
     teams_path = os.path.join(year_dir, "teams.json")
     games_path = os.path.join(year_dir, "games.json")
     if not os.path.exists(teams_path) or not os.path.exists(games_path):
@@ -200,16 +200,18 @@ def compute_standings(year):
 
 
 def compute_team_stats(year, included_games):
-    year_dir = os.path.join(DATA_DIR, str(year))
+    year_dir = os.path.join(SRC_DATA_DIR, str(year))
     teams_path = os.path.join(year_dir, "teams.json")
-    pgs_path = os.path.join(year_dir, "player_game_stats.json")
-    if not os.path.exists(pgs_path):
+    tgs_path = os.path.join(year_dir, "team_game_stats.json")
+    if not os.path.exists(tgs_path):
         return None
 
     teams_data = load_json(teams_path)
-    pgs_raw = load_json(pgs_path)
+    tgs_raw = load_json(tgs_path)
     teams = [t for t in teams_data["data"] if t["division"]["divisionID"] != "allstars"]
-    game_stats_map = {entry["gameID"]: entry["data"]["data"] for entry in pgs_raw}
+
+    # Build a lookup: gameID -> {teamID: {goals, completions, ...}}
+    game_stats_map = {entry["gameID"]: entry["teams"] for entry in tgs_raw}
 
     # Build records from included_games for wins/losses columns
     records = {t["teamID"]: {"wins": 0, "losses": 0, "games": 0} for t in teams}
@@ -248,38 +250,24 @@ def compute_team_stats(year, included_games):
     }
 
     for game in included_games:
-        players = game_stats_map.get(game["gameID"])
-        if not players:
+        game_teams = game_stats_map.get(game["gameID"])
+        if not game_teams:
             continue
-
-        gt = {
-            game["homeTeamID"]: {"goals": 0, "completions": 0, "throwAttempts": 0, "throwaways": 0, "blocks": 0, "hucksAttempted": 0, "hucksCompleted": 0},
-            game["awayTeamID"]: {"goals": 0, "completions": 0, "throwAttempts": 0, "throwaways": 0, "blocks": 0, "hucksAttempted": 0, "hucksCompleted": 0},
-        }
-        for p in players:
-            g = gt.get(p["teamID"])
-            if not g:
-                continue
-            g["goals"]          += p.get("goals", 0)
-            g["completions"]    += p.get("completions", 0)
-            g["throwAttempts"]  += p.get("throwAttempts", 0)
-            g["throwaways"]     += p.get("throwaways", 0) + p.get("stalls", 0)
-            g["blocks"]         += p.get("blocks", 0)
-            g["hucksAttempted"] += p.get("hucksAttempted", 0)
-            g["hucksCompleted"] += p.get("hucksCompleted", 0)
 
         for tid, opp_tid in [(game["homeTeamID"], game["awayTeamID"]), (game["awayTeamID"], game["homeTeamID"])]:
             ts = acc.get(tid)
-            if not ts or tid not in gt:
+            gt = game_teams.get(tid, {})
+            ogt = game_teams.get(opp_tid, {})
+            if not ts:
                 continue
-            ts["scores"]        += gt[tid]["goals"]
-            ts["scoresAgainst"] += gt.get(opp_tid, {}).get("goals", 0)
-            ts["completions"]   += gt[tid]["completions"]
-            ts["throwAttempts"] += gt[tid]["throwAttempts"]
-            ts["throwaways"]    += gt[tid]["throwaways"]
-            ts["blocks"]        += gt[tid]["blocks"]
-            ts["hucksAttempted"]+= gt[tid]["hucksAttempted"]
-            ts["hucksCompleted"]+= gt[tid]["hucksCompleted"]
+            ts["scores"]         += gt.get("goals", 0)
+            ts["scoresAgainst"]  += ogt.get("goals", 0)
+            ts["completions"]    += gt.get("completions", 0)
+            ts["throwAttempts"]  += gt.get("throwAttempts", 0)
+            ts["throwaways"]     += gt.get("throwaways", 0) + gt.get("stalls", 0)
+            ts["blocks"]         += gt.get("blocks", 0)
+            ts["hucksAttempted"] += gt.get("hucksAttempted", 0)
+            ts["hucksCompleted"] += gt.get("hucksCompleted", 0)
 
     result = []
     for ts in acc.values():
@@ -293,10 +281,11 @@ def compute_team_stats(year, included_games):
 
 
 def main():
-    years = sorted(d for d in os.listdir(DATA_DIR) if d.isdigit())
+    years = sorted(d for d in os.listdir(SRC_DATA_DIR) if d.isdigit())
     for year in years:
-        year_dir = os.path.join(DATA_DIR, year)
-        if not os.path.exists(os.path.join(year_dir, "games.json")):
+        src_year_dir = os.path.join(SRC_DATA_DIR, year)
+        out_year_dir = os.path.join(OUT_DATA_DIR, year)
+        if not os.path.exists(os.path.join(src_year_dir, "games.json")):
             print(f"[{year}] Skipped (no games.json)")
             continue
 
@@ -306,14 +295,15 @@ def main():
             print(f"[{year}] Skipped (missing data)")
             continue
 
-        out_path = os.path.join(year_dir, "standings.json")
+        os.makedirs(out_year_dir, exist_ok=True)
+        out_path = os.path.join(out_year_dir, "standings.json")
         with open(out_path, "w") as f:
             json.dump(standings, f, indent=2)
         print(f"[{year}]   Standings → {out_path}")
 
         team_stats = compute_team_stats(year, included_games)
         if team_stats:
-            ts_path = os.path.join(year_dir, "team_stats.json")
+            ts_path = os.path.join(out_year_dir, "team_stats.json")
             with open(ts_path, "w") as f:
                 json.dump(team_stats, f, indent=2)
             print(f"[{year}]   Team stats → {ts_path}")

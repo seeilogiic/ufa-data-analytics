@@ -3,435 +3,219 @@
   "data": [
     {
       "teamID": "alleycats",
-      "year": 2022,
+      "name": "AlleyCats",
       "division": {
         "divisionID": "central",
         "name": "Central"
-      },
-      "city": "Indianapolis",
-      "name": "AlleyCats",
-      "fullName": "Indianapolis AlleyCats",
-      "abbrev": "IND",
-      "wins": 6,
-      "losses": 7,
-      "ties": 0,
-      "standing": 3
+      }
     },
     {
       "teamID": "allstars1",
-      "year": 2022,
+      "name": "All-Stars",
       "division": {
         "divisionID": "allstars",
         "name": "All Stars"
-      },
-      "city": "East-Central",
-      "name": "All-Stars",
-      "fullName": "East-Central All-Stars",
-      "abbrev": "EC",
-      "wins": 0,
-      "losses": 0,
-      "ties": 0,
-      "standing": 1
+      }
     },
     {
       "teamID": "allstars2",
-      "year": 2022,
+      "name": "All-Stars",
       "division": {
         "divisionID": "allstars",
         "name": "All Stars"
-      },
-      "city": "South-West",
-      "name": "All-Stars",
-      "fullName": "South-West All-Stars",
-      "abbrev": "SW",
-      "wins": 0,
-      "losses": 0,
-      "ties": 0,
-      "standing": 2
+      }
     },
     {
       "teamID": "apex",
-      "year": 2022,
+      "name": "Apex",
       "division": {
         "divisionID": "west",
         "name": "West"
-      },
-      "city": "Colorado",
-      "name": "Apex",
-      "fullName": "Colorado Apex",
-      "abbrev": "COL",
-      "wins": 12,
-      "losses": 2,
-      "ties": 0,
-      "standing": 1
+      }
     },
     {
       "teamID": "aviators",
-      "year": 2022,
+      "name": "Aviators",
       "division": {
         "divisionID": "west",
         "name": "West"
-      },
-      "city": "LA",
-      "name": "Aviators",
-      "fullName": "LA Aviators",
-      "abbrev": "LA",
-      "wins": 4,
-      "losses": 8,
-      "ties": 0,
-      "standing": 5
+      }
     },
     {
       "teamID": "breeze",
-      "year": 2022,
+      "name": "Breeze",
       "division": {
         "divisionID": "east",
         "name": "East"
-      },
-      "city": "DC",
-      "name": "Breeze",
-      "fullName": "DC Breeze",
-      "abbrev": "DC",
-      "wins": 11,
-      "losses": 3,
-      "ties": 0,
-      "standing": 2
+      }
     },
     {
       "teamID": "cannons",
-      "year": 2022,
+      "name": "Cannons",
       "division": {
         "divisionID": "south",
         "name": "South"
-      },
-      "city": "Tampa Bay",
-      "name": "Cannons",
-      "fullName": "Tampa Bay Cannons",
-      "abbrev": "TB",
-      "wins": 1,
-      "losses": 11,
-      "ties": 0,
-      "standing": 5
+      }
     },
     {
       "teamID": "cascades",
-      "year": 2022,
+      "name": "Cascades",
       "division": {
         "divisionID": "west",
         "name": "West"
-      },
-      "city": "Seattle",
-      "name": "Cascades",
-      "fullName": "Seattle Cascades",
-      "abbrev": "SEA",
-      "wins": 2,
-      "losses": 10,
-      "ties": 0,
-      "standing": 6
+      }
     },
     {
       "teamID": "empire",
-      "year": 2022,
+      "name": "Empire",
       "division": {
         "divisionID": "east",
         "name": "East"
-      },
-      "city": "New York",
-      "name": "Empire",
-      "fullName": "New York Empire",
-      "abbrev": "NY",
-      "wins": 15,
-      "losses": 0,
-      "ties": 0,
-      "standing": 1
+      }
     },
     {
       "teamID": "flyers",
-      "year": 2022,
+      "name": "Flyers",
       "division": {
         "divisionID": "south",
         "name": "South"
-      },
-      "city": "Carolina",
-      "name": "Flyers",
-      "fullName": "Carolina Flyers",
-      "abbrev": "CAR",
-      "wins": 12,
-      "losses": 2,
-      "ties": 0,
-      "standing": 1
+      }
     },
     {
       "teamID": "glory",
-      "year": 2022,
+      "name": "Glory",
       "division": {
         "divisionID": "east",
         "name": "East"
-      },
-      "city": "Boston",
-      "name": "Glory",
-      "fullName": "Boston Glory",
-      "abbrev": "BOS",
-      "wins": 4,
-      "losses": 8,
-      "ties": 0,
-      "standing": 4
+      }
     },
     {
       "teamID": "growlers",
-      "year": 2022,
+      "name": "Growlers",
       "division": {
         "divisionID": "west",
         "name": "West"
-      },
-      "city": "San Diego",
-      "name": "Growlers",
-      "fullName": "San Diego Growlers",
-      "abbrev": "SD",
-      "wins": 9,
-      "losses": 4,
-      "ties": 0,
-      "standing": 3
+      }
     },
     {
       "teamID": "hustle",
-      "year": 2022,
+      "name": "Hustle",
       "division": {
         "divisionID": "south",
         "name": "South"
-      },
-      "city": "Atlanta",
-      "name": "Hustle",
-      "fullName": "Atlanta Hustle",
-      "abbrev": "ATL",
-      "wins": 8,
-      "losses": 4,
-      "ties": 0,
-      "standing": 3
+      }
     },
     {
       "teamID": "legion",
-      "year": 2022,
+      "name": "Legion",
       "division": {
         "divisionID": "south",
         "name": "South"
-      },
-      "city": "Dallas",
-      "name": "Legion",
-      "fullName": "Dallas Legion",
-      "abbrev": "DAL",
-      "wins": 1,
-      "losses": 11,
-      "ties": 0,
-      "standing": 4
+      }
     },
     {
       "teamID": "mechanix",
-      "year": 2022,
+      "name": "Mechanix",
       "division": {
         "divisionID": "central",
         "name": "Central"
-      },
-      "city": "Detroit",
-      "name": "Mechanix",
-      "fullName": "Detroit Mechanix",
-      "abbrev": "DET",
-      "wins": 0,
-      "losses": 12,
-      "ties": 0,
-      "standing": 6
+      }
     },
     {
       "teamID": "outlaws",
-      "year": 2022,
+      "name": "Outlaws",
       "division": {
         "divisionID": "east",
         "name": "East"
-      },
-      "city": "Ottawa",
-      "name": "Outlaws",
-      "fullName": "Ottawa Outlaws",
-      "abbrev": "OTT",
-      "wins": 2,
-      "losses": 10,
-      "ties": 0,
-      "standing": 7
+      }
     },
     {
       "teamID": "phoenix",
-      "year": 2022,
+      "name": "Phoenix",
       "division": {
         "divisionID": "east",
         "name": "East"
-      },
-      "city": "Philadelphia",
-      "name": "Phoenix",
-      "fullName": "Philadelphia Phoenix",
-      "abbrev": "PHI",
-      "wins": 6,
-      "losses": 7,
-      "ties": 0,
-      "standing": 3
+      }
     },
     {
       "teamID": "radicals",
-      "year": 2022,
+      "name": "Radicals",
       "division": {
         "divisionID": "central",
         "name": "Central"
-      },
-      "city": "Madison",
-      "name": "Radicals",
-      "fullName": "Madison Radicals",
-      "abbrev": "MAD",
-      "wins": 6,
-      "losses": 6,
-      "ties": 0,
-      "standing": 4
+      }
     },
     {
       "teamID": "royal",
-      "year": 2022,
+      "name": "Royal",
       "division": {
         "divisionID": "east",
         "name": "East"
-      },
-      "city": "Montreal",
-      "name": "Royal",
-      "fullName": "Montreal Royal",
-      "abbrev": "MTL",
-      "wins": 4,
-      "losses": 8,
-      "ties": 0,
-      "standing": 5
+      }
     },
     {
       "teamID": "rush",
-      "year": 2022,
+      "name": "Rush",
       "division": {
         "divisionID": "east",
         "name": "East"
-      },
-      "city": "Toronto",
-      "name": "Rush",
-      "fullName": "Toronto Rush",
-      "abbrev": "TOR",
-      "wins": 4,
-      "losses": 8,
-      "ties": 0,
-      "standing": 6
+      }
     },
     {
       "teamID": "shred",
-      "year": 2022,
+      "name": "Shred",
       "division": {
         "divisionID": "west",
         "name": "West"
-      },
-      "city": "Salt Lake",
-      "name": "Shred",
-      "fullName": "Salt Lake Shred",
-      "abbrev": "SLC",
-      "wins": 11,
-      "losses": 3,
-      "ties": 0,
-      "standing": 2
+      }
     },
     {
       "teamID": "sol",
-      "year": 2022,
+      "name": "Sol",
       "division": {
         "divisionID": "south",
         "name": "South"
-      },
-      "city": "Austin",
-      "name": "Sol",
-      "fullName": "Austin Sol",
-      "abbrev": "ATX",
-      "wins": 9,
-      "losses": 4,
-      "ties": 0,
-      "standing": 2
+      }
     },
     {
       "teamID": "spiders",
-      "year": 2022,
+      "name": "Spiders",
       "division": {
         "divisionID": "west",
         "name": "West"
-      },
-      "city": "Oakland",
-      "name": "Spiders",
-      "fullName": "Oakland Spiders",
-      "abbrev": "OAK",
-      "wins": 4,
-      "losses": 8,
-      "ties": 0,
-      "standing": 4
+      }
     },
     {
       "teamID": "steel",
-      "year": 2022,
+      "name": "Steel",
       "division": {
         "divisionID": "west",
         "name": "West"
-      },
-      "city": "Portland",
-      "name": "Steel",
-      "fullName": "Portland Steel",
-      "abbrev": "POR",
-      "wins": 2,
-      "losses": 10,
-      "ties": 0,
-      "standing": 7
+      }
     },
     {
       "teamID": "thunderbirds",
-      "year": 2022,
+      "name": "Thunderbirds",
       "division": {
         "divisionID": "central",
         "name": "Central"
-      },
-      "city": "Pittsburgh",
-      "name": "Thunderbirds",
-      "fullName": "Pittsburgh Thunderbirds",
-      "abbrev": "PIT",
-      "wins": 4,
-      "losses": 8,
-      "ties": 0,
-      "standing": 5
+      }
     },
     {
       "teamID": "union",
-      "year": 2022,
+      "name": "Union",
       "division": {
         "divisionID": "central",
         "name": "Central"
-      },
-      "city": "Chicago",
-      "name": "Union",
-      "fullName": "Chicago Union",
-      "abbrev": "CHI",
-      "wins": 13,
-      "losses": 2,
-      "ties": 0,
-      "standing": 1
+      }
     },
     {
       "teamID": "windchill",
-      "year": 2022,
+      "name": "Wind Chill",
       "division": {
         "divisionID": "central",
         "name": "Central"
-      },
-      "city": "Minnesota",
-      "name": "Wind Chill",
-      "fullName": "Minnesota Wind Chill",
-      "abbrev": "MIN",
-      "wins": 10,
-      "losses": 4,
-      "ties": 0,
-      "standing": 2
+      }
     }
   ]
 }

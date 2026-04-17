@@ -20,8 +20,8 @@ Each <game> is:
   "homeTeamName": "Philadelphia Phoenix",
   "homeTeamSeed": 1,
   "homeScore":    15,
-  "awayTeamID":   "royal",
-  "awayTeamName": "San Jose Spiders",
+  "awayTeamID":   "spiders",
+  "awayTeamName": "Oakland Spiders",
   "awayTeamSeed": 2,
   "awayScore":    12,
   "winner":       "phoenix"   // null if not yet played
@@ -33,7 +33,8 @@ import os
 import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_DIR = os.path.join(ROOT, "docs", "data")
+SRC_DATA_DIR = os.path.join(ROOT, "src", "data")
+OUT_DATA_DIR = os.path.join(ROOT, "docs", "data")
 WEEK_RE = re.compile(r"^week-\d+$")
 
 
@@ -142,10 +143,11 @@ def _make_game_entry(game, team_names, seed_map):
 
 
 def compute_bracket(year):
-    year_dir = os.path.join(DATA_DIR, str(year))
-    teams_path = os.path.join(year_dir, "teams.json")
-    games_path = os.path.join(year_dir, "games.json")
-    standings_path = os.path.join(year_dir, "standings.json")
+    src_year_dir = os.path.join(SRC_DATA_DIR, str(year))
+    out_year_dir = os.path.join(OUT_DATA_DIR, str(year))
+    teams_path = os.path.join(src_year_dir, "teams.json")
+    games_path = os.path.join(src_year_dir, "games.json")
+    standings_path = os.path.join(out_year_dir, "standings.json")  # written by compute_standings first
 
     if not os.path.exists(teams_path) or not os.path.exists(games_path):
         return None
@@ -207,10 +209,11 @@ def compute_bracket(year):
 
 
 def main():
-    years = sorted(d for d in os.listdir(DATA_DIR) if d.isdigit())
+    years = sorted(d for d in os.listdir(SRC_DATA_DIR) if d.isdigit())
     for year in years:
-        year_dir = os.path.join(DATA_DIR, year)
-        if not os.path.exists(os.path.join(year_dir, "games.json")):
+        src_year_dir = os.path.join(SRC_DATA_DIR, year)
+        out_year_dir = os.path.join(OUT_DATA_DIR, year)
+        if not os.path.exists(os.path.join(src_year_dir, "games.json")):
             print(f"[{year}] Skipped (no games.json)")
             continue
 
@@ -220,7 +223,8 @@ def main():
             print(f"[{year}] Skipped (missing data)")
             continue
 
-        out_path = os.path.join(year_dir, "bracket.json")
+        os.makedirs(out_year_dir, exist_ok=True)
+        out_path = os.path.join(out_year_dir, "bracket.json")
         with open(out_path, "w") as f:
             json.dump(result, f, indent=2)
         print(f"[{year}]   Bracket → {out_path}")

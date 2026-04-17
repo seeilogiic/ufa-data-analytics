@@ -60,6 +60,18 @@
   .roster-table tbody td.col-player { text-align: left; padding-left: 14px; font-weight: 500; }
   .roster-table tbody tr:last-child td { border-bottom: none; }
   .roster-sort-ind { display: inline-block; margin-left: 3px; font-size: 0.65rem; }
+  .player-link-btn {
+    background: none;
+    border: none;
+    color: var(--accent);
+    cursor: pointer;
+    font-size: inherit;
+    font-weight: 500;
+    padding: 0;
+    text-align: left;
+    transition: color 0.15s;
+  }
+  .player-link-btn:hover { color: var(--text); text-decoration: underline; }
 </style>
 
 <div id="team-detail-root"></div>
@@ -118,7 +130,10 @@
       });
       tbody.innerHTML = sorted.map(function (row) {
         return '<tr>' + cols.map(function (c) {
-          var cls = c.player ? ' class="col-player"' : '';
+          if (c.player) {
+            return '<td class="col-player"><button class="player-link-btn" data-playerid="' + row.playerID + '">' + row.name + '</button></td>';
+          }
+          var cls = '';
           return '<td' + cls + '>' + c.fmt(row[c.key]) + '</td>';
         }).join('') + '</tr>';
       }).join('');
@@ -158,46 +173,24 @@
   async function loadYearData(teamID, year, container) {
     container.innerHTML = '<div class="loading">Loading\u2026</div>';
     try {
-      var results = await Promise.all([
-        fetchJSON('data/' + year + '/players.json'),
-        fetchJSON('data/' + year + '/player_stats.json'),
-        fetchJSON('data/' + year + '/player_game_stats.json'),
-      ]);
+      var roster = await fetchJSON('data/' + year + '/roster.json');
 
-      var playersData   = results[0];
-      var statsData     = results[1];
-      var gameStatsData = results[2];
-
-      var roster = playersData.data.filter(function (p) { return p.teamID === teamID; });
-
-      var statsMap = {};
-      statsData.data.forEach(function (s) { statsMap[s.player.playerID] = s; });
-
-      var gpMap = {};
-      gameStatsData.forEach(function (game) {
-        game.data.data.forEach(function (entry) {
-          if (entry.teamID === teamID) {
-            var pid = entry.player.playerID;
-            gpMap[pid] = (gpMap[pid] || 0) + 1;
-          }
+      var rows = roster.filter(function (p) { return p.teamID === teamID; })
+        .map(function (p) {
+          return {
+            playerID: p.playerID,
+            name: p.lastName + ', ' + p.firstName,
+            gp:   p.gp,
+            op:   p.oPointsPlayed,
+            dp:   p.dPointsPlayed,
+            g:    p.goals,
+            a:    p.assists,
+            b:    p.blocks,
+            t:    p.throwaways,
+            rec:  p.yardsReceived,
+            pas:  p.yardsThrown,
+          };
         });
-      });
-
-      var rows = roster.map(function (p) {
-        var s = statsMap[p.playerID] || {};
-        return {
-          name: p.lastName + ', ' + p.firstName,
-          gp:   gpMap[p.playerID]   || 0,
-          op:   s.oPointsPlayed     != null ? s.oPointsPlayed     : 0,
-          dp:   s.dPointsPlayed     != null ? s.dPointsPlayed     : 0,
-          g:    s.goals             != null ? s.goals             : 0,
-          a:    s.assists           != null ? s.assists           : 0,
-          b:    s.blocks            != null ? s.blocks            : 0,
-          t:    s.throwaways        != null ? s.throwaways        : 0,
-          rec:  s.yardsReceived     != null ? s.yardsReceived     : 0,
-          pas:  s.yardsThrown       != null ? s.yardsThrown       : 0,
-        };
-      });
 
       renderRosterContent(container, rows);
     } catch (err) {
@@ -258,6 +251,14 @@
       var y = yearSelect.value;
       nameEl.textContent = namesByYear[y] || teamID;
       loadYearData(teamID, y, content);
+    });
+
+    content.addEventListener('click', function (e) {
+      var btn = e.target.closest('.player-link-btn');
+      if (!btn) return;
+      window.dispatchEvent(new CustomEvent('navigate-player', {
+        detail: { playerID: btn.dataset.playerid }
+      }));
     });
 
     loadYearData(teamID, selectedYear, content);
