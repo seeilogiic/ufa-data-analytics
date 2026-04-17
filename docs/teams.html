@@ -143,6 +143,20 @@
     cursor: pointer;
     user-select: none;
     transition: color 0.15s, background 0.15s;
+    width: 120px;
+    min-width: 80px;
+    max-width: 1fr;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  /* Standardize all table headers except League standings */
+  table:not(.standings-table) thead th {
+    width: 120px;
+    min-width: 80px;
+    max-width: 1fr;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
   .team-stats-table thead th:hover { color: var(--text); background: var(--surface-2); }
   .team-stats-table thead th.col-team { text-align: left; padding-left: 14px; }
