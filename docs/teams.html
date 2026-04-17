@@ -353,9 +353,14 @@
     const aScore = game.awayScore != null ? `<span class="bracket-score">${game.awayScore}</span>` : '';
     const hSeed  = game.homeTeamSeed != null ? `<span class="bracket-seed">${game.homeTeamSeed}</span>` : '';
     const aSeed  = game.awayTeamSeed != null ? `<span class="bracket-seed">${game.awayTeamSeed}</span>` : '';
+    // Make team names clickable buttons
+    const yearSelect = document.getElementById('year-select');
+    const year = yearSelect ? yearSelect.value : '';
+    const homeBtn = `<button class="team-link-btn" data-teamid="${game.homeTeamID}" data-year="${year}">${game.homeTeamName}</button>`;
+    const awayBtn = `<button class="team-link-btn" data-teamid="${game.awayTeamID}" data-year="${year}">${game.awayTeamName}</button>`;
     return `${labelHtml || ''}<div class="bracket-matchup">
-      <div class="bracket-team ${hClass}">${hSeed}<span class="bracket-team-name">${game.homeTeamName}</span>${hScore}</div>
-      <div class="bracket-team ${aClass}">${aSeed}<span class="bracket-team-name">${game.awayTeamName}</span>${aScore}</div>
+      <div class="bracket-team ${hClass}">${hSeed}<span class="bracket-team-name">${homeBtn}</span>${hScore}</div>
+      <div class="bracket-team ${aClass}">${aSeed}<span class="bracket-team-name">${awayBtn}</span>${aScore}</div>
     </div>`;
   }
 
@@ -485,14 +490,18 @@
     yearSelect.addEventListener('change', () => loadAndRender(yearSelect.value));
     loadAndRender(yearSelect.value);
 
-    // ── Team name click → navigate to team detail ────────────
-    document.getElementById('standings-container').addEventListener('click', e => {
+    // ── Team name click → navigate to team detail (standings and bracket) ────────────
+    function handleTeamLinkClick(e) {
       const btn = e.target.closest('.team-link-btn');
       if (!btn) return;
+      // Use data-year if present, else fallback to yearSelect
+      const year = btn.dataset.year || (yearSelect && yearSelect.value);
       window.dispatchEvent(new CustomEvent('navigate-team', {
-        detail: { teamID: btn.dataset.teamid, year: yearSelect.value }
+        detail: { teamID: btn.dataset.teamid, year }
       }));
-    });
+    }
+    document.getElementById('standings-container').addEventListener('click', handleTeamLinkClick);
+    document.getElementById('bracket-container').addEventListener('click', handleTeamLinkClick);
   }
 
   if (document.readyState === 'loading') {
