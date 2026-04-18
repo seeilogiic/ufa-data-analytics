@@ -216,27 +216,36 @@
       var teamsData = results[1];
 
       var teamNames = {};
+      var allstarTeamIDs = new Set();
       (teamsData.data || []).forEach(function (t) {
         teamNames[t.teamID] = t.name;
+        if (t.division && t.division.divisionID === 'allstars') {
+          allstarTeamIDs.add(t.teamID);
+        }
       });
 
-      var rows = roster.map(function (p) {
-        return {
-          playerID: p.playerID,
-          name:   p.lastName + ', ' + p.firstName,
-          teamID: p.teamID,
-          team:   teamNames[p.teamID] || p.teamID,
-          gp:     p.gp,
-          op:     p.oPointsPlayed,
-          dp:     p.dPointsPlayed,
-          g:      p.goals,
-          a:      p.assists,
-          b:      p.blocks,
-          t:      p.throwaways,
-          rec:    p.yardsReceived,
-          pas:    p.yardsThrown,
-        };
-      });
+      var rows = roster
+        .filter(function (p) {
+          // Exclude players whose team is an allstars team
+          return !allstarTeamIDs.has(p.teamID);
+        })
+        .map(function (p) {
+          return {
+            playerID: p.playerID,
+            name:   p.lastName + ', ' + p.firstName,
+            teamID: p.teamID,
+            team:   teamNames[p.teamID] || p.teamID,
+            gp:     p.gp,
+            op:     p.oPointsPlayed,
+            dp:     p.dPointsPlayed,
+            g:      p.goals,
+            a:      p.assists,
+            b:      p.blocks,
+            t:      p.throwaways,
+            rec:    p.yardsReceived,
+            pas:    p.yardsThrown,
+          };
+        });
 
       renderPlayersTable(content, rows);
     } catch (err) {

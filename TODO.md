@@ -13,7 +13,7 @@
 10. Hover shows stat name
 11. Bracket looks weird
 12. Zebra rows
-13. Don't use all stars
+13. ~~Don't use all stars~~
 14. Add query params
 15. Sort teams played for newest to oldest
 16. Percentile stats only look for players with > 0 games played
