@@ -7,8 +7,15 @@
     // GitHub Pages SPA trick:
     // When GitHub can't find a file, it serves this 404.html.
     // We encode the real path as a query param and redirect to index.html.
+    
+    const pathSegments = window.location.pathname.split('/');
+    // If we are on github.io, the repo name is the first segment (index 1)
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    const repoName = isGitHubPages ? pathSegments[1] : '';
+    const basePath = repoName ? '/' + repoName : '';
+    
     const path = window.location.pathname + window.location.search;
-    window.location.replace('/?redirect=' + encodeURIComponent(path));
+    window.location.replace(basePath + '/?redirect=' + encodeURIComponent(path));
   </script>
 </head>
 <body></body>

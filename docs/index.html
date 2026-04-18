@@ -146,14 +146,21 @@
   </main>
 
   <script>
-    // ── GitHub Pages SPA: decode redirect param set by 404.html ──
+    // ── GitHub Pages SPA: detect base path and handle redirects ──
     (function () {
+      const pathSegments = window.location.pathname.split('/');
+      // If we are on github.io, the repo name is the first segment (index 1)
+      const isGitHubPages = window.location.hostname.includes('github.io');
+      const repoName = isGitHubPages ? pathSegments[1] : '';
+      window.basePath = repoName ? '/' + repoName : '';
+
       const params = new URLSearchParams(window.location.search);
       const redirect = params.get('redirect');
       if (redirect) {
+        // The redirect param from 404.html already includes the full original path
         history.replaceState(null, '', redirect);
-      } else if (window.location.pathname === '/') {
-        history.replaceState(null, '', '/teams' + window.location.search);
+      } else if (window.location.pathname === window.basePath || window.location.pathname === window.basePath + '/') {
+        history.replaceState(null, '', window.basePath + '/teams' + window.location.search);
       }
     })();
 
@@ -169,6 +176,7 @@
       navBtns.forEach(b => b.classList.toggle('active', b.dataset.view === navView));
 
       if (pushState) {
+        const base = window.basePath || '';
         if (viewId === 'view-teams') {
           let year = yearParam;
           if (!year) {
@@ -177,7 +185,7 @@
           }
           const msel = document.getElementById('season-mode-select');
           const mode = msel ? msel.value : 'regular';
-          const url = year ? `/teams?year=${encodeURIComponent(year)}&mode=${encodeURIComponent(mode)}` : '/teams';
+          const url = year ? `${base}/teams?year=${encodeURIComponent(year)}&mode=${encodeURIComponent(mode)}` : `${base}/teams`;
           history.pushState({ view: 'teams', year, mode }, '', url);
         } else if (viewId === 'view-players') {
           let year = yearParam;
@@ -185,10 +193,9 @@
             const ysel = document.getElementById('players-year-select');
             year = ysel ? ysel.value : null;
           }
-          const url = year ? `/players?year=${encodeURIComponent(year)}` : '/players';
+          const url = year ? `${base}/players?year=${encodeURIComponent(year)}` : `${base}/players`;
           history.pushState({ view: 'players', year }, '', url);
         }
-        // player/team detail URLs are set by the navigate-* listeners below
       }
     }
 
@@ -221,7 +228,8 @@
     // Navigate to team detail
     window.addEventListener('navigate-team', e => {
       const { teamID, year } = e.detail;
-      const url = year ? `/teams/${teamID}?year=${encodeURIComponent(year)}&view=roster` : `/teams/${teamID}?view=roster`;
+      const base = window.basePath || '';
+      const url = year ? `${base}/teams/${teamID}?year=${encodeURIComponent(year)}&view=roster` : `${base}/teams/${teamID}?view=roster`;
       history.pushState({ view: 'team', teamID, year }, '', url);
       showView('view-team');
       if (typeof window._initTeamPage === 'function') {
@@ -232,7 +240,8 @@
     // Navigate to player detail
     window.addEventListener('navigate-player', e => {
       const { playerID, year } = e.detail;
-      const url = year ? `/players/${playerID}?year=${encodeURIComponent(year)}` : `/players/${playerID}`;
+      const base = window.basePath || '';
+      const url = year ? `${base}/players/${playerID}?year=${encodeURIComponent(year)}` : `${base}/players/${playerID}`;
       history.pushState({ view: 'player', playerID, year }, '', url);
       showView('view-player');
       if (typeof window._initPlayerPage === 'function') {
@@ -244,8 +253,9 @@
     function handleRoute() {
       const path   = window.location.pathname;
       const params = new URLSearchParams(window.location.search);
+      const base   = window.basePath || '';
 
-      if (path === '/' || path === '/teams') {
+      if (path === base + '/' || path === base + '/teams') {
         const year = params.get('year');
         const mode = params.get('mode');
         const ysel = document.getElementById('teams-year-select');
@@ -260,7 +270,7 @@
         }
         showView('view-teams');
 
-      } else if (path === '/players') {
+      } else if (path === base + '/players') {
         const year = params.get('year');
         const ysel = document.getElementById('players-year-select');
         if (ysel && year) {
@@ -269,8 +279,8 @@
         }
         showView('view-players');
 
-      } else if (path.startsWith('/players/')) {
-        const playerID = decodeURIComponent(path.replace('/players/', ''));
+      } else if (path.startsWith(base + '/players/')) {
+        const playerID = decodeURIComponent(path.replace(base + '/players/', ''));
         const year = params.get('year');
         showView('view-player');
         // _initPlayerPage may not exist yet if the fragment is still loading — retry
@@ -283,8 +293,8 @@
         }
         tryInitPlayer();
 
-      } else if (path.startsWith('/teams/')) {
-        const teamID = decodeURIComponent(path.replace('/teams/', ''));
+      } else if (path.startsWith(base + '/teams/')) {
+        const teamID = decodeURIComponent(path.replace(base + '/teams/', ''));
         const year = params.get('year');
         showView('view-team');
         function tryInitTeam() {
@@ -308,9 +318,10 @@
     async function includeFragment(fragmentFile, containerId) {
       const container = document.getElementById(containerId);
       if (!container) return;
+      const base = window.basePath || '';
       try {
-        const res = await fetch(fragmentFile);
-        if (!res.ok) throw new Error(`HTTP ${res.status} loading ${fragmentFile}`);
+        const res = await fetch(base + fragmentFile);
+        if (!res.ok) throw new Error(`HTTP ${res.status} loading ${base + fragmentFile}`);
         const html = await res.text();
         const tmp  = document.createElement('div');
         tmp.innerHTML = html;
@@ -338,6 +349,7 @@
     }
 
     // Load all fragments, then handle the initial route
+    const base = window.basePath || '';
     Promise.all([
       includeFragment('/teams.html',   'teams-include'),
       includeFragment('/players.html', 'players-include'),
@@ -349,10 +361,11 @@
       const tmsel = document.getElementById('season-mode-select');
 
       function syncTeamsURL() {
-        if (window.location.pathname === '/' || window.location.pathname === '/teams') {
+        const path = window.location.pathname;
+        if (path === base + '/' || path === base + '/teams') {
           const year = tysel ? tysel.value : '';
           const mode = tmsel ? tmsel.value : 'regular';
-          const url = `/teams?year=${encodeURIComponent(year)}&mode=${encodeURIComponent(mode)}`;
+          const url = `${base}/teams?year=${encodeURIComponent(year)}&mode=${encodeURIComponent(mode)}`;
           history.pushState({ view: 'teams', year, mode }, '', url);
         }
       }
@@ -364,9 +377,9 @@
       const pysel = document.getElementById('players-year-select');
       if (pysel) {
         pysel.addEventListener('change', function () {
-          if (window.location.pathname === '/players') {
+          if (window.location.pathname === base + '/players') {
             const year = pysel.value;
-            const url = year ? `/players?year=${encodeURIComponent(year)}` : '/players';
+            const url = year ? `${base}/players?year=${encodeURIComponent(year)}` : `${base}/players`;
             history.pushState({ view: 'players', year }, '', url);
           }
         });
@@ -376,7 +389,7 @@
       const initPath   = window.location.pathname;
       const initParams = new URLSearchParams(window.location.search);
 
-      if (initPath === '/' || initPath === '/teams') {
+      if (initPath === base + '/' || initPath === base + '/teams') {
         let year = initParams.get('year');
         let mode = initParams.get('mode');
         const ys = document.getElementById('teams-year-select');
@@ -398,21 +411,21 @@
           }
         }
         if (!initParams.get('year') || !initParams.get('mode')) {
-          history.replaceState({ view: 'teams', year, mode }, '', `/teams?year=${encodeURIComponent(year)}&mode=${encodeURIComponent(mode)}`);
+          history.replaceState({ view: 'teams', year, mode }, '', `${base}/teams?year=${encodeURIComponent(year)}&mode=${encodeURIComponent(mode)}`);
         }
         showView('view-teams');
-      } else if (initPath === '/players') {
+      } else if (initPath === base + '/players') {
         const year = initParams.get('year');
         const ys = document.getElementById('players-year-select');
         if (ys && year) { ys.value = year; ys.dispatchEvent(new Event('change')); }
         showView('view-players');
-      } else if (initPath.startsWith('/players/')) {
-        const playerID = decodeURIComponent(initPath.replace('/players/', ''));
+      } else if (initPath.startsWith(base + '/players/')) {
+        const playerID = decodeURIComponent(initPath.replace(base + '/players/', ''));
         const year = initParams.get('year');
         showView('view-player');
         window._initPlayerPage(playerID, year);
-      } else if (initPath.startsWith('/teams/')) {
-        const teamID = decodeURIComponent(initPath.replace('/teams/', ''));
+      } else if (initPath.startsWith(base + '/teams/')) {
+        const teamID = decodeURIComponent(initPath.replace(base + '/teams/', ''));
         const year = initParams.get('year');
         showView('view-team');
         window._initTeamPage(teamID, year);

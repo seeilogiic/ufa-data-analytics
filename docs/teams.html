@@ -208,7 +208,8 @@
 <script>
 (function () {
   async function fetchJSON(path) {
-    const res = await fetch('/' + path);
+    const base = window.basePath || '';
+    const res = await fetch(base + '/' + path);
     if (!res.ok) throw new Error(`HTTP ${res.status} — ${path}`);
     return res.json();
   }
