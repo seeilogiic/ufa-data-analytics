@@ -184,10 +184,17 @@
     var N = allVals.length;
     if (N === 0) return 50;
     if (N === 1) return 100;
-    var count = invert
-      ? allVals.filter(function (v) { return v >= playerVal; }).length
-      : allVals.filter(function (v) { return v <= playerVal; }).length;
-    return Math.round(1 + (count - 1) / (N - 1) * 99);
+    var min = Math.min.apply(null, allVals);
+    var max = Math.max.apply(null, allVals);
+    if (min === max) return 100;
+    var scaled;
+    if (invert) {
+      // For stats where lower is better (e.g., throwaways), invert the scale
+      scaled = 1 + 99 * (max - playerVal) / (max - min);
+    } else {
+      scaled = 1 + 99 * (playerVal - min) / (max - min);
+    }
+    return Math.round(scaled);
   }
 
   // Interpolate gradient: dark blue → mid blue → white → light red → dark red

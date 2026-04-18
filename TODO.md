@@ -17,4 +17,4 @@
 14. Add query params
 15. Sort teams played for newest to oldest
 16. Percentile stats only look for players with > 0 games played
-17. Stats need to scale 1-100. Right now it is 100 to whatever the bottom is.
+17. ~~Stats need to scale 1-100. Right now it is 100 to whatever the bottom is.~~
