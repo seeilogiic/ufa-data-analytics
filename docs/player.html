@@ -301,7 +301,7 @@
       } catch (e) { /* year not found */ }
     }));
 
-    careerEntries.sort(function (a, b) { return a.year - b.year; });
+    careerEntries.sort(function (a, b) { return b.year - a.year; });
 
     if (!careerEntries.length) {
       root.innerHTML = '<div class="error-msg">Player not found.</div>';
