@@ -29,4 +29,4 @@ clean:
 .PHONY: serve
 
 serve:
-	python -m http.server 8000 --directory docs
+	cd docs && python3 ../server.py 8000

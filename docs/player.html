@@ -174,8 +174,8 @@
   ];
 
   function fetchJSON(path) {
-    return fetch(path).then(function (r) {
-      if (!r.ok) throw new Error('HTTP ' + r.status + ' \u2014 ' + path);
+    return fetch('/' + path).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status + ' — ' + path);
       return r.json();
     });
   }
@@ -264,7 +264,7 @@
       '</div>';
   }
 
-  window._initPlayerPage = async function (playerID) {
+  window._initPlayerPage = async function (playerID, year) {
     var root = document.getElementById('player-detail-root');
     if (!root) return;
     root.innerHTML = '<div class="loading">Loading\u2026</div>';
@@ -311,9 +311,10 @@
     var firstName = careerEntries[0].playerRow.firstName;
     var lastName  = careerEntries[0].playerRow.lastName;
 
-    // Most recent year first for the percentile dropdown
-    var playerYears = careerEntries.map(function (e) { return String(e.year); }).reverse();
-    var defaultYear = playerYears[0];
+    // Years this player has data for, most recent first
+    var playerYears = careerEntries.map(function (e) { return String(e.year); });
+    // Use passed year if valid, else default to most recent
+    var defaultYear = (year && playerYears.indexOf(year) !== -1) ? year : playerYears[0];
 
     var yearDataMap = {};
     careerEntries.forEach(function (e) {
@@ -379,7 +380,17 @@
     }
 
     pctYearSelect.addEventListener('change', function () {
-      renderForYear(pctYearSelect.value);
+      var newYear = pctYearSelect.value;
+      renderForYear(newYear);
+
+      // Sync with the main players list year select
+      var ysel = document.getElementById('players-year-select');
+      if (ysel) { ysel.value = newYear; }
+
+      // Update URL with new year without full reload
+      var url = new URL(window.location.href);
+      url.searchParams.set('year', newYear);
+      history.replaceState(history.state, '', url.pathname + url.search);
     });
 
     renderForYear(defaultYear);

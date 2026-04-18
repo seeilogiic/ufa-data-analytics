@@ -2,340 +2,424 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UFA Stats Dashboard</title>
-    <style>
-      :root {
-        --bg:          #0f1117;
-        --surface:     #1a1d27;
-        --surface-2:   #21253a;
-        --border:      #2d3148;
-        --accent:      #4f8ef7;
-        --text:        #e8eaf0;
-        --text-muted:  #8891aa;
-        --green:       #4ade80;
-        --red:         #f87171;
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UFA Stats Dashboard</title>
+  <style>
+    :root {
+      --bg:          #0f1117;
+      --surface:     #1a1d27;
+      --surface-2:   #21253a;
+      --border:      #2d3148;
+      --accent:      #4f8ef7;
+      --text:        #e8eaf0;
+      --text-muted:  #8891aa;
+      --green:       #4ade80;
+      --red:         #f87171;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+    }
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .site-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+    .site-title span { color: var(--accent); }
+
+    /* ── Nav ── */
+    nav { display: flex; gap: 4px; }
+    .nav-btn {
+      background: none;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-btn:hover { color: var(--text); background: var(--surface-2); }
+    .nav-btn.active {
+      color: var(--accent);
+      background: rgba(79, 142, 247, 0.12);
+    }
+
+    /* ── Main ── */
+    main { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
+    .hidden { display: none !important; }
+
+    /* ── Controls ── */
+    .controls { display: flex; align-items: center; gap: 10px; margin-bottom: 1.75rem; }
+    .controls label { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
+    .year-select {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 6px;
+      padding: 6px 32px 6px 12px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238891aa' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+    }
+    .year-select:focus { outline: none; border-color: var(--accent); }
+    .year-select option { background: var(--surface); }
+
+    /* ── Standings ── */
+    .standings-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; color: var(--text); }
+    .divisions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    @media (max-width: 960px) { .divisions-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .divisions-grid { grid-template-columns: 1fr; } }
+
+    .division-col { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .div-name { background: var(--surface-2); border-bottom: 1px solid var(--border); padding: 9px 14px; font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase; }
+
+    .standings-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .standings-table thead th { padding: 6px 8px; text-align: right; font-size: 0.72rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    .standings-table thead th.col-team { text-align: left; padding-left: 14px; }
+    .standings-table tbody td { padding: 8px 8px; text-align: right; border-bottom: 1px solid rgba(45, 49, 72, 0.6); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .standings-table tbody td.col-team { text-align: left; padding-left: 14px; font-weight: 500; color: var(--text); }
+    .standings-table tbody td.col-stat { color: var(--text); }
+    .standings-table tbody td.pm-pos { color: var(--green); }
+    .standings-table tbody td.pm-neg { color: var(--red); }
+    .standings-table tbody td.pm-zero { color: var(--text-muted); }
+    .standings-table tbody td.col-gb { color: var(--text-muted); font-size: 0.8rem; }
+
+    /* ── Status messages ── */
+    .loading, .error-msg, .empty-state { padding: 3rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.95rem; }
+    .error-msg { color: var(--red); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="site-title"><span>UFA</span> Stats Dashboard</div>
+      <nav>
+        <button class="nav-btn active" data-view="teams">Teams</button>
+        <button class="nav-btn" data-view="players">Players</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="view-teams">
+      <div id="teams-include"></div>
+    </section>
+
+    <section id="view-players" class="hidden">
+      <div id="players-include"></div>
+    </section>
+
+    <section id="view-team" class="hidden">
+      <div id="team-include"></div>
+    </section>
+
+    <section id="view-player" class="hidden">
+      <div id="player-include"></div>
+    </section>
+  </main>
+
+  <script>
+    // ── GitHub Pages SPA: decode redirect param set by 404.html ──
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const redirect = params.get('redirect');
+      if (redirect) {
+        history.replaceState(null, '', redirect);
+      } else if (window.location.pathname === '/') {
+        history.replaceState(null, '', '/teams' + window.location.search);
       }
+    })();
 
-      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    // ── Navigation ───────────────────────────────────────────────
+    var navBtns  = document.querySelectorAll('.nav-btn');
+    var sections = document.querySelectorAll('main section');
 
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        min-height: 100vh;
-      }
+    function showView(viewId, pushState = false, yearParam = null) {
+      sections.forEach(s => s.classList.toggle('hidden', s.id !== viewId));
+      const navView = (viewId === 'view-team' || viewId === 'view-player')
+        ? null
+        : viewId.replace('view-', '');
+      navBtns.forEach(b => b.classList.toggle('active', b.dataset.view === navView));
 
-      /* ── Header ── */
-      header {
-        background: var(--surface);
-        border-bottom: 1px solid var(--border);
-        padding: 0 1.5rem;
-      }
-      .header-inner {
-        max-width: 1400px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 56px;
-      }
-      .site-title {
-        font-size: 1.05rem;
-        font-weight: 700;
-        letter-spacing: 0.04em;
-        color: var(--text);
-      }
-      .site-title span { color: var(--accent); }
-
-      /* ── Nav ── */
-      nav { display: flex; gap: 4px; }
-      .nav-btn {
-        background: none;
-        border: none;
-        padding: 6px 16px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 0.9rem;
-        font-weight: 500;
-        color: var(--text-muted);
-        transition: color 0.15s, background 0.15s;
-      }
-      .nav-btn:hover { color: var(--text); background: var(--surface-2); }
-      .nav-btn.active {
-        color: var(--accent);
-        background: rgba(79, 142, 247, 0.12);
-      }
-
-      /* ── Main ── */
-      main { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
-      .hidden { display: none !important; }
-
-      /* ── Controls ── */
-      .controls { display: flex; align-items: center; gap: 10px; margin-bottom: 1.75rem; }
-      .controls label { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); }
-      .year-select {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        color: var(--text);
-        border-radius: 6px;
-        padding: 6px 32px 6px 12px;
-        font-size: 0.9rem;
-        cursor: pointer;
-        appearance: none;
-        -webkit-appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238891aa' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 10px center;
-      }
-      .year-select:focus { outline: none; border-color: var(--accent); }
-      .year-select option { background: var(--surface); }
-
-      /* ── Standings ── */
-      .standings-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; color: var(--text); }
-      .divisions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-      @media (max-width: 960px) { .divisions-grid { grid-template-columns: repeat(2, 1fr); } }
-      @media (max-width: 540px) { .divisions-grid { grid-template-columns: 1fr; } }
-
-      .division-col { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-      .div-name { background: var(--surface-2); border-bottom: 1px solid var(--border); padding: 9px 14px; font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase; }
-
-      .standings-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-      .standings-table thead th { padding: 6px 8px; text-align: right; font-size: 0.72rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; border-bottom: 1px solid var(--border); white-space: nowrap; }
-      .standings-table thead th.col-team { text-align: left; padding-left: 14px; }
-      .standings-table tbody td { padding: 8px 8px; text-align: right; border-bottom: 1px solid rgba(45, 49, 72, 0.6); font-variant-numeric: tabular-nums; white-space: nowrap; }
-      .standings-table tbody td.col-team { text-align: left; padding-left: 14px; font-weight: 500; color: var(--text); }
-      .standings-table tbody td.col-stat { color: var(--text); }
-      .standings-table tbody td.pm-pos { color: var(--green); }
-      .standings-table tbody td.pm-neg { color: var(--red); }
-      .standings-table tbody td.pm-zero { color: var(--text-muted); }
-      .standings-table tbody td.col-gb { color: var(--text-muted); font-size: 0.8rem; }
-
-      /* ── Status messages ── */
-      .loading, .error-msg, .empty-state { padding: 3rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.95rem; }
-      .error-msg { color: var(--red); }
-    </style>
-  </head>
-  <body>
-    <header>
-      <div class="header-inner">
-        <div class="site-title"><span>UFA</span> Stats Dashboard</div>
-        <nav>
-          <button class="nav-btn active" data-view="teams">Teams</button>
-          <button class="nav-btn" data-view="players">Players</button>
-        </nav>
-      </div>
-    </header>
-
-    <main>
-      <section id="view-teams">
-        <div id="teams-include"></div>
-      </section>
-
-      <section id="view-players" class="hidden">
-        <div id="players-include"></div>
-      </section>
-
-      <section id="view-team" class="hidden">
-        <div id="team-include"></div>
-      </section>
-
-      <section id="view-player" class="hidden">
-        <div id="player-include"></div>
-      </section>
-    </main>
-
-    <script>
-      // ── Navigation ──────────────────────────────────────────────
-      const navBtns = document.querySelectorAll('.nav-btn');
-      const sections = document.querySelectorAll('main section');
-
-      function showView(viewId) {
-        sections.forEach(s => s.classList.toggle('hidden', s.id !== viewId));
-        // Keep nav active state on teams/players; clear it when on team detail
-        const navView = viewId === 'view-team' ? null : viewId.replace('view-', '');
-        navBtns.forEach(b => b.classList.toggle('active', b.dataset.view === navView));
-      }
-
-      navBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          showView('view-' + btn.dataset.view);
-        });
-      });
-
-      // Back from team detail → teams
-      window.addEventListener('navigate-teams', () => showView('view-teams'));
-
-      // Back from player detail → players
-      window.addEventListener('navigate-players', () => showView('view-players'));
-
-      // ── Load teams.html fragment into the teams view and execute its scripts ──
-      async function includeTeamsFragment() {
-        const container = document.getElementById('teams-include');
-        if (!container) return;
-        try {
-          const res = await fetch('teams.html');
-          if (!res.ok) throw new Error(`HTTP ${res.status} loading teams.html`);
-          const html = await res.text();
-
-          // Create a container to parse the fragment
-          const tmp = document.createElement('div');
-          tmp.innerHTML = html;
-
-          // Move non-script nodes into the container
-          Array.from(tmp.childNodes).forEach(node => {
-            if (node.nodeName.toLowerCase() !== 'script') container.appendChild(node.cloneNode(true));
-          });
-
-          // Evaluate scripts in the fragment (preserve execution order)
-          const scripts = tmp.querySelectorAll('script');
-          for (const s of scripts) {
-            const newScript = document.createElement('script');
-            if (s.src) {
-              newScript.src = s.src;
-              await new Promise((resolve, reject) => {
-                newScript.onload = resolve; newScript.onerror = reject;
-                document.body.appendChild(newScript);
-              });
-            } else {
-              newScript.textContent = s.textContent;
-              document.body.appendChild(newScript);
-            }
+      if (pushState) {
+        if (viewId === 'view-teams') {
+          let year = yearParam;
+          if (!year) {
+            const ysel = document.getElementById('teams-year-select');
+            year = ysel ? ysel.value : null;
           }
-        } catch (err) {
-          const container = document.getElementById('teams-include');
-          if (container) container.innerHTML = `<div class="error-msg">Failed to load teams fragment: ${err.message}</div>`;
-        }
-      }
-
-      includeTeamsFragment();
-
-      // ── Load players.html fragment ────────────────────────────
-      async function includePlayersFragment() {
-        const container = document.getElementById('players-include');
-        if (!container) return;
-        try {
-          const res = await fetch('players.html');
-          if (!res.ok) throw new Error(`HTTP ${res.status} loading players.html`);
-          const html = await res.text();
-          const tmp = document.createElement('div');
-          tmp.innerHTML = html;
-          Array.from(tmp.childNodes).forEach(node => {
-            if (node.nodeName.toLowerCase() !== 'script') container.appendChild(node.cloneNode(true));
-          });
-          const scripts = tmp.querySelectorAll('script');
-          for (const s of scripts) {
-            const newScript = document.createElement('script');
-            if (s.src) {
-              newScript.src = s.src;
-              await new Promise((resolve, reject) => {
-                newScript.onload = resolve; newScript.onerror = reject;
-                document.body.appendChild(newScript);
-              });
-            } else {
-              newScript.textContent = s.textContent;
-              document.body.appendChild(newScript);
-            }
+          const msel = document.getElementById('season-mode-select');
+          const mode = msel ? msel.value : 'regular';
+          const url = year ? `/teams?year=${encodeURIComponent(year)}&mode=${encodeURIComponent(mode)}` : '/teams';
+          history.pushState({ view: 'teams', year, mode }, '', url);
+        } else if (viewId === 'view-players') {
+          let year = yearParam;
+          if (!year) {
+            const ysel = document.getElementById('players-year-select');
+            year = ysel ? ysel.value : null;
           }
-        } catch (err) {
-          const c = document.getElementById('players-include');
-          if (c) c.innerHTML = `<div class="error-msg">Failed to load players fragment: ${err.message}</div>`;
+          const url = year ? `/players?year=${encodeURIComponent(year)}` : '/players';
+          history.pushState({ view: 'players', year }, '', url);
         }
+        // player/team detail URLs are set by the navigate-* listeners below
       }
+    }
 
-      includePlayersFragment();
-
-      // ── Load team.html fragment (team detail) ──────────────────
-      async function includeTeamFragment() {
-        const container = document.getElementById('team-include');
-        if (!container) return;
-        try {
-          const res = await fetch('team.html');
-          if (!res.ok) throw new Error(`HTTP ${res.status} loading team.html`);
-          const html = await res.text();
-          const tmp = document.createElement('div');
-          tmp.innerHTML = html;
-          Array.from(tmp.childNodes).forEach(node => {
-            if (node.nodeName.toLowerCase() !== 'script') container.appendChild(node.cloneNode(true));
-          });
-          const scripts = tmp.querySelectorAll('script');
-          for (const s of scripts) {
-            const newScript = document.createElement('script');
-            if (s.src) {
-              newScript.src = s.src;
-              await new Promise((resolve, reject) => {
-                newScript.onload = resolve; newScript.onerror = reject;
-                document.body.appendChild(newScript);
-              });
-            } else {
-              newScript.textContent = s.textContent;
-              document.body.appendChild(newScript);
-            }
-          }
-        } catch (err) {
-          const c = document.getElementById('team-include');
-          if (c) c.innerHTML = `<div class="error-msg">Failed to load team fragment: ${err.message}</div>`;
-        }
-      }
-
-      // ── Navigate to team detail ────────────────────────────────
-      window.addEventListener('navigate-team', e => {
-        const { teamID, year } = e.detail;
-        showView('view-team');
-        if (typeof window._initTeamPage === 'function') {
-          window._initTeamPage(teamID, year);
+    navBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.dataset.view === 'players') {
+          const ysel = document.getElementById('players-year-select');
+          const year = ysel ? ysel.value : null;
+          showView('view-players', true, year);
+        } else {
+          showView('view-' + btn.dataset.view, true);
         }
       });
+    });
 
-      // ── Navigate to player detail ──────────────────────────────
-      window.addEventListener('navigate-player', e => {
-        const { playerID } = e.detail;
+    // Back from team detail → teams
+    window.addEventListener('navigate-teams', () => {
+      const ysel = document.getElementById('teams-year-select');
+      const year = ysel ? ysel.value : null;
+      showView('view-teams', true, year);
+    });
+
+    // Back from player detail → players
+    window.addEventListener('navigate-players', () => {
+      const ysel = document.getElementById('players-year-select');
+      const year = ysel ? ysel.value : null;
+      showView('view-players', true, year);
+    });
+
+    // Navigate to team detail
+    window.addEventListener('navigate-team', e => {
+      const { teamID, year } = e.detail;
+      const url = year ? `/teams/${teamID}?year=${encodeURIComponent(year)}&view=roster` : `/teams/${teamID}?view=roster`;
+      history.pushState({ view: 'team', teamID, year }, '', url);
+      showView('view-team');
+      if (typeof window._initTeamPage === 'function') {
+        window._initTeamPage(teamID, year);
+      }
+    });
+
+    // Navigate to player detail
+    window.addEventListener('navigate-player', e => {
+      const { playerID, year } = e.detail;
+      const url = year ? `/players/${playerID}?year=${encodeURIComponent(year)}` : `/players/${playerID}`;
+      history.pushState({ view: 'player', playerID, year }, '', url);
+      showView('view-player');
+      if (typeof window._initPlayerPage === 'function') {
+        window._initPlayerPage(playerID, year);
+      }
+    });
+
+    // ── Unified route handler ────────────────────────────────────
+    function handleRoute() {
+      const path   = window.location.pathname;
+      const params = new URLSearchParams(window.location.search);
+
+      if (path === '/' || path === '/teams') {
+        const year = params.get('year');
+        const mode = params.get('mode');
+        const ysel = document.getElementById('teams-year-select');
+        const msel = document.getElementById('season-mode-select');
+        if (ysel && year) {
+          ysel.value = year;
+          ysel.dispatchEvent(new Event('change'));
+        }
+        if (msel && mode) {
+          msel.value = mode;
+          msel.dispatchEvent(new Event('change'));
+        }
+        showView('view-teams');
+
+      } else if (path === '/players') {
+        const year = params.get('year');
+        const ysel = document.getElementById('players-year-select');
+        if (ysel && year) {
+          ysel.value = year;
+          ysel.dispatchEvent(new Event('change'));
+        }
+        showView('view-players');
+
+      } else if (path.startsWith('/players/')) {
+        const playerID = decodeURIComponent(path.replace('/players/', ''));
+        const year = params.get('year');
         showView('view-player');
-        if (typeof window._initPlayerPage === 'function') {
-          window._initPlayerPage(playerID);
-        }
-      });
-
-      includeTeamFragment();
-
-      // ── Load player.html fragment ──────────────────────────────
-      async function includePlayerFragment() {
-        const container = document.getElementById('player-include');
-        if (!container) return;
-        try {
-          const res = await fetch('player.html');
-          if (!res.ok) throw new Error(`HTTP ${res.status} loading player.html`);
-          const html = await res.text();
-          const tmp = document.createElement('div');
-          tmp.innerHTML = html;
-          Array.from(tmp.childNodes).forEach(node => {
-            if (node.nodeName.toLowerCase() !== 'script') container.appendChild(node.cloneNode(true));
-          });
-          const scripts = tmp.querySelectorAll('script');
-          for (const s of scripts) {
-            const newScript = document.createElement('script');
-            if (s.src) {
-              newScript.src = s.src;
-              await new Promise((resolve, reject) => {
-                newScript.onload = resolve; newScript.onerror = reject;
-                document.body.appendChild(newScript);
-              });
-            } else {
-              newScript.textContent = s.textContent;
-              document.body.appendChild(newScript);
-            }
+        // _initPlayerPage may not exist yet if the fragment is still loading — retry
+        function tryInitPlayer() {
+          if (typeof window._initPlayerPage === 'function') {
+            window._initPlayerPage(playerID, year);
+          } else {
+            setTimeout(tryInitPlayer, 50);
           }
-        } catch (err) {
-          const c = document.getElementById('player-include');
-          if (c) c.innerHTML = `<div class="error-msg">Failed to load player fragment: ${err.message}</div>`;
+        }
+        tryInitPlayer();
+
+      } else if (path.startsWith('/teams/')) {
+        const teamID = decodeURIComponent(path.replace('/teams/', ''));
+        const year = params.get('year');
+        showView('view-team');
+        function tryInitTeam() {
+          if (typeof window._initTeamPage === 'function') {
+            window._initTeamPage(teamID, year);
+          } else {
+            setTimeout(tryInitTeam, 50);
+          }
+        }
+        tryInitTeam();
+
+      } else {
+        showView('view-teams');
+      }
+    }
+
+    // Browser back/forward
+    window.addEventListener('popstate', handleRoute);
+
+    // ── Fragment loaders ─────────────────────────────────────────
+    async function includeFragment(fragmentFile, containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      try {
+        const res = await fetch(fragmentFile);
+        if (!res.ok) throw new Error(`HTTP ${res.status} loading ${fragmentFile}`);
+        const html = await res.text();
+        const tmp  = document.createElement('div');
+        tmp.innerHTML = html;
+        Array.from(tmp.childNodes).forEach(node => {
+          if (node.nodeName.toLowerCase() !== 'script') container.appendChild(node.cloneNode(true));
+        });
+        const scripts = tmp.querySelectorAll('script');
+        for (const s of scripts) {
+          const newScript = document.createElement('script');
+          if (s.src) {
+            newScript.src = s.src;
+            await new Promise((resolve, reject) => {
+              newScript.onload = resolve; newScript.onerror = reject;
+              document.body.appendChild(newScript);
+            });
+          } else {
+            newScript.textContent = s.textContent;
+            document.body.appendChild(newScript);
+          }
+        }
+      } catch (err) {
+        const c = document.getElementById(containerId);
+        if (c) c.innerHTML = `<div class="error-msg">Failed to load ${fragmentFile}: ${err.message}</div>`;
+      }
+    }
+
+    // Load all fragments, then handle the initial route
+    Promise.all([
+      includeFragment('/teams.html',   'teams-include'),
+      includeFragment('/players.html', 'players-include'),
+      includeFragment('/team.html',    'team-include'),
+      includeFragment('/player.html',  'player-include'),
+    ]).then(() => {
+      // Wire year-select URL sync on teams page
+      const tysel = document.getElementById('teams-year-select');
+      const tmsel = document.getElementById('season-mode-select');
+
+      function syncTeamsURL() {
+        if (window.location.pathname === '/' || window.location.pathname === '/teams') {
+          const year = tysel ? tysel.value : '';
+          const mode = tmsel ? tmsel.value : 'regular';
+          const url = `/teams?year=${encodeURIComponent(year)}&mode=${encodeURIComponent(mode)}`;
+          history.pushState({ view: 'teams', year, mode }, '', url);
         }
       }
 
-      includePlayerFragment();
-    </script>
-  </body>
-  </html>
+      if (tysel) tysel.addEventListener('change', syncTeamsURL);
+      if (tmsel) tmsel.addEventListener('change', syncTeamsURL);
+
+      // Wire year-select URL sync on players page
+      const pysel = document.getElementById('players-year-select');
+      if (pysel) {
+        pysel.addEventListener('change', function () {
+          if (window.location.pathname === '/players') {
+            const year = pysel.value;
+            const url = year ? `/players?year=${encodeURIComponent(year)}` : '/players';
+            history.pushState({ view: 'players', year }, '', url);
+          }
+        });
+      }
+
+      // Handle initial route now that ALL fragments and scripts are guaranteed loaded
+      const initPath   = window.location.pathname;
+      const initParams = new URLSearchParams(window.location.search);
+
+      if (initPath === '/' || initPath === '/teams') {
+        let year = initParams.get('year');
+        let mode = initParams.get('mode');
+        const ys = document.getElementById('teams-year-select');
+        const ms = document.getElementById('season-mode-select');
+        if (ys) {
+          if (year) {
+            ys.value = year;
+            ys.dispatchEvent(new Event('change'));
+          } else {
+            year = ys.value;
+          }
+        }
+        if (ms) {
+          if (mode) {
+            ms.value = mode;
+            ms.dispatchEvent(new Event('change'));
+          } else {
+            mode = ms.value;
+          }
+        }
+        if (!initParams.get('year') || !initParams.get('mode')) {
+          history.replaceState({ view: 'teams', year, mode }, '', `/teams?year=${encodeURIComponent(year)}&mode=${encodeURIComponent(mode)}`);
+        }
+        showView('view-teams');
+      } else if (initPath === '/players') {
+        const year = initParams.get('year');
+        const ys = document.getElementById('players-year-select');
+        if (ys && year) { ys.value = year; ys.dispatchEvent(new Event('change')); }
+        showView('view-players');
+      } else if (initPath.startsWith('/players/')) {
+        const playerID = decodeURIComponent(initPath.replace('/players/', ''));
+        const year = initParams.get('year');
+        showView('view-player');
+        window._initPlayerPage(playerID, year);
+      } else if (initPath.startsWith('/teams/')) {
+        const teamID = decodeURIComponent(initPath.replace('/teams/', ''));
+        const year = initParams.get('year');
+        showView('view-team');
+        window._initTeamPage(teamID, year);
+      } else {
+        showView('view-teams');
+      }
+    });
+  </script>
+</body>
+</html>

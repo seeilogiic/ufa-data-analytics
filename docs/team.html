@@ -93,7 +93,7 @@
 <script>
 (function () {
   function fetchJSON(path) {
-    return fetch(path).then(function (r) {
+    return fetch('/' + path).then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status + ' — ' + path);
       return r.json();
     });
@@ -184,7 +184,7 @@
     updateIndicators();
   }
 
-  async function loadYearData(teamID, year, container) {
+  async function loadYearData(teamID, year, container, yearSelect) {
     container.innerHTML = '<div class="loading">Loading\u2026</div>';
     try {
       var roster = await fetchJSON('data/' + year + '/roster.json');
@@ -212,21 +212,29 @@
     }
   }
 
-  window._initTeamPage = async function (teamID, initialYear) {
+  window._initTeamPage = async function (teamID, year) {
     var root = document.getElementById('team-detail-root');
     if (!root) return;
     root.innerHTML = '<div class="loading">Loading\u2026</div>';
 
-    // Determine which years this team existed
+    // Extract current view from URL
+    var urlParams = new URLSearchParams(window.location.search);
+    var view = urlParams.get('view') || 'roster';
+
+    // Find years this team existed
     var teamYears = [];
     var namesByYear = {};
     await Promise.all(ALL_YEARS.map(async function (y) {
       try {
         var td = await fetchJSON('data/' + y + '/teams.json');
         var entry = td.data.find(function (t) { return t.teamID === teamID; });
-        if (entry) { teamYears.push(y); namesByYear[y] = entry.name; }
-      } catch (e) {}
+        if (entry) {
+          teamYears.push(y);
+          namesByYear[y] = entry.name;
+        }
+      } catch (e) { /* ignore year errors */ }
     }));
+
     teamYears.sort(function (a, b) { return parseInt(b) - parseInt(a); });
 
     if (!teamYears.length) {
@@ -234,21 +242,22 @@
       return;
     }
 
-    var selectedYear = teamYears.indexOf(String(initialYear)) !== -1 ? String(initialYear) : teamYears[0];
-
-    var yearOptions = teamYears.map(function (y) {
-      return '<option value="' + y + '"' + (y === selectedYear ? ' selected' : '') + '>' + y + '</option>';
-    }).join('');
+    var defaultYear = (year && teamYears.indexOf(year) !== -1) ? year : teamYears[0];
 
     root.innerHTML =
       '<div class="team-detail-header">' +
-        '<button class="team-back-btn" id="team-back-btn">&#8592; Back</button>' +
-        '<span class="team-detail-title" id="team-detail-name">' + (namesByYear[selectedYear] || teamID) + '</span>' +
+        '<button class="team-back-btn" id="team-back-btn">\u2190 Back</button>' +
+        '<span class="team-detail-title" id="team-detail-name">' + (namesByYear[defaultYear] || teamID) + '</span>' +
       '</div>' +
       '<div class="controls" style="margin-bottom:1.5rem;">' +
-        '<select id="team-year-select" class="year-select">' + yearOptions + '</select>' +
+        '<select id="team-year-select" class="year-select">' +
+          teamYears.map(function (y) {
+            return '<option value="' + y + '"' + (y === defaultYear ? ' selected' : '') + '>' + y + '</option>';
+          }).join('') +
+        '</select>' +
         '<select id="team-view-select" class="year-select">' +
-          '<option value="roster">Roster</option>' +
+          '<option value="roster"' + (view === 'roster' ? ' selected' : '') + '>Roster</option>' +
+          '<option value="games"' + (view === 'games' ? ' selected' : '') + '>Games</option>' +
         '</select>' +
       '</div>' +
       '<div id="team-content"></div>';
@@ -258,24 +267,56 @@
     });
 
     var yearSelect = document.getElementById('team-year-select');
+    var viewSelect = document.getElementById('team-view-select');
     var nameEl     = document.getElementById('team-detail-name');
     var content    = document.getElementById('team-content');
 
-    yearSelect.addEventListener('change', function () {
-      var y = yearSelect.value;
+    function renderForYear(y, v) {
       nameEl.textContent = namesByYear[y] || teamID;
-      loadYearData(teamID, y, content);
+      if (v === 'games') {
+        content.innerHTML = '<div class="empty-state">Games view coming soon.</div>';
+      } else {
+        loadYearData(teamID, y, content, yearSelect);
+      }
+    }
+
+    yearSelect.addEventListener('change', function () {
+      var newYear = yearSelect.value;
+      var newView = viewSelect.value;
+      renderForYear(newYear, newView);
+
+      // Sync with the main teams list year select
+      var teamsYsel = document.getElementById('teams-year-select');
+      if (teamsYsel) { teamsYsel.value = newYear; }
+
+      // Update URL without full reload
+      var url = new URL(window.location.href);
+      url.searchParams.set('year', newYear);
+      url.searchParams.set('view', newView);
+      history.replaceState(history.state, '', url.pathname + url.search);
+    });
+
+    viewSelect.addEventListener('change', function () {
+      var newYear = yearSelect.value;
+      var newView = viewSelect.value;
+      renderForYear(newYear, newView);
+
+      // Update URL without full reload
+      var url = new URL(window.location.href);
+      url.searchParams.set('year', newYear);
+      url.searchParams.set('view', newView);
+      history.replaceState(history.state, '', url.pathname + url.search);
     });
 
     content.addEventListener('click', function (e) {
       var btn = e.target.closest('.player-link-btn');
       if (!btn) return;
       window.dispatchEvent(new CustomEvent('navigate-player', {
-        detail: { playerID: btn.dataset.playerid }
+        detail: { playerID: btn.dataset.playerid, year: yearSelect.value }
       }));
     });
 
-    loadYearData(teamID, selectedYear, content);
+    renderForYear(defaultYear, view);
   };
 })();
 </script>

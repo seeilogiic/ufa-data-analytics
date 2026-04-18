@@ -189,7 +189,7 @@
 </style>
 
 <div class="controls">
-  <select id="year-select" class="year-select">
+  <select id="teams-year-select" class="year-select">
     <option value="2026">2026</option>
     <option value="2025" selected>2025</option>
     <option value="2024">2024</option>
@@ -208,7 +208,7 @@
 <script>
 (function () {
   async function fetchJSON(path) {
-    const res = await fetch(path);
+    const res = await fetch('/' + path);
     if (!res.ok) throw new Error(`HTTP ${res.status} — ${path}`);
     return res.json();
   }
@@ -368,7 +368,7 @@
     const hSeed  = game.homeTeamSeed != null ? `<span class="bracket-seed">${game.homeTeamSeed}</span>` : '';
     const aSeed  = game.awayTeamSeed != null ? `<span class="bracket-seed">${game.awayTeamSeed}</span>` : '';
     // Make team names clickable buttons
-    const yearSelect = document.getElementById('year-select');
+    const yearSelect = document.getElementById('teams-year-select');
     const year = yearSelect ? yearSelect.value : '';
     const homeBtn = `<button class="team-link-btn" data-teamid="${game.homeTeamID}" data-year="${year}">${game.homeTeamName}</button>`;
     const awayBtn = `<button class="team-link-btn" data-teamid="${game.awayTeamID}" data-year="${year}">${game.awayTeamName}</button>`;
@@ -484,7 +484,7 @@
 
   // Bind events and initial load
   function init() {
-    const yearSelect = document.getElementById('year-select');
+    const yearSelect = document.getElementById('teams-year-select');
     if (!yearSelect) return;
 
     const modeSelect = document.getElementById('season-mode-select');

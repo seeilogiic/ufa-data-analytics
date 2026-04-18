@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>UFA Stats Dashboard</title>
+  <script>
+    // GitHub Pages SPA trick:
+    // When GitHub can't find a file, it serves this 404.html.
+    // We encode the real path as a query param and redirect to index.html.
+    const path = window.location.pathname + window.location.search;
+    window.location.replace('/?redirect=' + encodeURIComponent(path));
+  </script>
+</head>
+<body></body>
+</html>
